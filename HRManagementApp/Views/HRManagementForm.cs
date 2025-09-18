@@ -1,338 +1,881 @@
-﻿using HRManagementApp.Controllers;
-using HRManagementApp.Data;
-using HRManagementApp.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using HRManagementApp.Controllers;
+using HRManagementApp.Models;
 
-using OfficeOpenXml;
-using System.IO;
-
-namespace HRManagementApp.Views
+namespace HRManagementApp
 {
     public partial class HRManagementForm : Form
     {
         private readonly EmployeeController employeeController;
         private readonly ContractController contractController;
         private readonly AttendanceController attendanceController;
+        private readonly RecruitmentController recruitmentController;
+        private readonly SalaryController salaryController;
+        private readonly TrainingController trainingController;
+        private readonly DisciplineController disciplineController;
 
         public HRManagementForm()
         {
             InitializeComponent();
-            nudContractSalary.Maximum = 100000000; // Thêm dòng này
-            nudContractSalary.Minimum = 0; // Tùy chọn
-            this.Icon = new Icon("Resources/icon.ico");
-            employeeController = new EmployeeController(this);
-            contractController = new ContractController(this);
-            attendanceController = new AttendanceController(this);
-            InitializeForm();
+            try
+            {
+                employeeController = new EmployeeController(this);
+                contractController = new ContractController(this);
+                attendanceController = new AttendanceController(this);
+                recruitmentController = new RecruitmentController(this);
+                salaryController = new SalaryController(this);
+                trainingController = new TrainingController(this);
+                disciplineController = new DisciplineController(this);
+                LoadAllData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error initializing form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void InitializeForm()
+        private void LoadAllData()
         {
-            // Load data
-            employeeController.LoadEmployees();
-            contractController.LoadContracts();
-            attendanceController.LoadAttendance();
-
-            // Populate comboboxes
-            cbEmployeeGender.Items.AddRange(new[] { "Nam", "Nữ" });
-            cbEmployeeGender.SelectedIndex = 0;
-            cbContractStatus.Items.AddRange(new[] { "Đang hiệu lực", "Hết hiệu lực", "Chờ ký" });
-            cbContractStatus.SelectedIndex = 0;
-            cbAttendanceStatus.Items.AddRange(Attendance.ValidStatuses);
-            cbAttendanceStatus.SelectedIndex = 0;
-
-            cbEmployeeDepartment.DataSource = new DatabaseManager().GetDepartments();
-            cbEmployeeDepartment.DisplayMember = "name";
-            cbEmployeeDepartment.ValueMember = "id";
-            cbEmployeeDepartment.SelectedValue = -1;
-
-            cbEmployeePosition.DataSource = new DatabaseManager().GetPositions();
-            cbEmployeePosition.DisplayMember = "name";
-            cbEmployeePosition.ValueMember = "id";
-            cbEmployeePosition.SelectedValue = -1;
-
-            cbContractEmployee.DataSource = new DatabaseManager().GetEmployeesForComboBox();
-            cbContractEmployee.DisplayMember = "full_name";
-            cbContractEmployee.ValueMember = "id";
-            cbContractEmployee.SelectedValue = "-1";
-
-            cbAttendanceEmployee.DataSource = new DatabaseManager().GetEmployeesForComboBox();
-            cbAttendanceEmployee.DisplayMember = "full_name";
-            cbAttendanceEmployee.ValueMember = "id";
-            cbAttendanceEmployee.SelectedValue = "-1";
-
-            // Initialize events
-            dgvEmployees.SelectionChanged += (s, e) => employeeController.ShowEmployeeDetails(dgvEmployees.CurrentRow);
-            dgvContracts.SelectionChanged += (s, e) => contractController.ShowContractDetails(dgvContracts.CurrentRow);
-            dgvAttendance.SelectionChanged += (s, e) => attendanceController.ShowAttendanceDetails(dgvAttendance.CurrentRow);
-
-            btnEmployeeAdd.Click += (s, e) =>
+            try
             {
-                var employee = new Employee
+                employeeController.LoadEmployees();
+                contractController.LoadContracts();
+                attendanceController.LoadAttendances();
+                recruitmentController.LoadRecruitments();
+                salaryController.LoadSalaries();
+                trainingController.LoadTrainings();
+                disciplineController.LoadDisciplines();
+
+                DataTable dtEmployees = employeeController.GetEmployees();
+                if (dtEmployees != null && dtEmployees.Rows.Count > 0)
                 {
-                    Id = txtEmployeeId.Text,
-                    FirstName = txtEmployeeFirstName.Text,
-                    LastName = txtEmployeeLastName.Text,
-                    BirthDate = dtpEmployeeBirthDate.Value,
-                    Gender = cbEmployeeGender.SelectedItem?.ToString(),
-                    Address = txtEmployeeAddress.Text,
-                    Phone = txtEmployeePhone.Text,
-                    Email = txtEmployeeEmail.Text,
-                    DepartmentId = (int?)cbEmployeeDepartment.SelectedValue ?? -1,
-                    PositionId = (int?)cbEmployeePosition.SelectedValue ?? -1,
-                    HireDate = dtpEmployeeHireDate.Value,
-                    Education = txtEmployeeEducation.Text,
-                    CCCD = txtEmployeeCCCD.Text
-                };
-                employeeController.AddEmployee(employee);
-            };
-
-            btnEmployeeUpdate.Click += (s, e) =>
-            {
-                var employee = new Employee
-                {
-                    Id = txtEmployeeId.Text,
-                    FirstName = txtEmployeeFirstName.Text,
-                    LastName = txtEmployeeLastName.Text,
-                    BirthDate = dtpEmployeeBirthDate.Value,
-                    Gender = cbEmployeeGender.SelectedItem?.ToString(),
-                    Address = txtEmployeeAddress.Text,
-                    Phone = txtEmployeePhone.Text,
-                    Email = txtEmployeeEmail.Text,
-                    DepartmentId = (int?)cbEmployeeDepartment.SelectedValue ?? -1,
-                    PositionId = (int?)cbEmployeePosition.SelectedValue ?? -1,
-                    HireDate = dtpEmployeeHireDate.Value,
-                    Education = txtEmployeeEducation.Text,
-                    CCCD = txtEmployeeCCCD.Text
-                };
-                employeeController.UpdateEmployee(employee);
-            };
-
-            btnEmployeeDelete.Click += (s, e) => employeeController.DeleteEmployee(txtEmployeeId.Text);
-            btnEmployeeSearch.Click += (s, e) => employeeController.SearchEmployees(txtEmployeeSearch.Text);
-            btnEmployeeExport.Click += (s, e) => employeeController.ExportEmployeesToExcel();
-
-            btnContractAdd.Click += (s, e) =>
-            {
-                var contract = new Contract
-                {
-                    EmployeeId = cbContractEmployee.SelectedValue?.ToString(),
-                    Type = txtContractType.Text,
-                    StartDate = dtpContractStartDate.Value,
-                    EndDate = dtpContractEndDate.Checked ? dtpContractEndDate.Value : (DateTime?)null,
-                    Salary = nudContractSalary.Value,
-                    Status = cbContractStatus.SelectedItem?.ToString()
-                };
-                contractController.AddContract(contract);
-            };
-
-            btnContractUpdate.Click += (s, e) =>
-            {
-                var contract = new Contract
-                {
-                    Id = int.Parse(txtContractId.Text),
-                    EmployeeId = cbContractEmployee.SelectedValue?.ToString(),
-                    Type = txtContractType.Text,
-                    StartDate = dtpContractStartDate.Value,
-                    EndDate = dtpContractEndDate.Checked ? dtpContractEndDate.Value : (DateTime?)null,
-                    Salary = nudContractSalary.Value,
-                    Status = cbContractStatus.SelectedItem?.ToString()
-                };
-                contractController.UpdateContract(contract);
-            };
-
-            btnContractDelete.Click += (s, e) => contractController.DeleteContract(int.Parse(txtContractId.Text));
-            btnContractSearch.Click += (s, e) => contractController.SearchContracts(txtContractSearch.Text);
-            btnContractExport.Click += (s, e) => contractController.ExportContractsToExcel();
-
-            btnAttendanceAdd.Click += (s, e) =>
-            {
-                var attendance = new Attendance
-                {
-                    EmployeeId = cbAttendanceEmployee.SelectedValue?.ToString(),
-                    Date = dtpAttendanceDate.Value,
-                    CheckIn = dtpAttendanceCheckIn.Checked ? dtpAttendanceCheckIn.Value.TimeOfDay : (TimeSpan?)null,
-                    CheckOut = dtpAttendanceCheckOut.Checked ? dtpAttendanceCheckOut.Value.TimeOfDay : (TimeSpan?)null,
-                    Status = cbAttendanceStatus.SelectedItem?.ToString()
-                };
-                attendanceController.AddAttendance(attendance);
-            };
-
-            btnAttendanceUpdate.Click += (s, e) =>
-            {
-                var attendance = new Attendance
-                {
-                    Id = int.Parse(txtAttendanceId.Text),
-                    EmployeeId = cbAttendanceEmployee.SelectedValue?.ToString(),
-                    Date = dtpAttendanceDate.Value,
-                    CheckIn = dtpAttendanceCheckIn.Checked ? dtpAttendanceCheckIn.Value.TimeOfDay : (TimeSpan?)null,
-                    CheckOut = dtpAttendanceCheckOut.Checked ? dtpAttendanceCheckOut.Value.TimeOfDay : (TimeSpan?)null,
-                    Status = cbAttendanceStatus.SelectedItem?.ToString()
-                };
-                attendanceController.UpdateAttendance(attendance);
-            };
-
-            btnAttendanceDelete.Click += (s, e) => attendanceController.DeleteAttendance(int.Parse(txtAttendanceId.Text));
-            btnAttendanceSearch.Click += (s, e) => attendanceController.SearchAttendance(txtAttendanceSearch.Text);
-            btnAttendanceExport.Click += (s, e) => attendanceController.ExportAttendanceToExcel();
-
-            btnExportFullReport.Click += (s, e) =>
-            {
-                try
-                {
-                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                    using (var package = new ExcelPackage())
-                    {
-                        var worksheet = package.Workbook.Worksheets.Add("FullReport");
-                        var table = new DatabaseManager().GetFullReport();
-                        worksheet.Cells[1, 1].LoadFromDataTable(table, true);
-                        worksheet.Cells.AutoFitColumns();
-
-                        var saveFileDialog = new SaveFileDialog
-                        {
-                            Filter = "Excel files (*.xlsx)|*.xlsx",
-                            FileName = "FullReport.xlsx"
-                        };
-                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            File.WriteAllBytes(saveFileDialog.FileName, package.GetAsByteArray());
-                            MessageBox.Show("Xuất báo cáo Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
+                    cbContractEmployee.DataSource = dtEmployees;
+                    cbContractEmployee.DisplayMember = "Name";
+                    cbContractEmployee.ValueMember = "EmployeeId";
+                    cbAttendanceEmployee.DataSource = dtEmployees.Copy();
+                    cbAttendanceEmployee.DisplayMember = "Name";
+                    cbAttendanceEmployee.ValueMember = "EmployeeId";
+                    cbRecruitmentEmployee.DataSource = dtEmployees.Copy();
+                    cbRecruitmentEmployee.DisplayMember = "Name";
+                    cbRecruitmentEmployee.ValueMember = "EmployeeId";
+                    cbSalaryEmployee.DataSource = dtEmployees.Copy();
+                    cbSalaryEmployee.DisplayMember = "Name";
+                    cbSalaryEmployee.ValueMember = "EmployeeId";
+                    cbTrainingEmployee.DataSource = dtEmployees.Copy();
+                    cbTrainingEmployee.DisplayMember = "Name";
+                    cbTrainingEmployee.ValueMember = "EmployeeId";
+                    cbDisciplineEmployee.DataSource = dtEmployees.Copy();
+                    cbDisciplineEmployee.DisplayMember = "Name";
+                    cbDisciplineEmployee.ValueMember = "EmployeeId";
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show($"Lỗi khi xuất báo cáo Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No employee data available to populate ComboBoxes.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        public void UpdateEmployeeGrid(DataTable table)
-        {
-            dgvEmployees.DataSource = table;
-        }
-
-        public void UpdateContractGrid(DataTable table)
-        {
-            dgvContracts.DataSource = table;
-        }
-
-        public void UpdateAttendanceGrid(DataTable table)
-        {
-            dgvAttendance.DataSource = table;
-        }
-
-        public void ShowEmployeeDetails(DataGridViewRow row)
-        {
-            if (row == null) return;
-            txtEmployeeId.Text = row.Cells["ID"].Value?.ToString();
-            txtEmployeeFirstName.Text = row.Cells["Tên"].Value?.ToString();
-            txtEmployeeLastName.Text = row.Cells["Họ"].Value?.ToString();
-            dtpEmployeeBirthDate.Value = row.Cells["Ngày sinh"].Value != DBNull.Value ? Convert.ToDateTime(row.Cells["Ngày sinh"].Value) : DateTime.Today;
-            cbEmployeeGender.SelectedItem = row.Cells["Giới tính"].Value?.ToString();
-            txtEmployeeAddress.Text = row.Cells["Địa chỉ"].Value?.ToString();
-            txtEmployeePhone.Text = row.Cells["Số điện thoại"].Value?.ToString();
-            txtEmployeeEmail.Text = row.Cells["Email"].Value?.ToString();
-            cbEmployeeDepartment.SelectedValue = row.Cells["Chức danh"].Value != DBNull.Value ? new DatabaseManager().GetDepartments().AsEnumerable()
-                .FirstOrDefault(r => r.Field<string>("name") == row.Cells["Chức danh"].Value?.ToString())?.Field<int>("id") ?? -1 : -1;
-            cbEmployeePosition.SelectedValue = row.Cells["Chức vụ"].Value != DBNull.Value ? new DatabaseManager().GetPositions().AsEnumerable()
-                .FirstOrDefault(r => r.Field<string>("name") == row.Cells["Chức vụ"].Value?.ToString())?.Field<int>("id") ?? -1 : -1;
-            dtpEmployeeHireDate.Value = row.Cells["Ngày tuyển dụng"].Value != DBNull.Value ? Convert.ToDateTime(row.Cells["Ngày tuyển dụng"].Value) : DateTime.Today;
-            txtEmployeeEducation.Text = row.Cells["Học vấn"].Value?.ToString();
-            txtEmployeeCCCD.Text = row.Cells["CCCD"].Value?.ToString();
-        }
-
-        public void ShowContractDetails(DataGridViewRow row)
-        {
-            if (row == null) return;
-            txtContractId.Text = row.Cells["ID"].Value?.ToString();
-            cbContractEmployee.SelectedValue = row.Cells["ID Nhân viên"].Value?.ToString() ?? "-1";
-            txtContractType.Text = row.Cells["Loại hợp đồng"].Value?.ToString();
-            dtpContractStartDate.Value = row.Cells["Ngày bắt đầu"].Value != DBNull.Value ? Convert.ToDateTime(row.Cells["Ngày bắt đầu"].Value) : DateTime.Today;
-            dtpContractEndDate.Checked = row.Cells["Ngày kết thúc"].Value != DBNull.Value;
-            dtpContractEndDate.Value = row.Cells["Ngày kết thúc"].Value != DBNull.Value ? Convert.ToDateTime(row.Cells["Ngày kết thúc"].Value) : DateTime.Today;
-            nudContractSalary.Value = row.Cells["Lương"].Value != DBNull.Value ? Convert.ToDecimal(row.Cells["Lương"].Value) : 0;
-            cbContractStatus.SelectedItem = row.Cells["Trạng thái"].Value?.ToString();
-            txtContractEmployeeCCCD.Text = row.Cells["CCCD"].Value?.ToString();
-            txtContractEmployeePhone.Text = row.Cells["Số điện thoại"].Value?.ToString();
-            txtContractEmployeeEmail.Text = row.Cells["Email"].Value?.ToString();
-            txtContractEmployeeDepartment.Text = row.Cells["Chức danh"].Value?.ToString();
-            txtContractEmployeePosition.Text = row.Cells["Chức vụ"].Value?.ToString();
-        }
-
-        public void ShowAttendanceDetails(DataGridViewRow row)
-        {
-            if (row == null) return;
-            txtAttendanceId.Text = row.Cells["ID"].Value?.ToString();
-            cbAttendanceEmployee.SelectedValue = row.Cells["ID Nhân viên"].Value?.ToString() ?? "-1";
-            dtpAttendanceDate.Value = row.Cells["Ngày"].Value != DBNull.Value ? Convert.ToDateTime(row.Cells["Ngày"].Value) : DateTime.Today;
-            dtpAttendanceCheckIn.Checked = row.Cells["Giờ vào"].Value != DBNull.Value;
-            dtpAttendanceCheckIn.Value = row.Cells["Giờ vào"].Value != DBNull.Value ? DateTime.Today.Add((TimeSpan)row.Cells["Giờ vào"].Value) : DateTime.Today;
-            dtpAttendanceCheckOut.Checked = row.Cells["Giờ ra"].Value != DBNull.Value;
-            dtpAttendanceCheckOut.Value = row.Cells["Giờ ra"].Value != DBNull.Value ? DateTime.Today.Add((TimeSpan)row.Cells["Giờ ra"].Value) : DateTime.Today;
-            cbAttendanceStatus.SelectedItem = row.Cells["Trạng thái"].Value?.ToString();
-            txtAttendanceAdminHours.Text = row.Cells["Giờ hành chính"].Value?.ToString();
-            txtAttendanceOvertimeHours.Text = row.Cells["Giờ tăng ca"].Value?.ToString();
-        }
-
+        // Employee Methods
+        public void UpdateEmployeeGrid(DataTable dt) => dgvEmployees.DataSource = dt;
         public void ClearEmployeeFields()
         {
-            txtEmployeeId.Clear();
-            txtEmployeeFirstName.Clear();
-            txtEmployeeLastName.Clear();
-            dtpEmployeeBirthDate.Value = DateTime.Today;
-            cbEmployeeGender.SelectedIndex = 0;
-            txtEmployeeAddress.Clear();
-            txtEmployeePhone.Clear();
-            txtEmployeeEmail.Clear();
-            cbEmployeeDepartment.SelectedValue = -1;
-            cbEmployeePosition.SelectedValue = -1;
-            dtpEmployeeHireDate.Value = DateTime.Today;
-            txtEmployeeEducation.Clear();
-            txtEmployeeCCCD.Clear();
+            txtEmployeeId.Text = "";
+            txtEmployeeName.Text = "";
+            dtpDOB.Value = DateTime.Today;
+            txtGender.Text = "";
+            txtNationality.Text = "";
+            txtCCCD.Text = "";
+            dtpCCCDIssueDate.Value = DateTime.Today;
+            txtCCCDIssuePlace.Text = "";
+            txtPermanentAddress.Text = "";
+            txtCurrentAddress.Text = "";
+            txtPhone.Text = "";
+            txtEmail.Text = "";
+            txtMaritalStatus.Text = "";
+            txtDependents.Text = "";
+            txtSocialInsuranceNumber.Text = "";
+            txtTaxCode.Text = "";
+            txtJobDescription.Text = "";
+            txtPosition.Text = "";
+            txtDepartment.Text = "";
+            txtRank.Text = "";
+            txtManager.Text = "";
+            txtWorkSchedule.Text = "";
         }
 
+        private void btnAddEmployee_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Employee employee = new Employee
+                {
+                    EmployeeId = txtEmployeeId.Text,
+                    Name = txtEmployeeName.Text,
+                    DOB = dtpDOB.Value,
+                    Gender = txtGender.Text,
+                    Nationality = txtNationality.Text,
+                    CCCD = txtCCCD.Text,
+                    CCCDIssueDate = dtpCCCDIssueDate.Value,
+                    CCCDIssuePlace = txtCCCDIssuePlace.Text,
+                    PermanentAddress = txtPermanentAddress.Text,
+                    CurrentAddress = txtCurrentAddress.Text,
+                    Phone = txtPhone.Text,
+                    Email = txtEmail.Text,
+                    MaritalStatus = txtMaritalStatus.Text,
+                    Dependents = string.IsNullOrEmpty(txtDependents.Text) ? null : (int?)int.Parse(txtDependents.Text),
+                    SocialInsuranceNumber = txtSocialInsuranceNumber.Text,
+                    TaxCode = txtTaxCode.Text,
+                    JobDescription = txtJobDescription.Text,
+                    Position = txtPosition.Text,
+                    Department = txtDepartment.Text,
+                    Rank = txtRank.Text,
+                    Manager = txtManager.Text,
+                    WorkSchedule = txtWorkSchedule.Text
+                };
+                employeeController.AddEmployee(employee);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding employee: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUpdateEmployee_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Employee employee = new Employee
+                {
+                    EmployeeId = txtEmployeeId.Text,
+                    Name = txtEmployeeName.Text,
+                    DOB = dtpDOB.Value,
+                    Gender = txtGender.Text,
+                    Nationality = txtNationality.Text,
+                    CCCD = txtCCCD.Text,
+                    CCCDIssueDate = dtpCCCDIssueDate.Value,
+                    CCCDIssuePlace = txtCCCDIssuePlace.Text,
+                    PermanentAddress = txtPermanentAddress.Text,
+                    CurrentAddress = txtCurrentAddress.Text,
+                    Phone = txtPhone.Text,
+                    Email = txtEmail.Text,
+                    MaritalStatus = txtMaritalStatus.Text,
+                    Dependents = string.IsNullOrEmpty(txtDependents.Text) ? null : (int?)int.Parse(txtDependents.Text),
+                    SocialInsuranceNumber = txtSocialInsuranceNumber.Text,
+                    TaxCode = txtTaxCode.Text,
+                    JobDescription = txtJobDescription.Text,
+                    Position = txtPosition.Text,
+                    Department = txtDepartment.Text,
+                    Rank = txtRank.Text,
+                    Manager = txtManager.Text,
+                    WorkSchedule = txtWorkSchedule.Text
+                };
+                employeeController.UpdateEmployee(employee);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating employee: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteEmployee_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvEmployees.SelectedRows.Count > 0)
+                {
+                    string employeeId = dgvEmployees.SelectedRows[0].Cells["EmployeeId"].Value.ToString();
+                    employeeController.DeleteEmployee(employeeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting employee: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportEmployees_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                employeeController.ExportEmployeesToExcel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting employees: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvEmployees_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvEmployees.SelectedRows.Count > 0)
+                {
+                    string employeeId = dgvEmployees.SelectedRows[0].Cells["EmployeeId"].Value.ToString();
+                    employeeController.ShowEmployeeDetails(employeeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error showing employee details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Contract Methods
+        public void UpdateContractGrid(DataTable dt) => dgvContracts.DataSource = dt;
         public void ClearContractFields()
         {
-            txtContractId.Clear();
-            cbContractEmployee.SelectedValue = "-1";
-            txtContractType.Clear();
-            dtpContractStartDate.Value = DateTime.Today;
-            dtpContractEndDate.Checked = false;
-            nudContractSalary.Value = 0;
-            cbContractStatus.SelectedIndex = 0;
-            txtContractEmployeeCCCD.Clear();
-            txtContractEmployeePhone.Clear();
-            txtContractEmployeeEmail.Clear();
-            txtContractEmployeeDepartment.Clear();
-            txtContractEmployeePosition.Clear();
+            txtContractId.Text = "";
+            cbContractEmployee.SelectedIndex = -1;
+            dtpStartDate.Value = DateTime.Today;
+            dtpEndDate.Value = DateTime.Today;
+            txtContractType.Text = "";
+            txtContractAnnexPath.Text = "";
+            txtConfidentialityAgreementPath.Text = "";
+            txtNonCompeteAgreementPath.Text = "";
+            txtAppointmentDecisionPath.Text = "";
+            txtSalaryIncreaseDecisionPath.Text = "";
+            txtRewardDecisionPath.Text = "";
         }
 
+        private void btnAddContract_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Contract contract = new Contract
+                {
+                    ContractId = txtContractId.Text,
+                    EmployeeId = cbContractEmployee.SelectedValue?.ToString(),
+                    StartDate = dtpStartDate.Value,
+                    EndDate = dtpEndDate.Value,
+                    ContractType = txtContractType.Text,
+                    ContractAnnexPath = txtContractAnnexPath.Text,
+                    ConfidentialityAgreementPath = txtConfidentialityAgreementPath.Text,
+                    NonCompeteAgreementPath = txtNonCompeteAgreementPath.Text,
+                    AppointmentDecisionPath = txtAppointmentDecisionPath.Text,
+                    SalaryIncreaseDecisionPath = txtSalaryIncreaseDecisionPath.Text,
+                    RewardDecisionPath = txtRewardDecisionPath.Text
+                };
+                contractController.AddContract(contract);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding contract: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUpdateContract_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Contract contract = new Contract
+                {
+                    ContractId = txtContractId.Text,
+                    EmployeeId = cbContractEmployee.SelectedValue?.ToString(),
+                    StartDate = dtpStartDate.Value,
+                    EndDate = dtpEndDate.Value,
+                    ContractType = txtContractType.Text,
+                    ContractAnnexPath = txtContractAnnexPath.Text,
+                    ConfidentialityAgreementPath = txtConfidentialityAgreementPath.Text,
+                    NonCompeteAgreementPath = txtNonCompeteAgreementPath.Text,
+                    AppointmentDecisionPath = txtAppointmentDecisionPath.Text,
+                    SalaryIncreaseDecisionPath = txtSalaryIncreaseDecisionPath.Text,
+                    RewardDecisionPath = txtRewardDecisionPath.Text
+                };
+                contractController.UpdateContract(contract);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating contract: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteContract_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvContracts.SelectedRows.Count > 0)
+                {
+                    string contractId = dgvContracts.SelectedRows[0].Cells["ContractId"].Value.ToString();
+                    contractController.DeleteContract(contractId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting contract: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportContracts_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                contractController.ExportContractsToExcel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting contracts: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvContracts_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvContracts.SelectedRows.Count > 0)
+                {
+                    string contractId = dgvContracts.SelectedRows[0].Cells["ContractId"].Value.ToString();
+                    contractController.ShowContractDetails(contractId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error showing contract details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Attendance Methods
+        public void UpdateAttendanceGrid(DataTable dt) => dgvAttendances.DataSource = dt;
         public void ClearAttendanceFields()
         {
-            txtAttendanceId.Clear();
-            cbAttendanceEmployee.SelectedValue = "-1";
+            txtAttendanceId.Text = "";
+            cbAttendanceEmployee.SelectedIndex = -1;
             dtpAttendanceDate.Value = DateTime.Today;
-            dtpAttendanceCheckIn.Checked = false;
-            dtpAttendanceCheckOut.Checked = false;
-            cbAttendanceStatus.SelectedIndex = 0;
-            txtAttendanceAdminHours.Clear();
-            txtAttendanceOvertimeHours.Clear();
+            dtpCheckInTime.Value = DateTime.Now;
+            dtpCheckOutTime.Value = DateTime.Now;
+            txtStatus.Text = "";
+            txtAdminHours.Text = "";
+            txtOvertimeHours.Text = "";
         }
 
-        public void ClearDetailPanels()
+        private void btnAddAttendance_Click(object sender, EventArgs e)
         {
-            ClearEmployeeFields();
-            ClearContractFields();
-            ClearAttendanceFields();
+            try
+            {
+                Attendance attendance = new Attendance
+                {
+                    AttendanceId = txtAttendanceId.Text,
+                    EmployeeId = cbAttendanceEmployee.SelectedValue?.ToString(),
+                    AttendanceDate = dtpAttendanceDate.Value,
+                    CheckInTime = dtpCheckInTime.Value,
+                    CheckOutTime = dtpCheckOutTime.Value,
+                    Status = txtStatus.Text,
+                    AdminHours = string.IsNullOrEmpty(txtAdminHours.Text) ? null : (decimal?)decimal.Parse(txtAdminHours.Text),
+                    OvertimeHours = string.IsNullOrEmpty(txtOvertimeHours.Text) ? null : (decimal?)decimal.Parse(txtOvertimeHours.Text)
+                };
+                attendanceController.AddAttendance(attendance);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding attendance: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUpdateAttendance_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Attendance attendance = new Attendance
+                {
+                    AttendanceId = txtAttendanceId.Text,
+                    EmployeeId = cbAttendanceEmployee.SelectedValue?.ToString(),
+                    AttendanceDate = dtpAttendanceDate.Value,
+                    CheckInTime = dtpCheckInTime.Value,
+                    CheckOutTime = dtpCheckOutTime.Value,
+                    Status = txtStatus.Text,
+                    AdminHours = string.IsNullOrEmpty(txtAdminHours.Text) ? null : (decimal?)decimal.Parse(txtAdminHours.Text),
+                    OvertimeHours = string.IsNullOrEmpty(txtOvertimeHours.Text) ? null : (decimal?)decimal.Parse(txtOvertimeHours.Text)
+                };
+                attendanceController.UpdateAttendance(attendance);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating attendance: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteAttendance_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvAttendances.SelectedRows.Count > 0)
+                {
+                    string attendanceId = dgvAttendances.SelectedRows[0].Cells["AttendanceId"].Value.ToString();
+                    attendanceController.DeleteAttendance(attendanceId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting attendance: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportAttendances_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                attendanceController.ExportAttendancesToExcel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting attendances: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvAttendances_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvAttendances.SelectedRows.Count > 0)
+                {
+                    string attendanceId = dgvAttendances.SelectedRows[0].Cells["AttendanceId"].Value.ToString();
+                    attendanceController.ShowAttendanceDetails(attendanceId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error showing attendance details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Recruitment Methods
+        public void UpdateRecruitmentGrid(DataTable dt) => dgvRecruitments.DataSource = dt;
+        public void ClearRecruitmentFields()
+        {
+            txtRecruitmentId.Text = "";
+            cbRecruitmentEmployee.SelectedIndex = -1;
+            txtJobApplicationPath.Text = "";
+            txtResumePath.Text = "";
+            txtDegreesPath.Text = "";
+            txtHealthCheckPath.Text = "";
+            txtCVPath.Text = "";
+            txtReferenceLetterPath.Text = "";
+            txtInterviewMinutesPath.Text = "";
+            txtOfferLetterPath.Text = "";
+        }
+
+        private void btnAddRecruitment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Recruitment recruitment = new Recruitment
+                {
+                    RecruitmentId = txtRecruitmentId.Text,
+                    EmployeeId = cbRecruitmentEmployee.SelectedValue?.ToString(),
+                    JobApplicationPath = txtJobApplicationPath.Text,
+                    ResumePath = txtResumePath.Text,
+                    DegreesPath = txtDegreesPath.Text,
+                    HealthCheckPath = txtHealthCheckPath.Text,
+                    CVPath = txtCVPath.Text,
+                    ReferenceLetterPath = txtReferenceLetterPath.Text,
+                    InterviewMinutesPath = txtInterviewMinutesPath.Text,
+                    OfferLetterPath = txtOfferLetterPath.Text
+                };
+                recruitmentController.AddRecruitment(recruitment);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding recruitment: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUpdateRecruitment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Recruitment recruitment = new Recruitment
+                {
+                    RecruitmentId = txtRecruitmentId.Text,
+                    EmployeeId = cbRecruitmentEmployee.SelectedValue?.ToString(),
+                    JobApplicationPath = txtJobApplicationPath.Text,
+                    ResumePath = txtResumePath.Text,
+                    DegreesPath = txtDegreesPath.Text,
+                    HealthCheckPath = txtHealthCheckPath.Text,
+                    CVPath = txtCVPath.Text,
+                    ReferenceLetterPath = txtReferenceLetterPath.Text,
+                    InterviewMinutesPath = txtInterviewMinutesPath.Text,
+                    OfferLetterPath = txtOfferLetterPath.Text
+                };
+                recruitmentController.UpdateRecruitment(recruitment);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating recruitment: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteRecruitment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvRecruitments.SelectedRows.Count > 0)
+                {
+                    string recruitmentId = dgvRecruitments.SelectedRows[0].Cells["RecruitmentId"].Value.ToString();
+                    recruitmentController.DeleteRecruitment(recruitmentId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting recruitment: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportRecruitments_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                recruitmentController.ExportRecruitmentsToExcel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting recruitments: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvRecruitments_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvRecruitments.SelectedRows.Count > 0)
+                {
+                    string recruitmentId = dgvRecruitments.SelectedRows[0].Cells["RecruitmentId"].Value.ToString();
+                    recruitmentController.ShowRecruitmentDetails(recruitmentId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error showing recruitment details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Salary Methods
+        public void UpdateSalaryGrid(DataTable dt) => dgvSalaries.DataSource = dt;
+        public void ClearSalaryFields()
+        {
+            txtSalaryId.Text = "";
+            cbSalaryEmployee.SelectedIndex = -1;
+            txtMonthlySalary.Text = "";
+            txtPaySlipPath.Text = "";
+            txtSalaryIncreaseDecisionPath.Text = "";
+            txtBankAccount.Text = "";
+            txtInsuranceInfo.Text = "";
+            txtAllowances.Text = "";
+            txtBonuses.Text = "";
+            txtLeavePolicy.Text = "";
+        }
+
+        private void btnAddSalary_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Salary salary = new Salary
+                {
+                    SalaryId = txtSalaryId.Text,
+                    EmployeeId = cbSalaryEmployee.SelectedValue?.ToString(),
+                    MonthlySalary = string.IsNullOrEmpty(txtMonthlySalary.Text) ? null : (decimal?)decimal.Parse(txtMonthlySalary.Text),
+                    PaySlipPath = txtPaySlipPath.Text,
+                    SalaryIncreaseDecisionPath = txtSalaryIncreaseDecisionPath.Text,
+                    BankAccount = txtBankAccount.Text,
+                    InsuranceInfo = txtInsuranceInfo.Text,
+                    Allowances = string.IsNullOrEmpty(txtAllowances.Text) ? null : (decimal?)decimal.Parse(txtAllowances.Text),
+                    Bonuses = string.IsNullOrEmpty(txtBonuses.Text) ? null : (decimal?)decimal.Parse(txtBonuses.Text),
+                    LeavePolicy = txtLeavePolicy.Text
+                };
+                salaryController.AddSalary(salary);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding salary: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUpdateSalary_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Salary salary = new Salary
+                {
+                    SalaryId = txtSalaryId.Text,
+                    EmployeeId = cbSalaryEmployee.SelectedValue?.ToString(),
+                    MonthlySalary = string.IsNullOrEmpty(txtMonthlySalary.Text) ? null : (decimal?)decimal.Parse(txtMonthlySalary.Text),
+                    PaySlipPath = txtPaySlipPath.Text,
+                    SalaryIncreaseDecisionPath = txtSalaryIncreaseDecisionPath.Text,
+                    BankAccount = txtBankAccount.Text,
+                    InsuranceInfo = txtInsuranceInfo.Text,
+                    Allowances = string.IsNullOrEmpty(txtAllowances.Text) ? null : (decimal?)decimal.Parse(txtAllowances.Text),
+                    Bonuses = string.IsNullOrEmpty(txtBonuses.Text) ? null : (decimal?)decimal.Parse(txtBonuses.Text),
+                    LeavePolicy = txtLeavePolicy.Text
+                };
+                salaryController.UpdateSalary(salary);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating salary: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteSalary_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvSalaries.SelectedRows.Count > 0)
+                {
+                    string salaryId = dgvSalaries.SelectedRows[0].Cells["SalaryId"].Value.ToString();
+                    salaryController.DeleteSalary(salaryId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting salary: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportSalaries_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                salaryController.ExportSalariesToExcel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting salaries: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvSalaries_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvSalaries.SelectedRows.Count > 0)
+                {
+                    string salaryId = dgvSalaries.SelectedRows[0].Cells["SalaryId"].Value.ToString();
+                    salaryController.ShowSalaryDetails(salaryId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error showing salary details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Training Methods
+        public void UpdateTrainingGrid(DataTable dt) => dgvTrainings.DataSource = dt;
+        public void ClearTrainingFields()
+        {
+            txtTrainingId.Text = "";
+            cbTrainingEmployee.SelectedIndex = -1;
+            txtTrainingPlanPath.Text = "";
+            txtCertificatePath.Text = "";
+            txtEvaluationPath.Text = "";
+            txtCareerPath.Text = "";
+        }
+
+        private void btnAddTraining_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Training training = new Training
+                {
+                    TrainingId = txtTrainingId.Text,
+                    EmployeeId = cbTrainingEmployee.SelectedValue?.ToString(),
+                    TrainingPlanPath = txtTrainingPlanPath.Text,
+                    CertificatePath = txtCertificatePath.Text,
+                    EvaluationPath = txtEvaluationPath.Text,
+                    CareerPath = txtCareerPath.Text
+                };
+                trainingController.AddTraining(training);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding training: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUpdateTraining_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Training training = new Training
+                {
+                    TrainingId = txtTrainingId.Text,
+                    EmployeeId = cbTrainingEmployee.SelectedValue?.ToString(),
+                    TrainingPlanPath = txtTrainingPlanPath.Text,
+                    CertificatePath = txtCertificatePath.Text,
+                    EvaluationPath = txtEvaluationPath.Text,
+                    CareerPath = txtCareerPath.Text
+                };
+                trainingController.UpdateTraining(training);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating training: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteTraining_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvTrainings.SelectedRows.Count > 0)
+                {
+                    string trainingId = dgvTrainings.SelectedRows[0].Cells["TrainingId"].Value.ToString();
+                    trainingController.DeleteTraining(trainingId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting training: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportTrainings_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                trainingController.ExportTrainingsToExcel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting trainings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSearchTraining_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                trainingController.SearchTrainings(txtSearchTraining.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error searching trainings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvTrainings_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvTrainings.SelectedRows.Count > 0)
+                {
+                    string trainingId = dgvTrainings.SelectedRows[0].Cells["TrainingId"].Value.ToString();
+                    trainingController.ShowTrainingDetails(trainingId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error showing training details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Discipline Methods
+        public void UpdateDisciplineGrid(DataTable dt) => dgvDisciplines.DataSource = dt;
+        public void ClearDisciplineFields()
+        {
+            txtDisciplineId.Text = "";
+            cbDisciplineEmployee.SelectedIndex = -1;
+            txtViolationPath.Text = "";
+            txtDisciplinaryDecisionPath.Text = "";
+            txtResignationLetterPath.Text = "";
+            txtTerminationDecisionPath.Text = "";
+            txtHandoverPath.Text = "";
+            txtLiquidationPath.Text = "";
+        }
+
+        private void btnAddDiscipline_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Discipline discipline = new Discipline
+                {
+                    DisciplineId = txtDisciplineId.Text,
+                    EmployeeId = cbDisciplineEmployee.SelectedValue?.ToString(),
+                    ViolationPath = txtViolationPath.Text,
+                    DisciplinaryDecisionPath = txtDisciplinaryDecisionPath.Text,
+                    ResignationLetterPath = txtResignationLetterPath.Text,
+                    TerminationDecisionPath = txtTerminationDecisionPath.Text,
+                    HandoverPath = txtHandoverPath.Text,
+                    LiquidationPath = txtLiquidationPath.Text
+                };
+                disciplineController.AddDiscipline(discipline);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding discipline: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUpdateDiscipline_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Discipline discipline = new Discipline
+                {
+                    DisciplineId = txtDisciplineId.Text,
+                    EmployeeId = cbDisciplineEmployee.SelectedValue?.ToString(),
+                    ViolationPath = txtViolationPath.Text,
+                    DisciplinaryDecisionPath = txtDisciplinaryDecisionPath.Text,
+                    ResignationLetterPath = txtResignationLetterPath.Text,
+                    TerminationDecisionPath = txtTerminationDecisionPath.Text,
+                    HandoverPath = txtHandoverPath.Text,
+                    LiquidationPath = txtLiquidationPath.Text
+                };
+                disciplineController.UpdateDiscipline(discipline);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating discipline: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteDiscipline_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvDisciplines.SelectedRows.Count > 0)
+                {
+                    string disciplineId = dgvDisciplines.SelectedRows[0].Cells["DisciplineId"].Value.ToString();
+                    disciplineController.DeleteDiscipline(disciplineId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting discipline: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportDisciplines_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                disciplineController.ExportDisciplinesToExcel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting disciplines: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvDisciplines_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvDisciplines.SelectedRows.Count > 0)
+                {
+                    string disciplineId = dgvDisciplines.SelectedRows[0].Cells["DisciplineId"].Value.ToString();
+                    disciplineController.ShowDisciplineDetails(disciplineId);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error showing discipline details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -1,59 +1,86 @@
-﻿using HRManagementApp.Data;
-using HRManagementApp.Models;
-using HRManagementApp.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿using HRManagementApp.Models;
 using OfficeOpenXml;
+using System;
+using System.Data;
 using System.IO;
+using System.Windows.Forms;
 
 namespace HRManagementApp.Controllers
 {
     public class EmployeeController
     {
+        private readonly HRManagementForm form;
         private readonly DatabaseManager dbManager;
-        private readonly HRManagementForm view;
 
-        public EmployeeController(HRManagementForm view)
+        public EmployeeController(HRManagementForm form)
         {
-            this.view = view;
+            this.form = form;
             dbManager = new DatabaseManager();
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
         }
 
         public void LoadEmployees()
         {
             try
             {
-                view.UpdateEmployeeGrid(dbManager.GetEmployees());
+                DataTable dt = dbManager.GetEmployees();
+                form.UpdateEmployeeGrid(dt);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi tải danh sách nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void SearchEmployees(string searchTerm)
+        public DataTable GetEmployees()
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(searchTerm))
+                return dbManager.GetEmployees();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lấy danh sách nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable(); // Return empty DataTable on error
+            }
+        }
+
+        public void ShowEmployeeDetails(string employeeId)
+        {
+            try
+            {
+                DataTable dt = dbManager.GetEmployees();
+                DataRow[] rows = dt.Select($"EmployeeId = '{employeeId}'");
+                if (rows.Length > 0)
                 {
-                    LoadEmployees(); // Nếu không nhập, tải tất cả
-                }
-                else
-                {
-                    view.UpdateEmployeeGrid(dbManager.SearchEmployees(searchTerm));
+                    DataRow row = rows[0];
+                    form.txtEmployeeId.Text = row["EmployeeId"]?.ToString();
+                    form.txtEmployeeName.Text = row["Name"]?.ToString();
+                    form.dtpDOB.Value = row["DOB"] != DBNull.Value ? Convert.ToDateTime(row["DOB"]) : DateTime.Today;
+                    form.txtGender.Text = row["Gender"]?.ToString();
+                    form.txtNationality.Text = row["Nationality"]?.ToString();
+                    form.txtCCCD.Text = row["CCCD"]?.ToString();
+                    form.dtpCCCDIssueDate.Value = row["CCCDIssueDate"] != DBNull.Value ? Convert.ToDateTime(row["CCCDIssueDate"]) : DateTime.Today;
+                    form.txtCCCDIssuePlace.Text = row["CCCDIssuePlace"]?.ToString();
+                    form.txtPermanentAddress.Text = row["PermanentAddress"]?.ToString();
+                    form.txtCurrentAddress.Text = row["CurrentAddress"]?.ToString();
+                    form.txtPhone.Text = row["Phone"]?.ToString();
+                    form.txtEmail.Text = row["Email"]?.ToString();
+                    form.txtMaritalStatus.Text = row["MaritalStatus"]?.ToString();
+                    form.txtDependents.Text = row["Dependents"] != DBNull.Value ? row["Dependents"].ToString() : "";
+                    form.txtSocialInsuranceNumber.Text = row["SocialInsuranceNumber"]?.ToString();
+                    form.txtTaxCode.Text = row["TaxCode"]?.ToString();
+                    form.txtJobDescription.Text = row["JobDescription"]?.ToString();
+                    form.txtPosition.Text = row["Position"]?.ToString();
+                    form.txtDepartment.Text = row["Department"]?.ToString();
+                    form.txtRank.Text = row["Rank"]?.ToString();
+                    form.txtManager.Text = row["Manager"]?.ToString();
+                    form.txtWorkSchedule.Text = row["WorkSchedule"]?.ToString();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi hiển thị chi tiết nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -61,27 +88,14 @@ namespace HRManagementApp.Controllers
         {
             try
             {
-                // Cho phép ID rỗng hoặc nhập thủ công, nhưng cảnh báo nếu rỗng
-                if (string.IsNullOrWhiteSpace(employee.FirstName) || string.IsNullOrWhiteSpace(employee.LastName) ||
-                    employee.BirthDate == default || string.IsNullOrWhiteSpace(employee.Gender) || employee.HireDate == default)
-                {
-                    MessageBox.Show("Vui lòng điền đầy đủ thông tin nhân viên (trừ ID)!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(employee.Id))
-                {
-                    MessageBox.Show("Vui lòng nhập ID nhân viên!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 dbManager.AddEmployee(employee);
-                MessageBox.Show("Thêm nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadEmployees();
-                view.ClearEmployeeFields();
+                form.ClearEmployeeFields();
+                MessageBox.Show("Thêm nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi thêm nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -89,81 +103,52 @@ namespace HRManagementApp.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(employee.Id))
-                {
-                    MessageBox.Show("Vui lòng chọn nhân viên để cập nhật!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(employee.FirstName) || string.IsNullOrWhiteSpace(employee.LastName) ||
-                    employee.BirthDate == default || string.IsNullOrWhiteSpace(employee.Gender) || employee.HireDate == default)
-                {
-                    MessageBox.Show("Vui lòng điền đầy đủ thông tin nhân viên!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 dbManager.UpdateEmployee(employee);
-                MessageBox.Show("Cập nhật nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadEmployees();
+                form.ClearEmployeeFields();
+                MessageBox.Show("Cập nhật nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi cập nhật nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void DeleteEmployee(string id)
+        public void DeleteEmployee(string employeeId)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(id))
-                {
-                    MessageBox.Show("Vui lòng chọn nhân viên để xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (MessageBox.Show("Bạn có chắc muốn xóa nhân viên này? Hành động này sẽ xóa tất cả hợp đồng và chấm công liên quan.", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    return;
-
-                dbManager.DeleteEmployee(id);
-                MessageBox.Show("Xóa nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dbManager.DeleteEmployee(employeeId);
                 LoadEmployees();
-                view.ClearEmployeeFields();
-                view.ClearDetailPanels();
+                form.ClearEmployeeFields();
+                MessageBox.Show("Xóa nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi xóa nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        public void ShowEmployeeDetails(DataGridViewRow row)
-        {
-            view.ShowEmployeeDetails(row);
         }
 
         public void ExportEmployeesToExcel()
         {
             try
             {
-                // EPPlus 8+: Set license mới
-                ExcelPackage.License.SetNonCommercialOrganization("HRManagementApp"); // Hoặc tên tổ chức của bạn
-
-                using (var package = new ExcelPackage())
+                DataTable dt = dbManager.GetEmployees();
+                using (ExcelPackage package = new ExcelPackage())
                 {
-                    var worksheet = package.Workbook.Worksheets.Add("Nhân viên");
-                    var table = dbManager.GetEmployees();
-                    worksheet.Cells[1, 1].LoadFromDataTable(table, true);
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Employees");
+                    worksheet.Cells["A1"].LoadFromDataTable(dt, true);
                     worksheet.Cells.AutoFitColumns();
 
-                    var saveFileDialog = new SaveFileDialog
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
                     {
-                        Filter = "Excel files (*.xlsx)|*.xlsx",
-                        FileName = "DanhSachNhanVien.xlsx"
+                        Filter = "Excel files|*.xlsx",
+                        FileName = "Employees.xlsx"
                     };
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        var fileBytes = package.GetAsByteArray();
-                        File.WriteAllBytes(saveFileDialog.FileName, fileBytes);
-                        MessageBox.Show("Xuất Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        File.WriteAllBytes(saveFileDialog.FileName, package.GetAsByteArray());
+                        MessageBox.Show("Xuất file Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }

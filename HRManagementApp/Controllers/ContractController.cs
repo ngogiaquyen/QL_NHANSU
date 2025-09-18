@@ -1,59 +1,62 @@
-﻿using HRManagementApp.Data;
-using HRManagementApp.Models;
-using HRManagementApp.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using HRManagementApp.Models;
 using OfficeOpenXml;
+using System;
+using System.Data;
 using System.IO;
-
+using System.Windows.Forms;
 
 namespace HRManagementApp.Controllers
 {
     public class ContractController
     {
+        private readonly HRManagementForm form;
         private readonly DatabaseManager dbManager;
-        private readonly HRManagementForm view;
 
-        public ContractController(HRManagementForm view)
+        public ContractController(HRManagementForm form)
         {
-            this.view = view;
+            this.form = form;
             dbManager = new DatabaseManager();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
         public void LoadContracts()
         {
             try
             {
-                view.UpdateContractGrid(dbManager.GetContracts());
+                DataTable dt = dbManager.GetContracts();
+                form.UpdateContractGrid(dt);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi tải danh sách hợp đồng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void SearchContracts(string searchTerm)
+        public void ShowContractDetails(string contractId)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(searchTerm))
+                DataTable dt = dbManager.GetContracts();
+                DataRow[] rows = dt.Select($"ContractId = '{contractId}'");
+                if (rows.Length > 0)
                 {
-                    LoadContracts(); // Nếu không nhập, tải tất cả
-                }
-                else
-                {
-                    view.UpdateContractGrid(dbManager.SearchContracts(searchTerm));
+                    DataRow row = rows[0];
+                    form.txtContractId.Text = row["ContractId"]?.ToString();
+                    form.cbContractEmployee.SelectedValue = row["EmployeeId"]?.ToString();
+                    form.dtpStartDate.Value = row["StartDate"] != DBNull.Value ? Convert.ToDateTime(row["StartDate"]) : DateTime.Today;
+                    form.dtpEndDate.Value = row["EndDate"] != DBNull.Value ? Convert.ToDateTime(row["EndDate"]) : DateTime.Today;
+                    form.txtContractType.Text = row["ContractType"]?.ToString();
+                    form.txtContractAnnexPath.Text = row["ContractAnnexPath"]?.ToString();
+                    form.txtConfidentialityAgreementPath.Text = row["ConfidentialityAgreementPath"]?.ToString();
+                    form.txtNonCompeteAgreementPath.Text = row["NonCompeteAgreementPath"]?.ToString();
+                    form.txtAppointmentDecisionPath.Text = row["AppointmentDecisionPath"]?.ToString();
+                    form.txtSalaryIncreaseDecisionPath.Text = row["SalaryIncreaseDecisionPath"]?.ToString();
+                    form.txtRewardDecisionPath.Text = row["RewardDecisionPath"]?.ToString();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi hiển thị chi tiết hợp đồng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -61,31 +64,14 @@ namespace HRManagementApp.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(contract.EmployeeId) || string.IsNullOrWhiteSpace(contract.Type) ||
-                    string.IsNullOrWhiteSpace(contract.Status) || contract.Salary <= 0)
-                {
-                    MessageBox.Show("Vui lòng điền đầy đủ thông tin hợp đồng!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Kiểm tra nhân viên đã có hợp đồng chưa
-                try
-                {
-                    dbManager.AddContract(contract); // Phương thức này đã có kiểm tra trong DatabaseManager
-                }
-                catch (InvalidOperationException ex)
-                {
-                    MessageBox.Show(ex.Message, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                MessageBox.Show("Thêm hợp đồng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dbManager.AddContract(contract);
                 LoadContracts();
-                view.ClearContractFields();
+                form.ClearContractFields();
+                MessageBox.Show("Thêm hợp đồng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi thêm hợp đồng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -93,76 +79,52 @@ namespace HRManagementApp.Controllers
         {
             try
             {
-                if (contract.Id == 0 || string.IsNullOrWhiteSpace(contract.EmployeeId) || string.IsNullOrWhiteSpace(contract.Type) ||
-                    string.IsNullOrWhiteSpace(contract.Status) || contract.Salary <= 0)
-                {
-                    MessageBox.Show("Vui lòng chọn hợp đồng để cập nhật và điền đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 dbManager.UpdateContract(contract);
-                MessageBox.Show("Cập nhật hợp đồng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadContracts();
+                form.ClearContractFields();
+                MessageBox.Show("Cập nhật hợp đồng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi cập nhật hợp đồng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void DeleteContract(int id)
+        public void DeleteContract(string contractId)
         {
             try
             {
-                if (id == 0)
-                {
-                    MessageBox.Show("Vui lòng chọn hợp đồng để xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (MessageBox.Show("Bạn có chắc muốn xóa hợp đồng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    return;
-
-                dbManager.DeleteContract(id);
-                MessageBox.Show("Xóa hợp đồng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dbManager.DeleteContract(contractId);
                 LoadContracts();
-                view.ClearContractFields();
-                view.ClearDetailPanels();
+                form.ClearContractFields();
+                MessageBox.Show("Xóa hợp đồng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi xóa hợp đồng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        public void ShowContractDetails(DataGridViewRow row)
-        {
-            view.ShowContractDetails(row);
         }
 
         public void ExportContractsToExcel()
         {
             try
             {
-                // EPPlus 8+: Set license mới
-                ExcelPackage.License.SetNonCommercialOrganization("HRManagementApp"); // Hoặc tên tổ chức của bạn
-
-                using (var package = new ExcelPackage())
+                DataTable dt = dbManager.GetContracts();
+                using (ExcelPackage package = new ExcelPackage())
                 {
-                    var worksheet = package.Workbook.Worksheets.Add("Hợp đồng");
-                    var table = dbManager.GetContracts();
-                    worksheet.Cells[1, 1].LoadFromDataTable(table, true);
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Contracts");
+                    worksheet.Cells["A1"].LoadFromDataTable(dt, true);
                     worksheet.Cells.AutoFitColumns();
 
-                    var saveFileDialog = new SaveFileDialog
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
                     {
-                        Filter = "Excel files (*.xlsx)|*.xlsx",
-                        FileName = "DanhSachHopDong.xlsx"
+                        Filter = "Excel files|*.xlsx",
+                        FileName = "Contracts.xlsx"
                     };
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        var fileBytes = package.GetAsByteArray();
-                        File.WriteAllBytes(saveFileDialog.FileName, fileBytes);
-                        MessageBox.Show("Xuất Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        File.WriteAllBytes(saveFileDialog.FileName, package.GetAsByteArray());
+                        MessageBox.Show("Xuất file Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }

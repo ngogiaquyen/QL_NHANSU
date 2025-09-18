@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HRManagementApp.Models
 {
     public class Contract
     {
-        public int Id { get; set; }
-        public string EmployeeId { get; set; }  
-        public string Type { get; set; } 
-        public DateTime StartDate { get; set; }
-        public DateTime? EndDate { get; set; } 
-        public decimal Salary { get; set; }
-        public string Status { get; set; }
+        public string ContractId { get; set; }
+        public string EmployeeId { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string ContractType { get; set; }
+        public string ContractAnnexPath { get; set; }
+        public string ConfidentialityAgreementPath { get; set; }
+        public string NonCompeteAgreementPath { get; set; }
+        public string AppointmentDecisionPath { get; set; }
+        public string SalaryIncreaseDecisionPath { get; set; }
+        public string RewardDecisionPath { get; set; }
     }
 }

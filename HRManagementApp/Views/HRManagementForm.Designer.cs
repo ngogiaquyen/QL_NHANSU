@@ -1,16 +1,11 @@
-﻿namespace HRManagementApp.Views
+﻿using System;
+
+namespace HRManagementApp
 {
     partial class HRManagementForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,1405 +15,1549 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabEmployees = new System.Windows.Forms.TabPage();
-            this.tabContracts = new System.Windows.Forms.TabPage();
+            this.tabEmployee = new System.Windows.Forms.TabPage();
+            this.tabContract = new System.Windows.Forms.TabPage();
             this.tabAttendance = new System.Windows.Forms.TabPage();
-            this.splitContainerEmployees = new System.Windows.Forms.SplitContainer();
-            this.splitContainerContracts = new System.Windows.Forms.SplitContainer();
-            this.splitContainerAttendance = new System.Windows.Forms.SplitContainer();
-            this.panelEmployeeInput = new System.Windows.Forms.Panel();
-            this.lblEmployeeSearch = new System.Windows.Forms.Label();
-            this.txtEmployeeSearch = new System.Windows.Forms.TextBox();
-            this.btnEmployeeSearch = new System.Windows.Forms.Button();
-            this.btnEmployeeExport = new System.Windows.Forms.Button();
-            this.btnEmployeeAdd = new System.Windows.Forms.Button();
-            this.btnEmployeeUpdate = new System.Windows.Forms.Button();
-            this.btnEmployeeDelete = new System.Windows.Forms.Button();
+            this.tabRecruitment = new System.Windows.Forms.TabPage();
+            this.tabSalary = new System.Windows.Forms.TabPage();
+            this.tabTraining = new System.Windows.Forms.TabPage();
+            this.tabDiscipline = new System.Windows.Forms.TabPage();
+
+            // Employee Controls
             this.lblEmployeeId = new System.Windows.Forms.Label();
             this.txtEmployeeId = new System.Windows.Forms.TextBox();
-            this.lblEmployeeFirstName = new System.Windows.Forms.Label();
-            this.txtEmployeeFirstName = new System.Windows.Forms.TextBox();
-            this.lblEmployeeLastName = new System.Windows.Forms.Label();
-            this.txtEmployeeLastName = new System.Windows.Forms.TextBox();
-            this.lblEmployeeBirthDate = new System.Windows.Forms.Label();
-            this.dtpEmployeeBirthDate = new System.Windows.Forms.DateTimePicker();
-            this.lblEmployeeGender = new System.Windows.Forms.Label();
-            this.cbEmployeeGender = new System.Windows.Forms.ComboBox();
-            this.lblEmployeeAddress = new System.Windows.Forms.Label();
-            this.txtEmployeeAddress = new System.Windows.Forms.TextBox();
-            this.lblEmployeePhone = new System.Windows.Forms.Label();
-            this.txtEmployeePhone = new System.Windows.Forms.TextBox();
-            this.lblEmployeeEmail = new System.Windows.Forms.Label();
-            this.txtEmployeeEmail = new System.Windows.Forms.TextBox();
-            this.lblEmployeeDepartment = new System.Windows.Forms.Label();
-            this.cbEmployeeDepartment = new System.Windows.Forms.ComboBox();
-            this.lblEmployeePosition = new System.Windows.Forms.Label();
-            this.cbEmployeePosition = new System.Windows.Forms.ComboBox();
-            this.lblEmployeeHireDate = new System.Windows.Forms.Label();
-            this.dtpEmployeeHireDate = new System.Windows.Forms.DateTimePicker();
-            this.lblEmployeeEducation = new System.Windows.Forms.Label();
-            this.txtEmployeeEducation = new System.Windows.Forms.TextBox();
-            this.lblEmployeeCCCD = new System.Windows.Forms.Label();
-            this.txtEmployeeCCCD = new System.Windows.Forms.TextBox();
+            this.lblEmployeeName = new System.Windows.Forms.Label();
+            this.txtEmployeeName = new System.Windows.Forms.TextBox();
+            this.lblDOB = new System.Windows.Forms.Label();
+            this.dtpDOB = new System.Windows.Forms.DateTimePicker();
+            this.lblGender = new System.Windows.Forms.Label();
+            this.txtGender = new System.Windows.Forms.TextBox();
+            this.lblNationality = new System.Windows.Forms.Label();
+            this.txtNationality = new System.Windows.Forms.TextBox();
+            this.lblCCCD = new System.Windows.Forms.Label();
+            this.txtCCCD = new System.Windows.Forms.TextBox();
+            this.lblCCCDIssueDate = new System.Windows.Forms.Label();
+            this.dtpCCCDIssueDate = new System.Windows.Forms.DateTimePicker();
+            this.lblCCCDIssuePlace = new System.Windows.Forms.Label();
+            this.txtCCCDIssuePlace = new System.Windows.Forms.TextBox();
+            this.lblPermanentAddress = new System.Windows.Forms.Label();
+            this.txtPermanentAddress = new System.Windows.Forms.TextBox();
+            this.lblCurrentAddress = new System.Windows.Forms.Label();
+            this.txtCurrentAddress = new System.Windows.Forms.TextBox();
+            this.lblPhone = new System.Windows.Forms.Label();
+            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.lblMaritalStatus = new System.Windows.Forms.Label();
+            this.txtMaritalStatus = new System.Windows.Forms.TextBox();
+            this.lblDependents = new System.Windows.Forms.Label();
+            this.txtDependents = new System.Windows.Forms.TextBox();
+            this.lblSocialInsuranceNumber = new System.Windows.Forms.Label();
+            this.txtSocialInsuranceNumber = new System.Windows.Forms.TextBox();
+            this.lblTaxCode = new System.Windows.Forms.Label();
+            this.txtTaxCode = new System.Windows.Forms.TextBox();
+            this.lblJobDescription = new System.Windows.Forms.Label();
+            this.txtJobDescription = new System.Windows.Forms.TextBox();
+            this.lblPosition = new System.Windows.Forms.Label();
+            this.txtPosition = new System.Windows.Forms.TextBox();
+            this.lblDepartment = new System.Windows.Forms.Label();
+            this.txtDepartment = new System.Windows.Forms.TextBox();
+            this.lblRank = new System.Windows.Forms.Label();
+            this.txtRank = new System.Windows.Forms.TextBox();
+            this.lblManager = new System.Windows.Forms.Label();
+            this.txtManager = new System.Windows.Forms.TextBox();
+            this.lblWorkSchedule = new System.Windows.Forms.Label();
+            this.txtWorkSchedule = new System.Windows.Forms.TextBox();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
-            this.panelContractInput = new System.Windows.Forms.Panel();
-            this.lblContractSearch = new System.Windows.Forms.Label();
-            this.txtContractSearch = new System.Windows.Forms.TextBox();
-            this.btnContractSearch = new System.Windows.Forms.Button();
-            this.btnContractExport = new System.Windows.Forms.Button();
-            this.btnContractAdd = new System.Windows.Forms.Button();
-            this.btnContractUpdate = new System.Windows.Forms.Button();
-            this.btnContractDelete = new System.Windows.Forms.Button();
+            this.btnAddEmployee = new System.Windows.Forms.Button();
+            this.btnUpdateEmployee = new System.Windows.Forms.Button();
+            this.btnDeleteEmployee = new System.Windows.Forms.Button();
+            this.btnExportEmployees = new System.Windows.Forms.Button();
+
+            // Contract Controls
             this.lblContractId = new System.Windows.Forms.Label();
             this.txtContractId = new System.Windows.Forms.TextBox();
             this.lblContractEmployee = new System.Windows.Forms.Label();
             this.cbContractEmployee = new System.Windows.Forms.ComboBox();
+            this.lblStartDate = new System.Windows.Forms.Label();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.lblEndDate = new System.Windows.Forms.Label();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.lblContractType = new System.Windows.Forms.Label();
             this.txtContractType = new System.Windows.Forms.TextBox();
-            this.lblContractStartDate = new System.Windows.Forms.Label();
-            this.dtpContractStartDate = new System.Windows.Forms.DateTimePicker();
-            this.lblContractEndDate = new System.Windows.Forms.Label();
-            this.dtpContractEndDate = new System.Windows.Forms.DateTimePicker();
-            this.lblContractSalary = new System.Windows.Forms.Label();
-            this.nudContractSalary = new System.Windows.Forms.NumericUpDown();
-            this.lblContractStatus = new System.Windows.Forms.Label();
-            this.cbContractStatus = new System.Windows.Forms.ComboBox();
-            this.lblContractEmployeeCCCD = new System.Windows.Forms.Label();
-            this.txtContractEmployeeCCCD = new System.Windows.Forms.TextBox();
-            this.lblContractEmployeePhone = new System.Windows.Forms.Label();
-            this.txtContractEmployeePhone = new System.Windows.Forms.TextBox();
-            this.lblContractEmployeeEmail = new System.Windows.Forms.Label();
-            this.txtContractEmployeeEmail = new System.Windows.Forms.TextBox();
-            this.lblContractEmployeeDepartment = new System.Windows.Forms.Label();
-            this.txtContractEmployeeDepartment = new System.Windows.Forms.TextBox();
-            this.lblContractEmployeePosition = new System.Windows.Forms.Label();
-            this.txtContractEmployeePosition = new System.Windows.Forms.TextBox();
+            this.lblContractAnnexPath = new System.Windows.Forms.Label();
+            this.txtContractAnnexPath = new System.Windows.Forms.TextBox();
+            this.lblConfidentialityAgreementPath = new System.Windows.Forms.Label();
+            this.txtConfidentialityAgreementPath = new System.Windows.Forms.TextBox();
+            this.lblNonCompeteAgreementPath = new System.Windows.Forms.Label();
+            this.txtNonCompeteAgreementPath = new System.Windows.Forms.TextBox();
+            this.lblAppointmentDecisionPath = new System.Windows.Forms.Label();
+            this.txtAppointmentDecisionPath = new System.Windows.Forms.TextBox();
+            this.lblSalaryIncreaseDecisionPath = new System.Windows.Forms.Label();
+            this.txtSalaryIncreaseDecisionPath = new System.Windows.Forms.TextBox();
+            this.lblRewardDecisionPath = new System.Windows.Forms.Label();
+            this.txtRewardDecisionPath = new System.Windows.Forms.TextBox();
             this.dgvContracts = new System.Windows.Forms.DataGridView();
-            this.panelAttendanceInput = new System.Windows.Forms.Panel();
-            this.lblAttendanceSearch = new System.Windows.Forms.Label();
-            this.txtAttendanceSearch = new System.Windows.Forms.TextBox();
-            this.btnAttendanceSearch = new System.Windows.Forms.Button();
-            this.btnAttendanceExport = new System.Windows.Forms.Button();
-            this.btnAttendanceAdd = new System.Windows.Forms.Button();
-            this.btnAttendanceUpdate = new System.Windows.Forms.Button();
-            this.btnAttendanceDelete = new System.Windows.Forms.Button();
+            this.btnAddContract = new System.Windows.Forms.Button();
+            this.btnUpdateContract = new System.Windows.Forms.Button();
+            this.btnDeleteContract = new System.Windows.Forms.Button();
+            this.btnExportContracts = new System.Windows.Forms.Button();
+
+            // Attendance Controls
             this.lblAttendanceId = new System.Windows.Forms.Label();
             this.txtAttendanceId = new System.Windows.Forms.TextBox();
             this.lblAttendanceEmployee = new System.Windows.Forms.Label();
             this.cbAttendanceEmployee = new System.Windows.Forms.ComboBox();
             this.lblAttendanceDate = new System.Windows.Forms.Label();
             this.dtpAttendanceDate = new System.Windows.Forms.DateTimePicker();
-            this.lblAttendanceCheckIn = new System.Windows.Forms.Label();
-            this.dtpAttendanceCheckIn = new System.Windows.Forms.DateTimePicker();
-            this.lblAttendanceCheckOut = new System.Windows.Forms.Label();
-            this.dtpAttendanceCheckOut = new System.Windows.Forms.DateTimePicker();
-            this.lblAttendanceStatus = new System.Windows.Forms.Label();
-            this.cbAttendanceStatus = new System.Windows.Forms.ComboBox();
-            this.lblAttendanceAdminHours = new System.Windows.Forms.Label();
-            this.txtAttendanceAdminHours = new System.Windows.Forms.TextBox();
-            this.lblAttendanceOvertimeHours = new System.Windows.Forms.Label();
-            this.txtAttendanceOvertimeHours = new System.Windows.Forms.TextBox();
-            this.dgvAttendance = new System.Windows.Forms.DataGridView();
-            this.btnExportFullReport = new System.Windows.Forms.Button();
+            this.lblCheckInTime = new System.Windows.Forms.Label();
+            this.dtpCheckInTime = new System.Windows.Forms.DateTimePicker();
+            this.lblCheckOutTime = new System.Windows.Forms.Label();
+            this.dtpCheckOutTime = new System.Windows.Forms.DateTimePicker();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.lblAdminHours = new System.Windows.Forms.Label();
+            this.txtAdminHours = new System.Windows.Forms.TextBox();
+            this.lblOvertimeHours = new System.Windows.Forms.Label();
+            this.txtOvertimeHours = new System.Windows.Forms.TextBox();
+            this.dgvAttendances = new System.Windows.Forms.DataGridView();
+            this.btnAddAttendance = new System.Windows.Forms.Button();
+            this.btnUpdateAttendance = new System.Windows.Forms.Button();
+            this.btnDeleteAttendance = new System.Windows.Forms.Button();
+            this.btnExportAttendances = new System.Windows.Forms.Button();
 
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEmployees)).BeginInit();
-            this.splitContainerEmployees.Panel1.SuspendLayout();
-            this.splitContainerEmployees.Panel2.SuspendLayout();
-            this.splitContainerEmployees.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerContracts)).BeginInit();
-            this.splitContainerContracts.Panel1.SuspendLayout();
-            this.splitContainerContracts.Panel2.SuspendLayout();
-            this.splitContainerContracts.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAttendance)).BeginInit();
-            this.splitContainerAttendance.Panel1.SuspendLayout();
-            this.splitContainerAttendance.Panel2.SuspendLayout();
-            this.splitContainerAttendance.SuspendLayout();
+            // Recruitment Controls
+            this.lblRecruitmentId = new System.Windows.Forms.Label();
+            this.txtRecruitmentId = new System.Windows.Forms.TextBox();
+            this.lblRecruitmentEmployee = new System.Windows.Forms.Label();
+            this.cbRecruitmentEmployee = new System.Windows.Forms.ComboBox();
+            this.lblJobApplicationPath = new System.Windows.Forms.Label();
+            this.txtJobApplicationPath = new System.Windows.Forms.TextBox();
+            this.lblResumePath = new System.Windows.Forms.Label();
+            this.txtResumePath = new System.Windows.Forms.TextBox();
+            this.lblDegreesPath = new System.Windows.Forms.Label();
+            this.txtDegreesPath = new System.Windows.Forms.TextBox();
+            this.lblHealthCheckPath = new System.Windows.Forms.Label();
+            this.txtHealthCheckPath = new System.Windows.Forms.TextBox();
+            this.lblCVPath = new System.Windows.Forms.Label();
+            this.txtCVPath = new System.Windows.Forms.TextBox();
+            this.lblReferenceLetterPath = new System.Windows.Forms.Label();
+            this.txtReferenceLetterPath = new System.Windows.Forms.TextBox();
+            this.lblInterviewMinutesPath = new System.Windows.Forms.Label();
+            this.txtInterviewMinutesPath = new System.Windows.Forms.TextBox();
+            this.lblOfferLetterPath = new System.Windows.Forms.Label();
+            this.txtOfferLetterPath = new System.Windows.Forms.TextBox();
+            this.dgvRecruitments = new System.Windows.Forms.DataGridView();
+            this.btnAddRecruitment = new System.Windows.Forms.Button();
+            this.btnUpdateRecruitment = new System.Windows.Forms.Button();
+            this.btnDeleteRecruitment = new System.Windows.Forms.Button();
+            this.btnExportRecruitments = new System.Windows.Forms.Button();
+
+            // Salary Controls
+            this.lblSalaryId = new System.Windows.Forms.Label();
+            this.txtSalaryId = new System.Windows.Forms.TextBox();
+            this.lblSalaryEmployee = new System.Windows.Forms.Label();
+            this.cbSalaryEmployee = new System.Windows.Forms.ComboBox();
+            this.lblMonthlySalary = new System.Windows.Forms.Label();
+            this.txtMonthlySalary = new System.Windows.Forms.TextBox();
+            this.lblPaySlipPath = new System.Windows.Forms.Label();
+            this.txtPaySlipPath = new System.Windows.Forms.TextBox();
+            this.lblSalaryIncreaseDecisionPath = new System.Windows.Forms.Label();
+            this.txtSalaryIncreaseDecisionPath = new System.Windows.Forms.TextBox();
+            this.lblBankAccount = new System.Windows.Forms.Label();
+            this.txtBankAccount = new System.Windows.Forms.TextBox();
+            this.lblInsuranceInfo = new System.Windows.Forms.Label();
+            this.txtInsuranceInfo = new System.Windows.Forms.TextBox();
+            this.lblAllowances = new System.Windows.Forms.Label();
+            this.txtAllowances = new System.Windows.Forms.TextBox();
+            this.lblBonuses = new System.Windows.Forms.Label();
+            this.txtBonuses = new System.Windows.Forms.TextBox();
+            this.lblLeavePolicy = new System.Windows.Forms.Label();
+            this.txtLeavePolicy = new System.Windows.Forms.TextBox();
+            this.dgvSalaries = new System.Windows.Forms.DataGridView();
+            this.btnAddSalary = new System.Windows.Forms.Button();
+            this.btnUpdateSalary = new System.Windows.Forms.Button();
+            this.btnDeleteSalary = new System.Windows.Forms.Button();
+            this.btnExportSalaries = new System.Windows.Forms.Button();
+
+            // Training Controls
+            this.lblTrainingId = new System.Windows.Forms.Label();
+            this.txtTrainingId = new System.Windows.Forms.TextBox();
+            this.lblTrainingEmployee = new System.Windows.Forms.Label();
+            this.cbTrainingEmployee = new System.Windows.Forms.ComboBox();
+            this.lblTrainingPlanPath = new System.Windows.Forms.Label();
+            this.txtTrainingPlanPath = new System.Windows.Forms.TextBox();
+            this.lblCertificatePath = new System.Windows.Forms.Label();
+            this.txtCertificatePath = new System.Windows.Forms.TextBox();
+            this.lblEvaluationPath = new System.Windows.Forms.Label();
+            this.txtEvaluationPath = new System.Windows.Forms.TextBox();
+            this.lblCareerPath = new System.Windows.Forms.Label();
+            this.txtCareerPath = new System.Windows.Forms.TextBox();
+            this.lblSearchTraining = new System.Windows.Forms.Label();
+            this.txtSearchTraining = new System.Windows.Forms.TextBox();
+            this.btnSearchTraining = new System.Windows.Forms.Button();
+            this.dgvTrainings = new System.Windows.Forms.DataGridView();
+            this.btnAddTraining = new System.Windows.Forms.Button();
+            this.btnUpdateTraining = new System.Windows.Forms.Button();
+            this.btnDeleteTraining = new System.Windows.Forms.Button();
+            this.btnExportTrainings = new System.Windows.Forms.Button();
+
+            // Discipline Controls
+            this.lblDisciplineId = new System.Windows.Forms.Label();
+            this.txtDisciplineId = new System.Windows.Forms.TextBox();
+            this.lblDisciplineEmployee = new System.Windows.Forms.Label();
+            this.cbDisciplineEmployee = new System.Windows.Forms.ComboBox();
+            this.lblViolationPath = new System.Windows.Forms.Label();
+            this.txtViolationPath = new System.Windows.Forms.TextBox();
+            this.lblDisciplinaryDecisionPath = new System.Windows.Forms.Label();
+            this.txtDisciplinaryDecisionPath = new System.Windows.Forms.TextBox();
+            this.lblResignationLetterPath = new System.Windows.Forms.Label();
+            this.txtResignationLetterPath = new System.Windows.Forms.TextBox();
+            this.lblTerminationDecisionPath = new System.Windows.Forms.Label();
+            this.txtTerminationDecisionPath = new System.Windows.Forms.TextBox();
+            this.lblHandoverPath = new System.Windows.Forms.Label();
+            this.txtHandoverPath = new System.Windows.Forms.TextBox();
+            this.lblLiquidationPath = new System.Windows.Forms.Label();
+            this.txtLiquidationPath = new System.Windows.Forms.TextBox();
+            this.dgvDisciplines = new System.Windows.Forms.DataGridView();
+            this.btnAddDiscipline = new System.Windows.Forms.Button();
+            this.btnUpdateDiscipline = new System.Windows.Forms.Button();
+            this.btnDeleteDiscipline = new System.Windows.Forms.Button();
+            this.btnExportDisciplines = new System.Windows.Forms.Button();
+
+            this.tabControl.SuspendLayout();
+            this.tabEmployee.SuspendLayout();
+            this.tabContract.SuspendLayout();
+            this.tabAttendance.SuspendLayout();
+            this.tabRecruitment.SuspendLayout();
+            this.tabSalary.SuspendLayout();
+            this.tabTraining.SuspendLayout();
+            this.tabDiscipline.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContracts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudContractSalary)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendance)).BeginInit();
-            this.tabControl.SuspendLayout();
-            this.tabEmployees.SuspendLayout();
-            this.tabContracts.SuspendLayout();
-            this.tabAttendance.SuspendLayout();
-            this.panelEmployeeInput.SuspendLayout();
-            this.panelContractInput.SuspendLayout();
-            this.panelAttendanceInput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendances)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecruitments)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSalaries)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrainings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDisciplines)).BeginInit();
             this.SuspendLayout();
 
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabEmployees);
-            this.tabControl.Controls.Add(this.tabContracts);
+            this.tabControl.Controls.Add(this.tabEmployee);
+            this.tabControl.Controls.Add(this.tabContract);
             this.tabControl.Controls.Add(this.tabAttendance);
-            this.tabControl.Location = new System.Drawing.Point(12, 12);
+            this.tabControl.Controls.Add(this.tabRecruitment);
+            this.tabControl.Controls.Add(this.tabSalary);
+            this.tabControl.Controls.Add(this.tabTraining);
+            this.tabControl.Controls.Add(this.tabDiscipline);
+            this.tabControl.Location = new System.Drawing.Point(10, 10);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(960, 600);
+            this.tabControl.Size = new System.Drawing.Size(1180, 580);
             this.tabControl.TabIndex = 0;
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
 
             // 
-            // tabEmployees
+            // tabEmployee
             // 
-            this.tabEmployees.Controls.Add(this.splitContainerEmployees);
-            this.tabEmployees.Location = new System.Drawing.Point(4, 22);
-            this.tabEmployees.Name = "tabEmployees";
-            this.tabEmployees.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEmployees.Size = new System.Drawing.Size(952, 574);
-            this.tabEmployees.TabIndex = 0;
-            this.tabEmployees.Text = "Quản lý Nhân viên";
+            this.tabEmployee.Controls.Add(this.lblEmployeeId);
+            this.tabEmployee.Controls.Add(this.txtEmployeeId);
+            this.tabEmployee.Controls.Add(this.lblEmployeeName);
+            this.tabEmployee.Controls.Add(this.txtEmployeeName);
+            this.tabEmployee.Controls.Add(this.lblDOB);
+            this.tabEmployee.Controls.Add(this.dtpDOB);
+            this.tabEmployee.Controls.Add(this.lblGender);
+            this.tabEmployee.Controls.Add(this.txtGender);
+            this.tabEmployee.Controls.Add(this.lblNationality);
+            this.tabEmployee.Controls.Add(this.txtNationality);
+            this.tabEmployee.Controls.Add(this.lblCCCD);
+            this.tabEmployee.Controls.Add(this.txtCCCD);
+            this.tabEmployee.Controls.Add(this.lblCCCDIssueDate);
+            this.tabEmployee.Controls.Add(this.dtpCCCDIssueDate);
+            this.tabEmployee.Controls.Add(this.lblCCCDIssuePlace);
+            this.tabEmployee.Controls.Add(this.txtCCCDIssuePlace);
+            this.tabEmployee.Controls.Add(this.lblPermanentAddress);
+            this.tabEmployee.Controls.Add(this.txtPermanentAddress);
+            this.tabEmployee.Controls.Add(this.lblCurrentAddress);
+            this.tabEmployee.Controls.Add(this.txtCurrentAddress);
+            this.tabEmployee.Controls.Add(this.lblPhone);
+            this.tabEmployee.Controls.Add(this.txtPhone);
+            this.tabEmployee.Controls.Add(this.lblEmail);
+            this.tabEmployee.Controls.Add(this.txtEmail);
+            this.tabEmployee.Controls.Add(this.lblMaritalStatus);
+            this.tabEmployee.Controls.Add(this.txtMaritalStatus);
+            this.tabEmployee.Controls.Add(this.lblDependents);
+            this.tabEmployee.Controls.Add(this.txtDependents);
+            this.tabEmployee.Controls.Add(this.lblSocialInsuranceNumber);
+            this.tabEmployee.Controls.Add(this.txtSocialInsuranceNumber);
+            this.tabEmployee.Controls.Add(this.lblTaxCode);
+            this.tabEmployee.Controls.Add(this.txtTaxCode);
+            this.tabEmployee.Controls.Add(this.lblJobDescription);
+            this.tabEmployee.Controls.Add(this.txtJobDescription);
+            this.tabEmployee.Controls.Add(this.lblPosition);
+            this.tabEmployee.Controls.Add(this.txtPosition);
+            this.tabEmployee.Controls.Add(this.lblDepartment);
+            this.tabEmployee.Controls.Add(this.txtDepartment);
+            this.tabEmployee.Controls.Add(this.lblRank);
+            this.tabEmployee.Controls.Add(this.txtRank);
+            this.tabEmployee.Controls.Add(this.lblManager);
+            this.tabEmployee.Controls.Add(this.txtManager);
+            this.tabEmployee.Controls.Add(this.lblWorkSchedule);
+            this.tabEmployee.Controls.Add(this.txtWorkSchedule);
+            this.tabEmployee.Controls.Add(this.dgvEmployees);
+            this.tabEmployee.Controls.Add(this.btnAddEmployee);
+            this.tabEmployee.Controls.Add(this.btnUpdateEmployee);
+            this.tabEmployee.Controls.Add(this.btnDeleteEmployee);
+            this.tabEmployee.Controls.Add(this.btnExportEmployees);
+            this.tabEmployee.Location = new System.Drawing.Point(4, 22);
+            this.tabEmployee.Name = "tabEmployee";
+            this.tabEmployee.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEmployee.Size = new System.Drawing.Size(1172, 554);
+            this.tabEmployee.Text = "Employee";
+            this.tabEmployee.UseVisualStyleBackColor = true;
 
-            // 
-            // splitContainerEmployees
-            // 
-            this.splitContainerEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerEmployees.IsSplitterFixed = true; // Prevent splitter movement
-            this.splitContainerEmployees.FixedPanel = System.Windows.Forms.FixedPanel.Panel1; // Fix Panel1 size
-            this.splitContainerEmployees.Location = new System.Drawing.Point(3, 3);
-            this.splitContainerEmployees.Name = "splitContainerEmployees";
-            this.splitContainerEmployees.SplitterDistance = 400; // Fixed width for left panel
-            this.splitContainerEmployees.Panel1MinSize = 400; // Minimum size for Panel1
-            // 
-            // splitContainerEmployees.Panel1
-            // 
-            this.splitContainerEmployees.Panel1.Controls.Add(this.panelEmployeeInput);
-            // 
-            // splitContainerEmployees.Panel2
-            // 
-            this.splitContainerEmployees.Panel2.Controls.Add(this.dgvEmployees);
-            this.splitContainerEmployees.Size = new System.Drawing.Size(946, 568);
-            this.splitContainerEmployees.TabIndex = 0;
+            // Employee Controls Layout (Three Columns)
+            this.lblEmployeeId.Text = "Employee ID:";
+            this.lblEmployeeId.Location = new System.Drawing.Point(10, 10);
+            this.lblEmployeeId.Size = new System.Drawing.Size(100, 20);
+            this.txtEmployeeId.Location = new System.Drawing.Point(120, 10);
+            this.txtEmployeeId.Size = new System.Drawing.Size(200, 20);
+            this.txtEmployeeId.TabIndex = 0;
 
-            // 
-            // panelEmployeeInput
-            // 
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeSearch);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeeSearch);
-            this.panelEmployeeInput.Controls.Add(this.btnEmployeeSearch);
-            this.panelEmployeeInput.Controls.Add(this.btnEmployeeExport);
-            this.panelEmployeeInput.Controls.Add(this.btnEmployeeAdd);
-            this.panelEmployeeInput.Controls.Add(this.btnEmployeeUpdate);
-            this.panelEmployeeInput.Controls.Add(this.btnEmployeeDelete);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeId);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeeId);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeFirstName);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeeFirstName);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeLastName);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeeLastName);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeBirthDate);
-            this.panelEmployeeInput.Controls.Add(this.dtpEmployeeBirthDate);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeGender);
-            this.panelEmployeeInput.Controls.Add(this.cbEmployeeGender);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeAddress);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeeAddress);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeePhone);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeePhone);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeEmail);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeeEmail);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeDepartment);
-            this.panelEmployeeInput.Controls.Add(this.cbEmployeeDepartment);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeePosition);
-            this.panelEmployeeInput.Controls.Add(this.cbEmployeePosition);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeHireDate);
-            this.panelEmployeeInput.Controls.Add(this.dtpEmployeeHireDate);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeEducation);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeeEducation);
-            this.panelEmployeeInput.Controls.Add(this.lblEmployeeCCCD);
-            this.panelEmployeeInput.Controls.Add(this.txtEmployeeCCCD);
-            this.panelEmployeeInput.Location = new System.Drawing.Point(0, 0);
-            this.panelEmployeeInput.Name = "panelEmployeeInput";
-            this.panelEmployeeInput.Size = new System.Drawing.Size(400, 568);
-            this.panelEmployeeInput.TabIndex = 0;
-            this.panelEmployeeInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblEmployeeName.Text = "Name:";
+            this.lblEmployeeName.Location = new System.Drawing.Point(10, 40);
+            this.lblEmployeeName.Size = new System.Drawing.Size(100, 20);
+            this.txtEmployeeName.Location = new System.Drawing.Point(120, 40);
+            this.txtEmployeeName.Size = new System.Drawing.Size(200, 20);
+            this.txtEmployeeName.TabIndex = 1;
 
-            // 
-            // lblEmployeeSearch
-            // 
-            this.lblEmployeeSearch.AutoSize = false;
-            this.lblEmployeeSearch.Location = new System.Drawing.Point(10, 10);
-            this.lblEmployeeSearch.Name = "lblEmployeeSearch";
-            this.lblEmployeeSearch.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeSearch.TabIndex = 0;
-            this.lblEmployeeSearch.Text = "Tìm kiếm:";
+            this.lblDOB.Text = "Date of Birth:";
+            this.lblDOB.Location = new System.Drawing.Point(10, 70);
+            this.lblDOB.Size = new System.Drawing.Size(100, 20);
+            this.dtpDOB.Location = new System.Drawing.Point(120, 70);
+            this.dtpDOB.Size = new System.Drawing.Size(200, 20);
+            this.dtpDOB.TabIndex = 2;
 
-            // 
-            // txtEmployeeSearch
-            // 
-            this.txtEmployeeSearch.Location = new System.Drawing.Point(100, 7);
-            this.txtEmployeeSearch.Name = "txtEmployeeSearch";
-            this.txtEmployeeSearch.Size = new System.Drawing.Size(230, 20);
-            this.txtEmployeeSearch.TabIndex = 1;
-            this.txtEmployeeSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblGender.Text = "Gender:";
+            this.lblGender.Location = new System.Drawing.Point(10, 100);
+            this.lblGender.Size = new System.Drawing.Size(100, 20);
+            this.txtGender.Location = new System.Drawing.Point(120, 100);
+            this.txtGender.Size = new System.Drawing.Size(200, 20);
+            this.txtGender.TabIndex = 3;
 
-            // 
-            // btnEmployeeSearch
-            // 
-            this.btnEmployeeSearch.Location = new System.Drawing.Point(350, 7);
-            this.btnEmployeeSearch.Name = "btnEmployeeSearch";
-            this.btnEmployeeSearch.Size = new System.Drawing.Size(50, 23);
-            this.btnEmployeeSearch.TabIndex = 2;
-            this.btnEmployeeSearch.Text = "Tìm kiếm";
-            this.btnEmployeeSearch.UseVisualStyleBackColor = true;
-            this.btnEmployeeSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            this.lblNationality.Text = "Nationality:";
+            this.lblNationality.Location = new System.Drawing.Point(10, 130);
+            this.lblNationality.Size = new System.Drawing.Size(100, 20);
+            this.txtNationality.Location = new System.Drawing.Point(120, 130);
+            this.txtNationality.Size = new System.Drawing.Size(200, 20);
+            this.txtNationality.TabIndex = 4;
 
-            // 
-            // btnEmployeeExport
-            // 
-            this.btnEmployeeExport.Location = new System.Drawing.Point(10, 520);
-            this.btnEmployeeExport.Name = "btnEmployeeExport";
-            this.btnEmployeeExport.Size = new System.Drawing.Size(80, 23);
-            this.btnEmployeeExport.TabIndex = 3;
-            this.btnEmployeeExport.Text = "Xuất Excel";
-            this.btnEmployeeExport.UseVisualStyleBackColor = true;
+            this.lblCCCD.Text = "CCCD:";
+            this.lblCCCD.Location = new System.Drawing.Point(10, 160);
+            this.lblCCCD.Size = new System.Drawing.Size(100, 20);
+            this.txtCCCD.Location = new System.Drawing.Point(120, 160);
+            this.txtCCCD.Size = new System.Drawing.Size(200, 20);
+            this.txtCCCD.TabIndex = 5;
 
-            // 
-            // lblEmployeeId
-            // 
-            this.lblEmployeeId.AutoSize = false;
-            this.lblEmployeeId.Location = new System.Drawing.Point(10, 40);
-            this.lblEmployeeId.Name = "lblEmployeeId";
-            this.lblEmployeeId.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeId.TabIndex = 4;
-            this.lblEmployeeId.Text = "ID:";
+            this.lblCCCDIssueDate.Text = "CCCD Issue Date:";
+            this.lblCCCDIssueDate.Location = new System.Drawing.Point(10, 190);
+            this.lblCCCDIssueDate.Size = new System.Drawing.Size(100, 20);
+            this.dtpCCCDIssueDate.Location = new System.Drawing.Point(120, 190);
+            this.dtpCCCDIssueDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpCCCDIssueDate.TabIndex = 6;
 
-            // 
-            // txtEmployeeId
-            // 
-            this.txtEmployeeId.Location = new System.Drawing.Point(100, 37);
-            this.txtEmployeeId.Name = "txtEmployeeId";
-            this.txtEmployeeId.Size = new System.Drawing.Size(300, 20);
-            this.txtEmployeeId.TabIndex = 5;
-            this.txtEmployeeId.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblCCCDIssuePlace.Text = "CCCD Issue Place:";
+            this.lblCCCDIssuePlace.Location = new System.Drawing.Point(10, 220);
+            this.lblCCCDIssuePlace.Size = new System.Drawing.Size(100, 20);
+            this.txtCCCDIssuePlace.Location = new System.Drawing.Point(120, 220);
+            this.txtCCCDIssuePlace.Size = new System.Drawing.Size(200, 20);
+            this.txtCCCDIssuePlace.TabIndex = 7;
 
-            // 
-            // lblEmployeeFirstName
-            // 
-            this.lblEmployeeFirstName.AutoSize = false;
-            this.lblEmployeeFirstName.Location = new System.Drawing.Point(10, 70);
-            this.lblEmployeeFirstName.Name = "lblEmployeeFirstName";
-            this.lblEmployeeFirstName.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeFirstName.TabIndex = 6;
-            this.lblEmployeeFirstName.Text = "Tên:";
+            this.lblPermanentAddress.Text = "Permanent Address:";
+            this.lblPermanentAddress.Location = new System.Drawing.Point(10, 250);
+            this.lblPermanentAddress.Size = new System.Drawing.Size(100, 20);
+            this.txtPermanentAddress.Location = new System.Drawing.Point(120, 250);
+            this.txtPermanentAddress.Size = new System.Drawing.Size(200, 20);
+            this.txtPermanentAddress.TabIndex = 8;
 
-            // 
-            // txtEmployeeFirstName
-            // 
-            this.txtEmployeeFirstName.Location = new System.Drawing.Point(100, 67);
-            this.txtEmployeeFirstName.Name = "txtEmployeeFirstName";
-            this.txtEmployeeFirstName.Size = new System.Drawing.Size(300, 20);
-            this.txtEmployeeFirstName.TabIndex = 7;
-            this.txtEmployeeFirstName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblCurrentAddress.Text = "Current Address:";
+            this.lblCurrentAddress.Location = new System.Drawing.Point(10, 280);
+            this.lblCurrentAddress.Size = new System.Drawing.Size(100, 20);
+            this.txtCurrentAddress.Location = new System.Drawing.Point(120, 280);
+            this.txtCurrentAddress.Size = new System.Drawing.Size(200, 20);
+            this.txtCurrentAddress.TabIndex = 9;
 
-            // 
-            // lblEmployeeLastName
-            // 
-            this.lblEmployeeLastName.AutoSize = false;
-            this.lblEmployeeLastName.Location = new System.Drawing.Point(10, 100);
-            this.lblEmployeeLastName.Name = "lblEmployeeLastName";
-            this.lblEmployeeLastName.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeLastName.TabIndex = 8;
-            this.lblEmployeeLastName.Text = "Họ:";
+            this.lblPhone.Text = "Phone:";
+            this.lblPhone.Location = new System.Drawing.Point(330, 10);
+            this.lblPhone.Size = new System.Drawing.Size(100, 20);
+            this.txtPhone.Location = new System.Drawing.Point(440, 10);
+            this.txtPhone.Size = new System.Drawing.Size(200, 20);
+            this.txtPhone.TabIndex = 10;
 
-            // 
-            // txtEmployeeLastName
-            // 
-            this.txtEmployeeLastName.Location = new System.Drawing.Point(100, 97);
-            this.txtEmployeeLastName.Name = "txtEmployeeLastName";
-            this.txtEmployeeLastName.Size = new System.Drawing.Size(300, 20);
-            this.txtEmployeeLastName.TabIndex = 9;
-            this.txtEmployeeLastName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblEmail.Text = "Email:";
+            this.lblEmail.Location = new System.Drawing.Point(330, 40);
+            this.lblEmail.Size = new System.Drawing.Size(100, 20);
+            this.txtEmail.Location = new System.Drawing.Point(440, 40);
+            this.txtEmail.Size = new System.Drawing.Size(200, 20);
+            this.txtEmail.TabIndex = 11;
 
-            // 
-            // lblEmployeeBirthDate
-            // 
-            this.lblEmployeeBirthDate.AutoSize = false;
-            this.lblEmployeeBirthDate.Location = new System.Drawing.Point(10, 130);
-            this.lblEmployeeBirthDate.Name = "lblEmployeeBirthDate";
-            this.lblEmployeeBirthDate.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeBirthDate.TabIndex = 10;
-            this.lblEmployeeBirthDate.Text = "Ngày sinh:";
+            this.lblMaritalStatus.Text = "Marital Status:";
+            this.lblMaritalStatus.Location = new System.Drawing.Point(330, 70);
+            this.lblMaritalStatus.Size = new System.Drawing.Size(100, 20);
+            this.txtMaritalStatus.Location = new System.Drawing.Point(440, 70);
+            this.txtMaritalStatus.Size = new System.Drawing.Size(200, 20);
+            this.txtMaritalStatus.TabIndex = 12;
 
-            // 
-            // dtpEmployeeBirthDate
-            // 
-            this.dtpEmployeeBirthDate.Location = new System.Drawing.Point(100, 127);
-            this.dtpEmployeeBirthDate.Name = "dtpEmployeeBirthDate";
-            this.dtpEmployeeBirthDate.Size = new System.Drawing.Size(300, 20);
-            this.dtpEmployeeBirthDate.TabIndex = 11;
-            this.dtpEmployeeBirthDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblDependents.Text = "Dependents:";
+            this.lblDependents.Location = new System.Drawing.Point(330, 100);
+            this.lblDependents.Size = new System.Drawing.Size(100, 20);
+            this.txtDependents.Location = new System.Drawing.Point(440, 100);
+            this.txtDependents.Size = new System.Drawing.Size(200, 20);
+            this.txtDependents.TabIndex = 13;
 
-            // 
-            // lblEmployeeGender
-            // 
-            this.lblEmployeeGender.AutoSize = false;
-            this.lblEmployeeGender.Location = new System.Drawing.Point(10, 160);
-            this.lblEmployeeGender.Name = "lblEmployeeGender";
-            this.lblEmployeeGender.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeGender.TabIndex = 12;
-            this.lblEmployeeGender.Text = "Giới tính:";
+            this.lblSocialInsuranceNumber.Text = "Social Insurance No:";
+            this.lblSocialInsuranceNumber.Location = new System.Drawing.Point(330, 130);
+            this.lblSocialInsuranceNumber.Size = new System.Drawing.Size(100, 20);
+            this.txtSocialInsuranceNumber.Location = new System.Drawing.Point(440, 130);
+            this.txtSocialInsuranceNumber.Size = new System.Drawing.Size(200, 20);
+            this.txtSocialInsuranceNumber.TabIndex = 14;
 
-            // 
-            // cbEmployeeGender
-            // 
-            this.cbEmployeeGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEmployeeGender.Location = new System.Drawing.Point(100, 157);
-            this.cbEmployeeGender.Name = "cbEmployeeGender";
-            this.cbEmployeeGender.Size = new System.Drawing.Size(300, 21);
-            this.cbEmployeeGender.TabIndex = 13;
-            this.cbEmployeeGender.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblTaxCode.Text = "Tax Code:";
+            this.lblTaxCode.Location = new System.Drawing.Point(330, 160);
+            this.lblTaxCode.Size = new System.Drawing.Size(100, 20);
+            this.txtTaxCode.Location = new System.Drawing.Point(440, 160);
+            this.txtTaxCode.Size = new System.Drawing.Size(200, 20);
+            this.txtTaxCode.TabIndex = 15;
 
-            // 
-            // lblEmployeeAddress
-            // 
-            this.lblEmployeeAddress.AutoSize = false;
-            this.lblEmployeeAddress.Location = new System.Drawing.Point(10, 190);
-            this.lblEmployeeAddress.Name = "lblEmployeeAddress";
-            this.lblEmployeeAddress.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeAddress.TabIndex = 14;
-            this.lblEmployeeAddress.Text = "Địa chỉ:";
+            this.lblJobDescription.Text = "Job Description:";
+            this.lblJobDescription.Location = new System.Drawing.Point(330, 190);
+            this.lblJobDescription.Size = new System.Drawing.Size(100, 20);
+            this.txtJobDescription.Location = new System.Drawing.Point(440, 190);
+            this.txtJobDescription.Size = new System.Drawing.Size(200, 20);
+            this.txtJobDescription.TabIndex = 16;
 
-            // 
-            // txtEmployeeAddress
-            // 
-            this.txtEmployeeAddress.Location = new System.Drawing.Point(100, 187);
-            this.txtEmployeeAddress.Name = "txtEmployeeAddress";
-            this.txtEmployeeAddress.Size = new System.Drawing.Size(300, 20);
-            this.txtEmployeeAddress.TabIndex = 15;
-            this.txtEmployeeAddress.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblPosition.Text = "Position:";
+            this.lblPosition.Location = new System.Drawing.Point(330, 220);
+            this.lblPosition.Size = new System.Drawing.Size(100, 20);
+            this.txtPosition.Location = new System.Drawing.Point(440, 220);
+            this.txtPosition.Size = new System.Drawing.Size(200, 20);
+            this.txtPosition.TabIndex = 17;
 
-            // 
-            // lblEmployeePhone
-            // 
-            this.lblEmployeePhone.AutoSize = false;
-            this.lblEmployeePhone.Location = new System.Drawing.Point(10, 220);
-            this.lblEmployeePhone.Name = "lblEmployeePhone";
-            this.lblEmployeePhone.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeePhone.TabIndex = 16;
-            this.lblEmployeePhone.Text = "Số điện thoại:";
+            this.lblDepartment.Text = "Department:";
+            this.lblDepartment.Location = new System.Drawing.Point(330, 250);
+            this.lblDepartment.Size = new System.Drawing.Size(100, 20);
+            this.txtDepartment.Location = new System.Drawing.Point(440, 250);
+            this.txtDepartment.Size = new System.Drawing.Size(200, 20);
+            this.txtDepartment.TabIndex = 18;
 
-            // 
-            // txtEmployeePhone
-            // 
-            this.txtEmployeePhone.Location = new System.Drawing.Point(100, 217);
-            this.txtEmployeePhone.Name = "txtEmployeePhone";
-            this.txtEmployeePhone.Size = new System.Drawing.Size(300, 20);
-            this.txtEmployeePhone.TabIndex = 17;
-            this.txtEmployeePhone.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblRank.Text = "Rank:";
+            this.lblRank.Location = new System.Drawing.Point(330, 280);
+            this.lblRank.Size = new System.Drawing.Size(100, 20);
+            this.txtRank.Location = new System.Drawing.Point(440, 280);
+            this.txtRank.Size = new System.Drawing.Size(200, 20);
+            this.txtRank.TabIndex = 19;
 
-            // 
-            // lblEmployeeEmail
-            // 
-            this.lblEmployeeEmail.AutoSize = false;
-            this.lblEmployeeEmail.Location = new System.Drawing.Point(10, 250);
-            this.lblEmployeeEmail.Name = "lblEmployeeEmail";
-            this.lblEmployeeEmail.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeEmail.TabIndex = 18;
-            this.lblEmployeeEmail.Text = "Email:";
+            this.lblManager.Text = "Manager:";
+            this.lblManager.Location = new System.Drawing.Point(650, 10);
+            this.lblManager.Size = new System.Drawing.Size(100, 20);
+            this.txtManager.Location = new System.Drawing.Point(760, 10);
+            this.txtManager.Size = new System.Drawing.Size(200, 20);
+            this.txtManager.TabIndex = 20;
 
-            // 
-            // txtEmployeeEmail
-            // 
-            this.txtEmployeeEmail.Location = new System.Drawing.Point(100, 247);
-            this.txtEmployeeEmail.Name = "txtEmployeeEmail";
-            this.txtEmployeeEmail.Size = new System.Drawing.Size(300, 20);
-            this.txtEmployeeEmail.TabIndex = 19;
-            this.txtEmployeeEmail.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblWorkSchedule.Text = "Work Schedule:";
+            this.lblWorkSchedule.Location = new System.Drawing.Point(650, 40);
+            this.lblWorkSchedule.Size = new System.Drawing.Size(100, 20);
+            this.txtWorkSchedule.Location = new System.Drawing.Point(760, 40);
+            this.txtWorkSchedule.Size = new System.Drawing.Size(200, 20);
+            this.txtWorkSchedule.TabIndex = 21;
 
-            // 
-            // lblEmployeeDepartment
-            // 
-            this.lblEmployeeDepartment.AutoSize = false;
-            this.lblEmployeeDepartment.Location = new System.Drawing.Point(10, 280);
-            this.lblEmployeeDepartment.Name = "lblEmployeeDepartment";
-            this.lblEmployeeDepartment.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeDepartment.TabIndex = 20;
-            this.lblEmployeeDepartment.Text = "Chức danh:";
-
-            // 
-            // cbEmployeeDepartment
-            // 
-            this.cbEmployeeDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEmployeeDepartment.Location = new System.Drawing.Point(100, 277);
-            this.cbEmployeeDepartment.Name = "cbEmployeeDepartment";
-            this.cbEmployeeDepartment.Size = new System.Drawing.Size(300, 21);
-            this.cbEmployeeDepartment.TabIndex = 21;
-            this.cbEmployeeDepartment.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblEmployeePosition
-            // 
-            this.lblEmployeePosition.AutoSize = false;
-            this.lblEmployeePosition.Location = new System.Drawing.Point(10, 310);
-            this.lblEmployeePosition.Name = "lblEmployeePosition";
-            this.lblEmployeePosition.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeePosition.TabIndex = 22;
-            this.lblEmployeePosition.Text = "Chức vụ:";
-
-            // 
-            // cbEmployeePosition
-            // 
-            this.cbEmployeePosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEmployeePosition.Location = new System.Drawing.Point(100, 307);
-            this.cbEmployeePosition.Name = "cbEmployeePosition";
-            this.cbEmployeePosition.Size = new System.Drawing.Size(300, 21);
-            this.cbEmployeePosition.TabIndex = 23;
-            this.cbEmployeePosition.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblEmployeeHireDate
-            // 
-            this.lblEmployeeHireDate.AutoSize = false;
-            this.lblEmployeeHireDate.Location = new System.Drawing.Point(10, 340);
-            this.lblEmployeeHireDate.Name = "lblEmployeeHireDate";
-            this.lblEmployeeHireDate.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeHireDate.TabIndex = 24;
-            this.lblEmployeeHireDate.Text = "Ngày tuyển dụng:";
-
-            // 
-            // dtpEmployeeHireDate
-            // 
-            this.dtpEmployeeHireDate.Location = new System.Drawing.Point(100, 337);
-            this.dtpEmployeeHireDate.Name = "dtpEmployeeHireDate";
-            this.dtpEmployeeHireDate.Size = new System.Drawing.Size(300, 20);
-            this.dtpEmployeeHireDate.TabIndex = 25;
-            this.dtpEmployeeHireDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblEmployeeEducation
-            // 
-            this.lblEmployeeEducation.AutoSize = false;
-            this.lblEmployeeEducation.Location = new System.Drawing.Point(10, 370);
-            this.lblEmployeeEducation.Name = "lblEmployeeEducation";
-            this.lblEmployeeEducation.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeEducation.TabIndex = 26;
-            this.lblEmployeeEducation.Text = "Học vấn:";
-
-            // 
-            // txtEmployeeEducation
-            // 
-            this.txtEmployeeEducation.Location = new System.Drawing.Point(100, 367);
-            this.txtEmployeeEducation.Name = "txtEmployeeEducation";
-            this.txtEmployeeEducation.Size = new System.Drawing.Size(300, 20);
-            this.txtEmployeeEducation.TabIndex = 27;
-            this.txtEmployeeEducation.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblEmployeeCCCD
-            // 
-            this.lblEmployeeCCCD.AutoSize = false;
-            this.lblEmployeeCCCD.Location = new System.Drawing.Point(10, 400);
-            this.lblEmployeeCCCD.Name = "lblEmployeeCCCD";
-            this.lblEmployeeCCCD.Size = new System.Drawing.Size(80, 13);
-            this.lblEmployeeCCCD.TabIndex = 28;
-            this.lblEmployeeCCCD.Text = "CCCD:";
-
-            // 
-            // txtEmployeeCCCD
-            // 
-            this.txtEmployeeCCCD.Location = new System.Drawing.Point(100, 397);
-            this.txtEmployeeCCCD.Name = "txtEmployeeCCCD";
-            this.txtEmployeeCCCD.Size = new System.Drawing.Size(300, 20);
-            this.txtEmployeeCCCD.TabIndex = 29;
-            this.txtEmployeeCCCD.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // btnEmployeeAdd
-            // 
-            this.btnEmployeeAdd.Location = new System.Drawing.Point(10, 430);
-            this.btnEmployeeAdd.Name = "btnEmployeeAdd";
-            this.btnEmployeeAdd.Size = new System.Drawing.Size(80, 23);
-            this.btnEmployeeAdd.TabIndex = 30;
-            this.btnEmployeeAdd.Text = "Thêm";
-            this.btnEmployeeAdd.UseVisualStyleBackColor = true;
-
-            // 
-            // btnEmployeeUpdate
-            // 
-            this.btnEmployeeUpdate.Location = new System.Drawing.Point(100, 430);
-            this.btnEmployeeUpdate.Name = "btnEmployeeUpdate";
-            this.btnEmployeeUpdate.Size = new System.Drawing.Size(80, 23);
-            this.btnEmployeeUpdate.TabIndex = 31;
-            this.btnEmployeeUpdate.Text = "Cập nhật";
-            this.btnEmployeeUpdate.UseVisualStyleBackColor = true;
-
-            // 
-            // btnEmployeeDelete
-            // 
-            this.btnEmployeeDelete.Location = new System.Drawing.Point(190, 430);
-            this.btnEmployeeDelete.Name = "btnEmployeeDelete";
-            this.btnEmployeeDelete.Size = new System.Drawing.Size(80, 23);
-            this.btnEmployeeDelete.TabIndex = 32;
-            this.btnEmployeeDelete.Text = "Xóa";
-            this.btnEmployeeDelete.UseVisualStyleBackColor = true;
-
-            // 
-            // dgvEmployees
-            // 
             this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployees.Location = new System.Drawing.Point(0, 0);
+            this.dgvEmployees.Location = new System.Drawing.Point(10, 310);
             this.dgvEmployees.Name = "dgvEmployees";
-            this.dgvEmployees.Size = new System.Drawing.Size(542, 568);
-            this.dgvEmployees.TabIndex = 0;
-            this.dgvEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvEmployees.Size = new System.Drawing.Size(1150, 150);
+            this.dgvEmployees.TabIndex = 22;
+            this.dgvEmployees.SelectionChanged += new System.EventHandler(this.dgvEmployees_SelectionChanged);
+
+            this.btnAddEmployee.Text = "Add";
+            this.btnAddEmployee.Location = new System.Drawing.Point(10, 470);
+            this.btnAddEmployee.Size = new System.Drawing.Size(100, 30);
+            this.btnAddEmployee.TabIndex = 23;
+            this.btnAddEmployee.UseVisualStyleBackColor = true;
+            this.btnAddEmployee.Click += new System.EventHandler(this.btnAddEmployee_Click);
+
+            this.btnUpdateEmployee.Text = "Update";
+            this.btnUpdateEmployee.Location = new System.Drawing.Point(120, 470);
+            this.btnUpdateEmployee.Size = new System.Drawing.Size(100, 30);
+            this.btnUpdateEmployee.TabIndex = 24;
+            this.btnUpdateEmployee.UseVisualStyleBackColor = true;
+            this.btnUpdateEmployee.Click += new System.EventHandler(this.btnUpdateEmployee_Click);
+
+            this.btnDeleteEmployee.Text = "Delete";
+            this.btnDeleteEmployee.Location = new System.Drawing.Point(230, 470);
+            this.btnDeleteEmployee.Size = new System.Drawing.Size(100, 30);
+            this.btnDeleteEmployee.TabIndex = 25;
+            this.btnDeleteEmployee.UseVisualStyleBackColor = true;
+            this.btnDeleteEmployee.Click += new System.EventHandler(this.btnDeleteEmployee_Click);
+
+            this.btnExportEmployees.Text = "Export to Excel";
+            this.btnExportEmployees.Location = new System.Drawing.Point(340, 470);
+            this.btnExportEmployees.Size = new System.Drawing.Size(100, 30);
+            this.btnExportEmployees.TabIndex = 26;
+            this.btnExportEmployees.UseVisualStyleBackColor = true;
+            this.btnExportEmployees.Click += new System.EventHandler(this.btnExportEmployees_Click);
 
             // 
-            // tabContracts
+            // tabContract
             // 
-            this.tabContracts.Controls.Add(this.splitContainerContracts);
-            this.tabContracts.Location = new System.Drawing.Point(4, 22);
-            this.tabContracts.Name = "tabContracts";
-            this.tabContracts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabContracts.Size = new System.Drawing.Size(952, 574);
-            this.tabContracts.TabIndex = 1;
-            this.tabContracts.Text = "Quản lý Hợp đồng";
+            this.tabContract.Controls.Add(this.lblContractId);
+            this.tabContract.Controls.Add(this.txtContractId);
+            this.tabContract.Controls.Add(this.lblContractEmployee);
+            this.tabContract.Controls.Add(this.cbContractEmployee);
+            this.tabContract.Controls.Add(this.lblStartDate);
+            this.tabContract.Controls.Add(this.dtpStartDate);
+            this.tabContract.Controls.Add(this.lblEndDate);
+            this.tabContract.Controls.Add(this.dtpEndDate);
+            this.tabContract.Controls.Add(this.lblContractType);
+            this.tabContract.Controls.Add(this.txtContractType);
+            this.tabContract.Controls.Add(this.lblContractAnnexPath);
+            this.tabContract.Controls.Add(this.txtContractAnnexPath);
+            this.tabContract.Controls.Add(this.lblConfidentialityAgreementPath);
+            this.tabContract.Controls.Add(this.txtConfidentialityAgreementPath);
+            this.tabContract.Controls.Add(this.lblNonCompeteAgreementPath);
+            this.tabContract.Controls.Add(this.txtNonCompeteAgreementPath);
+            this.tabContract.Controls.Add(this.lblAppointmentDecisionPath);
+            this.tabContract.Controls.Add(this.txtAppointmentDecisionPath);
+            this.tabContract.Controls.Add(this.lblSalaryIncreaseDecisionPath);
+            this.tabContract.Controls.Add(this.txtSalaryIncreaseDecisionPath);
+            this.tabContract.Controls.Add(this.lblRewardDecisionPath);
+            this.tabContract.Controls.Add(this.txtRewardDecisionPath);
+            this.tabContract.Controls.Add(this.dgvContracts);
+            this.tabContract.Controls.Add(this.btnAddContract);
+            this.tabContract.Controls.Add(this.btnUpdateContract);
+            this.tabContract.Controls.Add(this.btnDeleteContract);
+            this.tabContract.Controls.Add(this.btnExportContracts);
+            this.tabContract.Location = new System.Drawing.Point(4, 22);
+            this.tabContract.Name = "tabContract";
+            this.tabContract.Size = new System.Drawing.Size(1172, 554);
+            this.tabContract.Text = "Contract";
+            this.tabContract.UseVisualStyleBackColor = true;
 
-            // 
-            // splitContainerContracts
-            // 
-            this.splitContainerContracts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerContracts.IsSplitterFixed = true; // Prevent splitter movement
-            this.splitContainerContracts.FixedPanel = System.Windows.Forms.FixedPanel.Panel1; // Fix Panel1 size
-            this.splitContainerContracts.Location = new System.Drawing.Point(3, 3);
-            this.splitContainerContracts.Name = "splitContainerContracts";
-            this.splitContainerContracts.SplitterDistance = 400; // Fixed width for left panel
-            this.splitContainerContracts.Panel1MinSize = 400; // Minimum size for Panel1
-            // 
-            // splitContainerContracts.Panel1
-            // 
-            this.splitContainerContracts.Panel1.Controls.Add(this.panelContractInput);
-            // 
-            // splitContainerContracts.Panel2
-            // 
-            this.splitContainerContracts.Panel2.Controls.Add(this.dgvContracts);
-            this.splitContainerContracts.Size = new System.Drawing.Size(946, 568);
-            this.splitContainerContracts.TabIndex = 0;
+            // Contract Controls Layout (Two Columns)
+            this.lblContractId.Text = "Contract ID:";
+            this.lblContractId.Location = new System.Drawing.Point(10, 10);
+            this.lblContractId.Size = new System.Drawing.Size(100, 20);
+            this.txtContractId.Location = new System.Drawing.Point(120, 10);
+            this.txtContractId.Size = new System.Drawing.Size(200, 20);
+            this.txtContractId.TabIndex = 0;
 
-            // 
-            // panelContractInput
-            // 
-            this.panelContractInput.Controls.Add(this.lblContractSearch);
-            this.panelContractInput.Controls.Add(this.txtContractSearch);
-            this.panelContractInput.Controls.Add(this.btnContractSearch);
-            this.panelContractInput.Controls.Add(this.btnContractExport);
-            this.panelContractInput.Controls.Add(this.btnContractAdd);
-            this.panelContractInput.Controls.Add(this.btnContractUpdate);
-            this.panelContractInput.Controls.Add(this.btnContractDelete);
-            this.panelContractInput.Controls.Add(this.lblContractId);
-            this.panelContractInput.Controls.Add(this.txtContractId);
-            this.panelContractInput.Controls.Add(this.lblContractEmployee);
-            this.panelContractInput.Controls.Add(this.cbContractEmployee);
-            this.panelContractInput.Controls.Add(this.lblContractType);
-            this.panelContractInput.Controls.Add(this.txtContractType);
-            this.panelContractInput.Controls.Add(this.lblContractStartDate);
-            this.panelContractInput.Controls.Add(this.dtpContractStartDate);
-            this.panelContractInput.Controls.Add(this.lblContractEndDate);
-            this.panelContractInput.Controls.Add(this.dtpContractEndDate);
-            this.panelContractInput.Controls.Add(this.lblContractSalary);
-            this.panelContractInput.Controls.Add(this.nudContractSalary);
-            this.panelContractInput.Controls.Add(this.lblContractStatus);
-            this.panelContractInput.Controls.Add(this.cbContractStatus);
-            this.panelContractInput.Controls.Add(this.lblContractEmployeeCCCD);
-            this.panelContractInput.Controls.Add(this.txtContractEmployeeCCCD);
-            this.panelContractInput.Controls.Add(this.lblContractEmployeePhone);
-            this.panelContractInput.Controls.Add(this.txtContractEmployeePhone);
-            this.panelContractInput.Controls.Add(this.lblContractEmployeeEmail);
-            this.panelContractInput.Controls.Add(this.txtContractEmployeeEmail);
-            this.panelContractInput.Controls.Add(this.lblContractEmployeeDepartment);
-            this.panelContractInput.Controls.Add(this.txtContractEmployeeDepartment);
-            this.panelContractInput.Controls.Add(this.lblContractEmployeePosition);
-            this.panelContractInput.Controls.Add(this.txtContractEmployeePosition);
-            this.panelContractInput.Location = new System.Drawing.Point(0, 0);
-            this.panelContractInput.Name = "panelContractInput";
-            this.panelContractInput.Size = new System.Drawing.Size(400, 568);
-            this.panelContractInput.TabIndex = 0;
-            this.panelContractInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblContractEmployee.Text = "Employee:";
+            this.lblContractEmployee.Location = new System.Drawing.Point(10, 40);
+            this.lblContractEmployee.Size = new System.Drawing.Size(100, 20);
+            this.cbContractEmployee.Location = new System.Drawing.Point(120, 40);
+            this.cbContractEmployee.Size = new System.Drawing.Size(200, 20);
+            this.cbContractEmployee.TabIndex = 1;
 
-            // 
-            // lblContractSearch
-            // 
-            this.lblContractSearch.AutoSize = false;
-            this.lblContractSearch.Location = new System.Drawing.Point(10, 10);
-            this.lblContractSearch.Name = "lblContractSearch";
-            this.lblContractSearch.Size = new System.Drawing.Size(80, 13);
-            this.lblContractSearch.TabIndex = 0;
-            this.lblContractSearch.Text = "Tìm kiếm:";
+            this.lblStartDate.Text = "Start Date:";
+            this.lblStartDate.Location = new System.Drawing.Point(10, 70);
+            this.lblStartDate.Size = new System.Drawing.Size(100, 20);
+            this.dtpStartDate.Location = new System.Drawing.Point(120, 70);
+            this.dtpStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpStartDate.TabIndex = 2;
 
-            // 
-            // txtContractSearch
-            // 
-            this.txtContractSearch.Location = new System.Drawing.Point(100, 7);
-            this.txtContractSearch.Name = "txtContractSearch";
-            this.txtContractSearch.Size = new System.Drawing.Size(230, 20);
-            this.txtContractSearch.TabIndex = 1;
-            this.txtContractSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblEndDate.Text = "End Date:";
+            this.lblEndDate.Location = new System.Drawing.Point(10, 100);
+            this.lblEndDate.Size = new System.Drawing.Size(100, 20);
+            this.dtpEndDate.Location = new System.Drawing.Point(120, 100);
+            this.dtpEndDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpEndDate.TabIndex = 3;
 
-            // 
-            // btnContractSearch
-            // 
-            this.btnContractSearch.Location = new System.Drawing.Point(350, 7);
-            this.btnContractSearch.Name = "btnContractSearch";
-            this.btnContractSearch.Size = new System.Drawing.Size(50, 23);
-            this.btnContractSearch.TabIndex = 2;
-            this.btnContractSearch.Text = "Tìm kiếm";
-            this.btnContractSearch.UseVisualStyleBackColor = true;
-            this.btnContractSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            this.lblContractType.Text = "Contract Type:";
+            this.lblContractType.Location = new System.Drawing.Point(10, 130);
+            this.lblContractType.Size = new System.Drawing.Size(100, 20);
+            this.txtContractType.Location = new System.Drawing.Point(120, 130);
+            this.txtContractType.Size = new System.Drawing.Size(200, 20);
+            this.txtContractType.TabIndex = 4;
 
-            // 
-            // btnContractExport
-            // 
-            this.btnContractExport.Location = new System.Drawing.Point(10, 520);
-            this.btnContractExport.Name = "btnContractExport";
-            this.btnContractExport.Size = new System.Drawing.Size(80, 23);
-            this.btnContractExport.TabIndex = 3;
-            this.btnContractExport.Text = "Xuất Excel";
-            this.btnContractExport.UseVisualStyleBackColor = true;
+            this.lblContractAnnexPath.Text = "Contract Annex Path:";
+            this.lblContractAnnexPath.Location = new System.Drawing.Point(330, 10);
+            this.lblContractAnnexPath.Size = new System.Drawing.Size(100, 20);
+            this.txtContractAnnexPath.Location = new System.Drawing.Point(440, 10);
+            this.txtContractAnnexPath.Size = new System.Drawing.Size(200, 20);
+            this.txtContractAnnexPath.TabIndex = 5;
 
-            // 
-            // lblContractId
-            // 
-            this.lblContractId.AutoSize = false;
-            this.lblContractId.Location = new System.Drawing.Point(10, 40);
-            this.lblContractId.Name = "lblContractId";
-            this.lblContractId.Size = new System.Drawing.Size(80, 13);
-            this.lblContractId.TabIndex = 4;
-            this.lblContractId.Text = "ID:";
+            this.lblConfidentialityAgreementPath.Text = "Confidentiality Path:";
+            this.lblConfidentialityAgreementPath.Location = new System.Drawing.Point(330, 40);
+            this.lblConfidentialityAgreementPath.Size = new System.Drawing.Size(100, 20);
+            this.txtConfidentialityAgreementPath.Location = new System.Drawing.Point(440, 40);
+            this.txtConfidentialityAgreementPath.Size = new System.Drawing.Size(200, 20);
+            this.txtConfidentialityAgreementPath.TabIndex = 6;
 
-            // 
-            // txtContractId
-            // 
-            this.txtContractId.Location = new System.Drawing.Point(100, 37);
-            this.txtContractId.Name = "txtContractId";
-            this.txtContractId.ReadOnly = true;
-            this.txtContractId.Size = new System.Drawing.Size(300, 20);
-            this.txtContractId.TabIndex = 5;
-            this.txtContractId.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblNonCompeteAgreementPath.Text = "Non-Compete Path:";
+            this.lblNonCompeteAgreementPath.Location = new System.Drawing.Point(330, 70);
+            this.lblNonCompeteAgreementPath.Size = new System.Drawing.Size(100, 20);
+            this.txtNonCompeteAgreementPath.Location = new System.Drawing.Point(440, 70);
+            this.txtNonCompeteAgreementPath.Size = new System.Drawing.Size(200, 20);
+            this.txtNonCompeteAgreementPath.TabIndex = 7;
 
-            // 
-            // lblContractEmployee
-            // 
-            this.lblContractEmployee.AutoSize = false;
-            this.lblContractEmployee.Location = new System.Drawing.Point(10, 70);
-            this.lblContractEmployee.Name = "lblContractEmployee";
-            this.lblContractEmployee.Size = new System.Drawing.Size(80, 13);
-            this.lblContractEmployee.TabIndex = 6;
-            this.lblContractEmployee.Text = "Nhân viên:";
+            this.lblAppointmentDecisionPath.Text = "Appointment Path:";
+            this.lblAppointmentDecisionPath.Location = new System.Drawing.Point(330, 100);
+            this.lblAppointmentDecisionPath.Size = new System.Drawing.Size(100, 20);
+            this.txtAppointmentDecisionPath.Location = new System.Drawing.Point(440, 100);
+            this.txtAppointmentDecisionPath.Size = new System.Drawing.Size(200, 20);
+            this.txtAppointmentDecisionPath.TabIndex = 8;
 
-            // 
-            // cbContractEmployee
-            // 
-            this.cbContractEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbContractEmployee.Location = new System.Drawing.Point(100, 67);
-            this.cbContractEmployee.Name = "cbContractEmployee";
-            this.cbContractEmployee.Size = new System.Drawing.Size(300, 21);
-            this.cbContractEmployee.TabIndex = 7;
-            this.cbContractEmployee.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblSalaryIncreaseDecisionPath.Text = "Salary Increase Path:";
+            this.lblSalaryIncreaseDecisionPath.Location = new System.Drawing.Point(330, 130);
+            this.lblSalaryIncreaseDecisionPath.Size = new System.Drawing.Size(100, 20);
+            this.txtSalaryIncreaseDecisionPath.Location = new System.Drawing.Point(440, 130);
+            this.txtSalaryIncreaseDecisionPath.Size = new System.Drawing.Size(200, 20);
+            this.txtSalaryIncreaseDecisionPath.TabIndex = 9;
 
-            // 
-            // lblContractType
-            // 
-            this.lblContractType.AutoSize = false;
-            this.lblContractType.Location = new System.Drawing.Point(10, 100);
-            this.lblContractType.Name = "lblContractType";
-            this.lblContractType.Size = new System.Drawing.Size(80, 13);
-            this.lblContractType.TabIndex = 8;
-            this.lblContractType.Text = "Loại hợp đồng:";
+            this.lblRewardDecisionPath.Text = "Reward Decision Path:";
+            this.lblRewardDecisionPath.Location = new System.Drawing.Point(330, 160);
+            this.lblRewardDecisionPath.Size = new System.Drawing.Size(100, 20);
+            this.txtRewardDecisionPath.Location = new System.Drawing.Point(440, 160);
+            this.txtRewardDecisionPath.Size = new System.Drawing.Size(200, 20);
+            this.txtRewardDecisionPath.TabIndex = 10;
 
-            // 
-            // txtContractType
-            // 
-            this.txtContractType.Location = new System.Drawing.Point(100, 97);
-            this.txtContractType.Name = "txtContractType";
-            this.txtContractType.Size = new System.Drawing.Size(300, 20);
-            this.txtContractType.TabIndex = 9;
-            this.txtContractType.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractStartDate
-            // 
-            this.lblContractStartDate.AutoSize = false;
-            this.lblContractStartDate.Location = new System.Drawing.Point(10, 130);
-            this.lblContractStartDate.Name = "lblContractStartDate";
-            this.lblContractStartDate.Size = new System.Drawing.Size(80, 13);
-            this.lblContractStartDate.TabIndex = 10;
-            this.lblContractStartDate.Text = "Ngày bắt đầu:";
-
-            // 
-            // dtpContractStartDate
-            // 
-            this.dtpContractStartDate.Location = new System.Drawing.Point(100, 127);
-            this.dtpContractStartDate.Name = "dtpContractStartDate";
-            this.dtpContractStartDate.Size = new System.Drawing.Size(300, 20);
-            this.dtpContractStartDate.TabIndex = 11;
-            this.dtpContractStartDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractEndDate
-            // 
-            this.lblContractEndDate.AutoSize = false;
-            this.lblContractEndDate.Location = new System.Drawing.Point(10, 160);
-            this.lblContractEndDate.Name = "lblContractEndDate";
-            this.lblContractEndDate.Size = new System.Drawing.Size(80, 13);
-            this.lblContractEndDate.TabIndex = 12;
-            this.lblContractEndDate.Text = "Ngày kết thúc:";
-
-            // 
-            // dtpContractEndDate
-            // 
-            this.dtpContractEndDate.Location = new System.Drawing.Point(100, 157);
-            this.dtpContractEndDate.Name = "dtpContractEndDate";
-            this.dtpContractEndDate.Size = new System.Drawing.Size(300, 20);
-            this.dtpContractEndDate.TabIndex = 13;
-            this.dtpContractEndDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractSalary
-            // 
-            this.lblContractSalary.AutoSize = false;
-            this.lblContractSalary.Location = new System.Drawing.Point(10, 190);
-            this.lblContractSalary.Name = "lblContractSalary";
-            this.lblContractSalary.Size = new System.Drawing.Size(80, 13);
-            this.lblContractSalary.TabIndex = 14;
-            this.lblContractSalary.Text = "Lương:";
-
-            // 
-            // nudContractSalary
-            // 
-            this.nudContractSalary.Location = new System.Drawing.Point(100, 187);
-            this.nudContractSalary.Name = "nudContractSalary";
-            this.nudContractSalary.Size = new System.Drawing.Size(300, 20);
-            this.nudContractSalary.TabIndex = 15;
-            this.nudContractSalary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractStatus
-            // 
-            this.lblContractStatus.AutoSize = false;
-            this.lblContractStatus.Location = new System.Drawing.Point(10, 220);
-            this.lblContractStatus.Name = "lblContractStatus";
-            this.lblContractStatus.Size = new System.Drawing.Size(80, 13);
-            this.lblContractStatus.TabIndex = 16;
-            this.lblContractStatus.Text = "Trạng thái:";
-
-            // 
-            // cbContractStatus
-            // 
-            this.cbContractStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbContractStatus.Location = new System.Drawing.Point(100, 217);
-            this.cbContractStatus.Name = "cbContractStatus";
-            this.cbContractStatus.Size = new System.Drawing.Size(300, 21);
-            this.cbContractStatus.TabIndex = 17;
-            this.cbContractStatus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractEmployeeCCCD
-            // 
-            this.lblContractEmployeeCCCD.AutoSize = false;
-            this.lblContractEmployeeCCCD.Location = new System.Drawing.Point(10, 250);
-            this.lblContractEmployeeCCCD.Name = "lblContractEmployeeCCCD";
-            this.lblContractEmployeeCCCD.Size = new System.Drawing.Size(80, 13);
-            this.lblContractEmployeeCCCD.TabIndex = 18;
-            this.lblContractEmployeeCCCD.Text = "CCCD:";
-
-            // 
-            // txtContractEmployeeCCCD
-            // 
-            this.txtContractEmployeeCCCD.Location = new System.Drawing.Point(100, 247);
-            this.txtContractEmployeeCCCD.Name = "txtContractEmployeeCCCD";
-            this.txtContractEmployeeCCCD.ReadOnly = true;
-            this.txtContractEmployeeCCCD.Size = new System.Drawing.Size(300, 20);
-            this.txtContractEmployeeCCCD.TabIndex = 19;
-            this.txtContractEmployeeCCCD.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractEmployeePhone
-            // 
-            this.lblContractEmployeePhone.AutoSize = false;
-            this.lblContractEmployeePhone.Location = new System.Drawing.Point(10, 280);
-            this.lblContractEmployeePhone.Name = "lblContractEmployeePhone";
-            this.lblContractEmployeePhone.Size = new System.Drawing.Size(80, 13);
-            this.lblContractEmployeePhone.TabIndex = 20;
-            this.lblContractEmployeePhone.Text = "Số điện thoại:";
-
-            // 
-            // txtContractEmployeePhone
-            // 
-            this.txtContractEmployeePhone.Location = new System.Drawing.Point(100, 277);
-            this.txtContractEmployeePhone.Name = "txtContractEmployeePhone";
-            this.txtContractEmployeePhone.ReadOnly = true;
-            this.txtContractEmployeePhone.Size = new System.Drawing.Size(300, 20);
-            this.txtContractEmployeePhone.TabIndex = 21;
-            this.txtContractEmployeePhone.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractEmployeeEmail
-            // 
-            this.lblContractEmployeeEmail.AutoSize = false;
-            this.lblContractEmployeeEmail.Location = new System.Drawing.Point(10, 310);
-            this.lblContractEmployeeEmail.Name = "lblContractEmployeeEmail";
-            this.lblContractEmployeeEmail.Size = new System.Drawing.Size(80, 13);
-            this.lblContractEmployeeEmail.TabIndex = 22;
-            this.lblContractEmployeeEmail.Text = "Email:";
-
-            // 
-            // txtContractEmployeeEmail
-            // 
-            this.txtContractEmployeeEmail.Location = new System.Drawing.Point(100, 307);
-            this.txtContractEmployeeEmail.Name = "txtContractEmployeeEmail";
-            this.txtContractEmployeeEmail.ReadOnly = true;
-            this.txtContractEmployeeEmail.Size = new System.Drawing.Size(300, 20);
-            this.txtContractEmployeeEmail.TabIndex = 23;
-            this.txtContractEmployeeEmail.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractEmployeeDepartment
-            // 
-            this.lblContractEmployeeDepartment.AutoSize = false;
-            this.lblContractEmployeeDepartment.Location = new System.Drawing.Point(10, 340);
-            this.lblContractEmployeeDepartment.Name = "lblContractEmployeeDepartment";
-            this.lblContractEmployeeDepartment.Size = new System.Drawing.Size(80, 13);
-            this.lblContractEmployeeDepartment.TabIndex = 24;
-            this.lblContractEmployeeDepartment.Text = "Chức danh:";
-
-            // 
-            // txtContractEmployeeDepartment
-            // 
-            this.txtContractEmployeeDepartment.Location = new System.Drawing.Point(100, 337);
-            this.txtContractEmployeeDepartment.Name = "txtContractEmployeeDepartment";
-            this.txtContractEmployeeDepartment.ReadOnly = true;
-            this.txtContractEmployeeDepartment.Size = new System.Drawing.Size(300, 20);
-            this.txtContractEmployeeDepartment.TabIndex = 25;
-            this.txtContractEmployeeDepartment.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblContractEmployeePosition
-            // 
-            this.lblContractEmployeePosition.AutoSize = false;
-            this.lblContractEmployeePosition.Location = new System.Drawing.Point(10, 370);
-            this.lblContractEmployeePosition.Name = "lblContractEmployeePosition";
-            this.lblContractEmployeePosition.Size = new System.Drawing.Size(80, 13);
-            this.lblContractEmployeePosition.TabIndex = 26;
-            this.lblContractEmployeePosition.Text = "Chức vụ:";
-
-            // 
-            // txtContractEmployeePosition
-            // 
-            this.txtContractEmployeePosition.Location = new System.Drawing.Point(100, 367);
-            this.txtContractEmployeePosition.Name = "txtContractEmployeePosition";
-            this.txtContractEmployeePosition.ReadOnly = true;
-            this.txtContractEmployeePosition.Size = new System.Drawing.Size(300, 20);
-            this.txtContractEmployeePosition.TabIndex = 27;
-            this.txtContractEmployeePosition.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // btnContractAdd
-            // 
-            this.btnContractAdd.Location = new System.Drawing.Point(10, 400);
-            this.btnContractAdd.Name = "btnContractAdd";
-            this.btnContractAdd.Size = new System.Drawing.Size(80, 23);
-            this.btnContractAdd.TabIndex = 28;
-            this.btnContractAdd.Text = "Thêm";
-            this.btnContractAdd.UseVisualStyleBackColor = true;
-
-            // 
-            // btnContractUpdate
-            // 
-            this.btnContractUpdate.Location = new System.Drawing.Point(100, 400);
-            this.btnContractUpdate.Name = "btnContractUpdate";
-            this.btnContractUpdate.Size = new System.Drawing.Size(80, 23);
-            this.btnContractUpdate.TabIndex = 29;
-            this.btnContractUpdate.Text = "Cập nhật";
-            this.btnContractUpdate.UseVisualStyleBackColor = true;
-
-            // 
-            // btnContractDelete
-            // 
-            this.btnContractDelete.Location = new System.Drawing.Point(190, 400);
-            this.btnContractDelete.Name = "btnContractDelete";
-            this.btnContractDelete.Size = new System.Drawing.Size(80, 23);
-            this.btnContractDelete.TabIndex = 30;
-            this.btnContractDelete.Text = "Xóa";
-            this.btnContractDelete.UseVisualStyleBackColor = true;
-
-            // 
-            // dgvContracts
-            // 
             this.dgvContracts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvContracts.Location = new System.Drawing.Point(0, 0);
+            this.dgvContracts.Location = new System.Drawing.Point(10, 190);
             this.dgvContracts.Name = "dgvContracts";
-            this.dgvContracts.Size = new System.Drawing.Size(542, 568);
-            this.dgvContracts.TabIndex = 0;
-            this.dgvContracts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvContracts.Size = new System.Drawing.Size(1150, 150);
+            this.dgvContracts.TabIndex = 11;
+            this.dgvContracts.SelectionChanged += new System.EventHandler(this.dgvContracts_SelectionChanged);
+
+            this.btnAddContract.Text = "Add";
+            this.btnAddContract.Location = new System.Drawing.Point(10, 350);
+            this.btnAddContract.Size = new System.Drawing.Size(100, 30);
+            this.btnAddContract.TabIndex = 12;
+            this.btnAddContract.UseVisualStyleBackColor = true;
+            this.btnAddContract.Click += new System.EventHandler(this.btnAddContract_Click);
+
+            this.btnUpdateContract.Text = "Update";
+            this.btnUpdateContract.Location = new System.Drawing.Point(120, 350);
+            this.btnUpdateContract.Size = new System.Drawing.Size(100, 30);
+            this.btnUpdateContract.TabIndex = 13;
+            this.btnUpdateContract.UseVisualStyleBackColor = true;
+            this.btnUpdateContract.Click += new System.EventHandler(this.btnUpdateContract_Click);
+
+            this.btnDeleteContract.Text = "Delete";
+            this.btnDeleteContract.Location = new System.Drawing.Point(230, 350);
+            this.btnDeleteContract.Size = new System.Drawing.Size(100, 30);
+            this.btnDeleteContract.TabIndex = 14;
+            this.btnDeleteContract.UseVisualStyleBackColor = true;
+            this.btnDeleteContract.Click += new System.EventHandler(this.btnDeleteContract_Click);
+
+            this.btnExportContracts.Text = "Export to Excel";
+            this.btnExportContracts.Location = new System.Drawing.Point(340, 350);
+            this.btnExportContracts.Size = new System.Drawing.Size(100, 30);
+            this.btnExportContracts.TabIndex = 15;
+            this.btnExportContracts.UseVisualStyleBackColor = true;
+            this.btnExportContracts.Click += new System.EventHandler(this.btnExportContracts_Click);
 
             // 
             // tabAttendance
             // 
-            this.tabAttendance.Controls.Add(this.splitContainerAttendance);
+            this.tabAttendance.Controls.Add(this.lblAttendanceId);
+            this.tabAttendance.Controls.Add(this.txtAttendanceId);
+            this.tabAttendance.Controls.Add(this.lblAttendanceEmployee);
+            this.tabAttendance.Controls.Add(this.cbAttendanceEmployee);
+            this.tabAttendance.Controls.Add(this.lblAttendanceDate);
+            this.tabAttendance.Controls.Add(this.dtpAttendanceDate);
+            this.tabAttendance.Controls.Add(this.lblCheckInTime);
+            this.tabAttendance.Controls.Add(this.dtpCheckInTime);
+            this.tabAttendance.Controls.Add(this.lblCheckOutTime);
+            this.tabAttendance.Controls.Add(this.dtpCheckOutTime);
+            this.tabAttendance.Controls.Add(this.lblStatus);
+            this.tabAttendance.Controls.Add(this.txtStatus);
+            this.tabAttendance.Controls.Add(this.lblAdminHours);
+            this.tabAttendance.Controls.Add(this.txtAdminHours);
+            this.tabAttendance.Controls.Add(this.lblOvertimeHours);
+            this.tabAttendance.Controls.Add(this.txtOvertimeHours);
+            this.tabAttendance.Controls.Add(this.dgvAttendances);
+            this.tabAttendance.Controls.Add(this.btnAddAttendance);
+            this.tabAttendance.Controls.Add(this.btnUpdateAttendance);
+            this.tabAttendance.Controls.Add(this.btnDeleteAttendance);
+            this.tabAttendance.Controls.Add(this.btnExportAttendances);
             this.tabAttendance.Location = new System.Drawing.Point(4, 22);
             this.tabAttendance.Name = "tabAttendance";
-            this.tabAttendance.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttendance.Size = new System.Drawing.Size(952, 574);
-            this.tabAttendance.TabIndex = 2;
-            this.tabAttendance.Text = "Quản lý Chấm công";
+            this.tabAttendance.Size = new System.Drawing.Size(1172, 554);
+            this.tabAttendance.Text = "Attendance";
+            this.tabAttendance.UseVisualStyleBackColor = true;
+
+            // Attendance Controls Layout (Two Columns)
+            this.lblAttendanceId.Text = "Attendance ID:";
+            this.lblAttendanceId.Location = new System.Drawing.Point(10, 10);
+            this.lblAttendanceId.Size = new System.Drawing.Size(100, 20);
+            this.txtAttendanceId.Location = new System.Drawing.Point(120, 10);
+            this.txtAttendanceId.Size = new System.Drawing.Size(200, 20);
+            this.txtAttendanceId.TabIndex = 0;
+
+            this.lblAttendanceEmployee.Text = "Employee:";
+            this.lblAttendanceEmployee.Location = new System.Drawing.Point(10, 40);
+            this.lblAttendanceEmployee.Size = new System.Drawing.Size(100, 20);
+            this.cbAttendanceEmployee.Location = new System.Drawing.Point(120, 40);
+            this.cbAttendanceEmployee.Size = new System.Drawing.Size(200, 20);
+            this.cbAttendanceEmployee.TabIndex = 1;
+
+            this.lblAttendanceDate.Text = "Attendance Date:";
+            this.lblAttendanceDate.Location = new System.Drawing.Point(10, 70);
+            this.lblAttendanceDate.Size = new System.Drawing.Size(100, 20);
+            this.dtpAttendanceDate.Location = new System.Drawing.Point(120, 70);
+            this.dtpAttendanceDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpAttendanceDate.TabIndex = 2;
+
+            this.lblCheckInTime.Text = "Check-In Time:";
+            this.lblCheckInTime.Location = new System.Drawing.Point(10, 100);
+            this.lblCheckInTime.Size = new System.Drawing.Size(100, 20);
+            this.dtpCheckInTime.Location = new System.Drawing.Point(120, 100);
+            this.dtpCheckInTime.Size = new System.Drawing.Size(200, 20);
+            this.dtpCheckInTime.TabIndex = 3;
+
+            this.lblCheckOutTime.Text = "Check-Out Time:";
+            this.lblCheckOutTime.Location = new System.Drawing.Point(10, 130);
+            this.lblCheckOutTime.Size = new System.Drawing.Size(100, 20);
+            this.dtpCheckOutTime.Location = new System.Drawing.Point(120, 130);
+            this.dtpCheckOutTime.Size = new System.Drawing.Size(200, 20);
+            this.dtpCheckOutTime.TabIndex = 4;
+
+            this.lblStatus.Text = "Status:";
+            this.lblStatus.Location = new System.Drawing.Point(330, 10);
+            this.lblStatus.Size = new System.Drawing.Size(100, 20);
+            this.txtStatus.Location = new System.Drawing.Point(440, 10);
+            this.txtStatus.Size = new System.Drawing.Size(200, 20);
+            this.txtStatus.TabIndex = 5;
+
+            this.lblAdminHours.Text = "Admin Hours:";
+            this.lblAdminHours.Location = new System.Drawing.Point(330, 40);
+            this.lblAdminHours.Size = new System.Drawing.Size(100, 20);
+            this.txtAdminHours.Location = new System.Drawing.Point(440, 40);
+            this.txtAdminHours.Size = new System.Drawing.Size(200, 20);
+            this.txtAdminHours.TabIndex = 6;
+
+            this.lblOvertimeHours.Text = "Overtime Hours:";
+            this.lblOvertimeHours.Location = new System.Drawing.Point(330, 70);
+            this.lblOvertimeHours.Size = new System.Drawing.Size(100, 20);
+            this.txtOvertimeHours.Location = new System.Drawing.Point(440, 70);
+            this.txtOvertimeHours.Size = new System.Drawing.Size(200, 20);
+            this.txtOvertimeHours.TabIndex = 7;
+
+            this.dgvAttendances.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAttendances.Location = new System.Drawing.Point(10, 160);
+            this.dgvAttendances.Name = "dgvAttendances";
+            this.dgvAttendances.Size = new System.Drawing.Size(1150, 150);
+            this.dgvAttendances.TabIndex = 8;
+            this.dgvAttendances.SelectionChanged += new System.EventHandler(this.dgvAttendances_SelectionChanged);
+
+            this.btnAddAttendance.Text = "Add";
+            this.btnAddAttendance.Location = new System.Drawing.Point(10, 320);
+            this.btnAddAttendance.Size = new System.Drawing.Size(100, 30);
+            this.btnAddAttendance.TabIndex = 9;
+            this.btnAddAttendance.UseVisualStyleBackColor = true;
+            this.btnAddAttendance.Click += new System.EventHandler(this.btnAddAttendance_Click);
+
+            this.btnUpdateAttendance.Text = "Update";
+            this.btnUpdateAttendance.Location = new System.Drawing.Point(120, 320);
+            this.btnUpdateAttendance.Size = new System.Drawing.Size(100, 30);
+            this.btnUpdateAttendance.TabIndex = 10;
+            this.btnUpdateAttendance.UseVisualStyleBackColor = true;
+            this.btnUpdateAttendance.Click += new System.EventHandler(this.btnUpdateAttendance_Click);
+
+            this.btnDeleteAttendance.Text = "Delete";
+            this.btnDeleteAttendance.Location = new System.Drawing.Point(230, 320);
+            this.btnDeleteAttendance.Size = new System.Drawing.Size(100, 30);
+            this.btnDeleteAttendance.TabIndex = 11;
+            this.btnDeleteAttendance.UseVisualStyleBackColor = true;
+            this.btnDeleteAttendance.Click += new System.EventHandler(this.btnDeleteAttendance_Click);
+
+            this.btnExportAttendances.Text = "Export to Excel";
+            this.btnExportAttendances.Location = new System.Drawing.Point(340, 320);
+            this.btnExportAttendances.Size = new System.Drawing.Size(100, 30);
+            this.btnExportAttendances.TabIndex = 12;
+            this.btnExportAttendances.UseVisualStyleBackColor = true;
+            this.btnExportAttendances.Click += new System.EventHandler(this.btnExportAttendances_Click);
 
             // 
-            // splitContainerAttendance
+            // tabRecruitment
             // 
-            this.splitContainerAttendance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerAttendance.IsSplitterFixed = true; // Prevent splitter movement
-            this.splitContainerAttendance.FixedPanel = System.Windows.Forms.FixedPanel.Panel1; // Fix Panel1 size
-            this.splitContainerAttendance.Location = new System.Drawing.Point(3, 3);
-            this.splitContainerAttendance.Name = "splitContainerAttendance";
-            this.splitContainerAttendance.SplitterDistance = 400; // Fixed width for left panel
-            this.splitContainerAttendance.Panel1MinSize = 400; // Minimum size for Panel1
-            // 
-            // splitContainerAttendance.Panel1
-            // 
-            this.splitContainerAttendance.Panel1.Controls.Add(this.panelAttendanceInput);
-            // 
-            // splitContainerAttendance.Panel2
-            // 
-            this.splitContainerAttendance.Panel2.Controls.Add(this.dgvAttendance);
-            this.splitContainerAttendance.Size = new System.Drawing.Size(946, 568);
-            this.splitContainerAttendance.TabIndex = 0;
+            this.tabRecruitment.Controls.Add(this.lblRecruitmentId);
+            this.tabRecruitment.Controls.Add(this.txtRecruitmentId);
+            this.tabRecruitment.Controls.Add(this.lblRecruitmentEmployee);
+            this.tabRecruitment.Controls.Add(this.cbRecruitmentEmployee);
+            this.tabRecruitment.Controls.Add(this.lblJobApplicationPath);
+            this.tabRecruitment.Controls.Add(this.txtJobApplicationPath);
+            this.tabRecruitment.Controls.Add(this.lblResumePath);
+            this.tabRecruitment.Controls.Add(this.txtResumePath);
+            this.tabRecruitment.Controls.Add(this.lblDegreesPath);
+            this.tabRecruitment.Controls.Add(this.txtDegreesPath);
+            this.tabRecruitment.Controls.Add(this.lblHealthCheckPath);
+            this.tabRecruitment.Controls.Add(this.txtHealthCheckPath);
+            this.tabRecruitment.Controls.Add(this.lblCVPath);
+            this.tabRecruitment.Controls.Add(this.txtCVPath);
+            this.tabRecruitment.Controls.Add(this.lblReferenceLetterPath);
+            this.tabRecruitment.Controls.Add(this.txtReferenceLetterPath);
+            this.tabRecruitment.Controls.Add(this.lblInterviewMinutesPath);
+            this.tabRecruitment.Controls.Add(this.txtInterviewMinutesPath);
+            this.tabRecruitment.Controls.Add(this.lblOfferLetterPath);
+            this.tabRecruitment.Controls.Add(this.txtOfferLetterPath);
+            this.tabRecruitment.Controls.Add(this.dgvRecruitments);
+            this.tabRecruitment.Controls.Add(this.btnAddRecruitment);
+            this.tabRecruitment.Controls.Add(this.btnUpdateRecruitment);
+            this.tabRecruitment.Controls.Add(this.btnDeleteRecruitment);
+            this.tabRecruitment.Controls.Add(this.btnExportRecruitments);
+            this.tabRecruitment.Location = new System.Drawing.Point(4, 22);
+            this.tabRecruitment.Name = "tabRecruitment";
+            this.tabRecruitment.Size = new System.Drawing.Size(1172, 554);
+            this.tabRecruitment.Text = "Recruitment";
+            this.tabRecruitment.UseVisualStyleBackColor = true;
+
+            // Recruitment Controls Layout (Two Columns)
+            this.lblRecruitmentId.Text = "Recruitment ID:";
+            this.lblRecruitmentId.Location = new System.Drawing.Point(10, 10);
+            this.lblRecruitmentId.Size = new System.Drawing.Size(100, 20);
+            this.txtRecruitmentId.Location = new System.Drawing.Point(120, 10);
+            this.txtRecruitmentId.Size = new System.Drawing.Size(200, 20);
+            this.txtRecruitmentId.TabIndex = 0;
+
+            this.lblRecruitmentEmployee.Text = "Employee:";
+            this.lblRecruitmentEmployee.Location = new System.Drawing.Point(10, 40);
+            this.lblRecruitmentEmployee.Size = new System.Drawing.Size(100, 20);
+            this.cbRecruitmentEmployee.Location = new System.Drawing.Point(120, 40);
+            this.cbRecruitmentEmployee.Size = new System.Drawing.Size(200, 20);
+            this.cbRecruitmentEmployee.TabIndex = 1;
+
+            this.lblJobApplicationPath.Text = "Job Application Path:";
+            this.lblJobApplicationPath.Location = new System.Drawing.Point(10, 70);
+            this.lblJobApplicationPath.Size = new System.Drawing.Size(100, 20);
+            this.txtJobApplicationPath.Location = new System.Drawing.Point(120, 70);
+            this.txtJobApplicationPath.Size = new System.Drawing.Size(200, 20);
+            this.txtJobApplicationPath.TabIndex = 2;
+
+            this.lblResumePath.Text = "Resume Path:";
+            this.lblResumePath.Location = new System.Drawing.Point(10, 100);
+            this.lblResumePath.Size = new System.Drawing.Size(100, 20);
+            this.txtResumePath.Location = new System.Drawing.Point(120, 100);
+            this.txtResumePath.Size = new System.Drawing.Size(200, 20);
+            this.txtResumePath.TabIndex = 3;
+
+            this.lblDegreesPath.Text = "Degrees Path:";
+            this.lblDegreesPath.Location = new System.Drawing.Point(10, 130);
+            this.lblDegreesPath.Size = new System.Drawing.Size(100, 20);
+            this.txtDegreesPath.Location = new System.Drawing.Point(120, 130);
+            this.txtDegreesPath.Size = new System.Drawing.Size(200, 20);
+            this.txtDegreesPath.TabIndex = 4;
+
+            this.lblHealthCheckPath.Text = "Health Check Path:";
+            this.lblHealthCheckPath.Location = new System.Drawing.Point(10, 160);
+            this.lblHealthCheckPath.Size = new System.Drawing.Size(100, 20);
+            this.txtHealthCheckPath.Location = new System.Drawing.Point(120, 160);
+            this.txtHealthCheckPath.Size = new System.Drawing.Size(200, 20);
+            this.txtHealthCheckPath.TabIndex = 5;
+
+            this.lblCVPath.Text = "CV Path:";
+            this.lblCVPath.Location = new System.Drawing.Point(330, 10);
+            this.lblCVPath.Size = new System.Drawing.Size(100, 20);
+            this.txtCVPath.Location = new System.Drawing.Point(440, 10);
+            this.txtCVPath.Size = new System.Drawing.Size(200, 20);
+            this.txtCVPath.TabIndex = 6;
+
+            this.lblReferenceLetterPath.Text = "Reference Letter Path:";
+            this.lblReferenceLetterPath.Location = new System.Drawing.Point(330, 40);
+            this.lblReferenceLetterPath.Size = new System.Drawing.Size(100, 20);
+            this.txtReferenceLetterPath.Location = new System.Drawing.Point(440, 40);
+            this.txtReferenceLetterPath.Size = new System.Drawing.Size(200, 20);
+            this.txtReferenceLetterPath.TabIndex = 7;
+
+            this.lblInterviewMinutesPath.Text = "Interview Minutes Path:";
+            this.lblInterviewMinutesPath.Location = new System.Drawing.Point(330, 70);
+            this.lblInterviewMinutesPath.Size = new System.Drawing.Size(100, 20);
+            this.txtInterviewMinutesPath.Location = new System.Drawing.Point(440, 70);
+            this.txtInterviewMinutesPath.Size = new System.Drawing.Size(200, 20);
+            this.txtInterviewMinutesPath.TabIndex = 8;
+
+            this.lblOfferLetterPath.Text = "Offer Letter Path:";
+            this.lblOfferLetterPath.Location = new System.Drawing.Point(330, 100);
+            this.lblOfferLetterPath.Size = new System.Drawing.Size(100, 20);
+            this.txtOfferLetterPath.Location = new System.Drawing.Point(440, 100);
+            this.txtOfferLetterPath.Size = new System.Drawing.Size(200, 20);
+            this.txtOfferLetterPath.TabIndex = 9;
+
+            this.dgvRecruitments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRecruitments.Location = new System.Drawing.Point(10, 190);
+            this.dgvRecruitments.Name = "dgvRecruitments";
+            this.dgvRecruitments.Size = new System.Drawing.Size(1150, 150);
+            this.dgvRecruitments.TabIndex = 10;
+            this.dgvRecruitments.SelectionChanged += new System.EventHandler(this.dgvRecruitments_SelectionChanged);
+
+            this.btnAddRecruitment.Text = "Add";
+            this.btnAddRecruitment.Location = new System.Drawing.Point(10, 350);
+            this.btnAddRecruitment.Size = new System.Drawing.Size(100, 30);
+            this.btnAddRecruitment.TabIndex = 11;
+            this.btnAddRecruitment.UseVisualStyleBackColor = true;
+            this.btnAddRecruitment.Click += new System.EventHandler(this.btnAddRecruitment_Click);
+
+            this.btnUpdateRecruitment.Text = "Update";
+            this.btnUpdateRecruitment.Location = new System.Drawing.Point(120, 350);
+            this.btnUpdateRecruitment.Size = new System.Drawing.Size(100, 30);
+            this.btnUpdateRecruitment.TabIndex = 12;
+            this.btnUpdateRecruitment.UseVisualStyleBackColor = true;
+            this.btnUpdateRecruitment.Click += new System.EventHandler(this.btnUpdateRecruitment_Click);
+
+            this.btnDeleteRecruitment.Text = "Delete";
+            this.btnDeleteRecruitment.Location = new System.Drawing.Point(230, 350);
+            this.btnDeleteRecruitment.Size = new System.Drawing.Size(100, 30);
+            this.btnDeleteRecruitment.TabIndex = 13;
+            this.btnDeleteRecruitment.UseVisualStyleBackColor = true;
+            this.btnDeleteRecruitment.Click += new System.EventHandler(this.btnDeleteRecruitment_Click);
+
+            this.btnExportRecruitments.Text = "Export to Excel";
+            this.btnExportRecruitments.Location = new System.Drawing.Point(340, 350);
+            this.btnExportRecruitments.Size = new System.Drawing.Size(100, 30);
+            this.btnExportRecruitments.TabIndex = 14;
+            this.btnExportRecruitments.UseVisualStyleBackColor = true;
+            this.btnExportRecruitments.Click += new System.EventHandler(this.btnExportRecruitments_Click);
 
             // 
-            // panelAttendanceInput
+            // tabSalary
             // 
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceSearch);
-            this.panelAttendanceInput.Controls.Add(this.txtAttendanceSearch);
-            this.panelAttendanceInput.Controls.Add(this.btnAttendanceSearch);
-            this.panelAttendanceInput.Controls.Add(this.btnAttendanceExport);
-            this.panelAttendanceInput.Controls.Add(this.btnAttendanceAdd);
-            this.panelAttendanceInput.Controls.Add(this.btnAttendanceUpdate);
-            this.panelAttendanceInput.Controls.Add(this.btnAttendanceDelete);
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceId);
-            this.panelAttendanceInput.Controls.Add(this.txtAttendanceId);
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceEmployee);
-            this.panelAttendanceInput.Controls.Add(this.cbAttendanceEmployee);
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceDate);
-            this.panelAttendanceInput.Controls.Add(this.dtpAttendanceDate);
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceCheckIn);
-            this.panelAttendanceInput.Controls.Add(this.dtpAttendanceCheckIn);
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceCheckOut);
-            this.panelAttendanceInput.Controls.Add(this.dtpAttendanceCheckOut);
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceStatus);
-            this.panelAttendanceInput.Controls.Add(this.cbAttendanceStatus);
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceAdminHours);
-            this.panelAttendanceInput.Controls.Add(this.txtAttendanceAdminHours);
-            this.panelAttendanceInput.Controls.Add(this.lblAttendanceOvertimeHours);
-            this.panelAttendanceInput.Controls.Add(this.txtAttendanceOvertimeHours);
-            this.panelAttendanceInput.Location = new System.Drawing.Point(0, 0);
-            this.panelAttendanceInput.Name = "panelAttendanceInput";
-            this.panelAttendanceInput.Size = new System.Drawing.Size(400, 568);
-            this.panelAttendanceInput.TabIndex = 0;
-            this.panelAttendanceInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabSalary.Controls.Add(this.lblSalaryId);
+            this.tabSalary.Controls.Add(this.txtSalaryId);
+            this.tabSalary.Controls.Add(this.lblSalaryEmployee);
+            this.tabSalary.Controls.Add(this.cbSalaryEmployee);
+            this.tabSalary.Controls.Add(this.lblMonthlySalary);
+            this.tabSalary.Controls.Add(this.txtMonthlySalary);
+            this.tabSalary.Controls.Add(this.lblPaySlipPath);
+            this.tabSalary.Controls.Add(this.txtPaySlipPath);
+            this.tabSalary.Controls.Add(this.lblSalaryIncreaseDecisionPath);
+            this.tabSalary.Controls.Add(this.txtSalaryIncreaseDecisionPath);
+            this.tabSalary.Controls.Add(this.lblBankAccount);
+            this.tabSalary.Controls.Add(this.txtBankAccount);
+            this.tabSalary.Controls.Add(this.lblInsuranceInfo);
+            this.tabSalary.Controls.Add(this.txtInsuranceInfo);
+            this.tabSalary.Controls.Add(this.lblAllowances);
+            this.tabSalary.Controls.Add(this.txtAllowances);
+            this.tabSalary.Controls.Add(this.lblBonuses);
+            this.tabSalary.Controls.Add(this.txtBonuses);
+            this.tabSalary.Controls.Add(this.lblLeavePolicy);
+            this.tabSalary.Controls.Add(this.txtLeavePolicy);
+            this.tabSalary.Controls.Add(this.dgvSalaries);
+            this.tabSalary.Controls.Add(this.btnAddSalary);
+            this.tabSalary.Controls.Add(this.btnUpdateSalary);
+            this.tabSalary.Controls.Add(this.btnDeleteSalary);
+            this.tabSalary.Controls.Add(this.btnExportSalaries);
+            this.tabSalary.Location = new System.Drawing.Point(4, 22);
+            this.tabSalary.Name = "tabSalary";
+            this.tabSalary.Size = new System.Drawing.Size(1172, 554);
+            this.tabSalary.Text = "Salary";
+            this.tabSalary.UseVisualStyleBackColor = true;
+
+            // Salary Controls Layout (Two Columns)
+            this.lblSalaryId.Text = "Salary ID:";
+            this.lblSalaryId.Location = new System.Drawing.Point(10, 10);
+            this.lblSalaryId.Size = new System.Drawing.Size(100, 20);
+            this.txtSalaryId.Location = new System.Drawing.Point(120, 10);
+            this.txtSalaryId.Size = new System.Drawing.Size(200, 20);
+            this.txtSalaryId.TabIndex = 0;
+
+            this.lblSalaryEmployee.Text = "Employee:";
+            this.lblSalaryEmployee.Location = new System.Drawing.Point(10, 40);
+            this.lblSalaryEmployee.Size = new System.Drawing.Size(100, 20);
+            this.cbSalaryEmployee.Location = new System.Drawing.Point(120, 40);
+            this.cbSalaryEmployee.Size = new System.Drawing.Size(200, 20);
+            this.cbSalaryEmployee.TabIndex = 1;
+
+            this.lblMonthlySalary.Text = "Monthly Salary:";
+            this.lblMonthlySalary.Location = new System.Drawing.Point(10, 70);
+            this.lblMonthlySalary.Size = new System.Drawing.Size(100, 20);
+            this.txtMonthlySalary.Location = new System.Drawing.Point(120, 70);
+            this.txtMonthlySalary.Size = new System.Drawing.Size(200, 20);
+            this.txtMonthlySalary.TabIndex = 2;
+
+            this.lblPaySlipPath.Text = "Pay Slip Path:";
+            this.lblPaySlipPath.Location = new System.Drawing.Point(10, 100);
+            this.lblPaySlipPath.Size = new System.Drawing.Size(100, 20);
+            this.txtPaySlipPath.Location = new System.Drawing.Point(120, 100);
+            this.txtPaySlipPath.Size = new System.Drawing.Size(200, 20);
+            this.txtPaySlipPath.TabIndex = 3;
+
+            this.lblSalaryIncreaseDecisionPath.Text = "Salary Increase Path:";
+            this.lblSalaryIncreaseDecisionPath.Location = new System.Drawing.Point(10, 130);
+            this.lblSalaryIncreaseDecisionPath.Size = new System.Drawing.Size(100, 20);
+            this.txtSalaryIncreaseDecisionPath.Location = new System.Drawing.Point(120, 130);
+            this.txtSalaryIncreaseDecisionPath.Size = new System.Drawing.Size(200, 20);
+            this.txtSalaryIncreaseDecisionPath.TabIndex = 4;
+
+            this.lblBankAccount.Text = "Bank Account:";
+            this.lblBankAccount.Location = new System.Drawing.Point(330, 10);
+            this.lblBankAccount.Size = new System.Drawing.Size(100, 20);
+            this.txtBankAccount.Location = new System.Drawing.Point(440, 10);
+            this.txtBankAccount.Size = new System.Drawing.Size(200, 20);
+            this.txtBankAccount.TabIndex = 5;
+
+            this.lblInsuranceInfo.Text = "Insurance Info:";
+            this.lblInsuranceInfo.Location = new System.Drawing.Point(330, 40);
+            this.lblInsuranceInfo.Size = new System.Drawing.Size(100, 20);
+            this.txtInsuranceInfo.Location = new System.Drawing.Point(440, 40);
+            this.txtInsuranceInfo.Size = new System.Drawing.Size(200, 20);
+            this.txtInsuranceInfo.TabIndex = 6;
+
+            this.lblAllowances.Text = "Allowances:";
+            this.lblAllowances.Location = new System.Drawing.Point(330, 70);
+            this.lblAllowances.Size = new System.Drawing.Size(100, 20);
+            this.txtAllowances.Location = new System.Drawing.Point(440, 70);
+            this.txtAllowances.Size = new System.Drawing.Size(200, 20);
+            this.txtAllowances.TabIndex = 7;
+
+            this.lblBonuses.Text = "Bonuses:";
+            this.lblBonuses.Location = new System.Drawing.Point(330, 100);
+            this.lblBonuses.Size = new System.Drawing.Size(100, 20);
+            this.txtBonuses.Location = new System.Drawing.Point(440, 100);
+            this.txtBonuses.Size = new System.Drawing.Size(200, 20);
+            this.txtBonuses.TabIndex = 8;
+
+            this.lblLeavePolicy.Text = "Leave Policy:";
+            this.lblLeavePolicy.Location = new System.Drawing.Point(330, 130);
+            this.lblLeavePolicy.Size = new System.Drawing.Size(100, 20);
+            this.txtLeavePolicy.Location = new System.Drawing.Point(440, 130);
+            this.txtLeavePolicy.Size = new System.Drawing.Size(200, 20);
+            this.txtLeavePolicy.TabIndex = 9;
+
+            this.dgvSalaries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSalaries.Location = new System.Drawing.Point(10, 160);
+            this.dgvSalaries.Name = "dgvSalaries";
+            this.dgvSalaries.Size = new System.Drawing.Size(1150, 150);
+            this.dgvSalaries.TabIndex = 10;
+            this.dgvSalaries.SelectionChanged += new System.EventHandler(this.dgvSalaries_SelectionChanged);
+
+            this.btnAddSalary.Text = "Add";
+            this.btnAddSalary.Location = new System.Drawing.Point(10, 320);
+            this.btnAddSalary.Size = new System.Drawing.Size(100, 30);
+            this.btnAddSalary.TabIndex = 11;
+            this.btnAddSalary.UseVisualStyleBackColor = true;
+            this.btnAddSalary.Click += new System.EventHandler(this.btnAddSalary_Click);
+
+            this.btnUpdateSalary.Text = "Update";
+            this.btnUpdateSalary.Location = new System.Drawing.Point(120, 320);
+            this.btnUpdateSalary.Size = new System.Drawing.Size(100, 30);
+            this.btnUpdateSalary.TabIndex = 12;
+            this.btnUpdateSalary.UseVisualStyleBackColor = true;
+            this.btnUpdateSalary.Click += new System.EventHandler(this.btnUpdateSalary_Click);
+
+            this.btnDeleteSalary.Text = "Delete";
+            this.btnDeleteSalary.Location = new System.Drawing.Point(230, 320);
+            this.btnDeleteSalary.Size = new System.Drawing.Size(100, 30);
+            this.btnDeleteSalary.TabIndex = 13;
+            this.btnDeleteSalary.UseVisualStyleBackColor = true;
+            this.btnDeleteSalary.Click += new System.EventHandler(this.btnDeleteSalary_Click);
+
+            this.btnExportSalaries.Text = "Export to Excel";
+            this.btnExportSalaries.Location = new System.Drawing.Point(340, 320);
+            this.btnExportSalaries.Size = new System.Drawing.Size(100, 30);
+            this.btnExportSalaries.TabIndex = 14;
+            this.btnExportSalaries.UseVisualStyleBackColor = true;
+            this.btnExportSalaries.Click += new System.EventHandler(this.btnExportSalaries_Click);
 
             // 
-            // lblAttendanceSearch
+            // tabTraining
             // 
-            this.lblAttendanceSearch.AutoSize = false;
-            this.lblAttendanceSearch.Location = new System.Drawing.Point(10, 10);
-            this.lblAttendanceSearch.Name = "lblAttendanceSearch";
-            this.lblAttendanceSearch.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceSearch.TabIndex = 0;
-            this.lblAttendanceSearch.Text = "Tìm kiếm:";
+            this.tabTraining.Controls.Add(this.lblTrainingId);
+            this.tabTraining.Controls.Add(this.txtTrainingId);
+            this.tabTraining.Controls.Add(this.lblTrainingEmployee);
+            this.tabTraining.Controls.Add(this.cbTrainingEmployee);
+            this.tabTraining.Controls.Add(this.lblTrainingPlanPath);
+            this.tabTraining.Controls.Add(this.txtTrainingPlanPath);
+            this.tabTraining.Controls.Add(this.lblCertificatePath);
+            this.tabTraining.Controls.Add(this.txtCertificatePath);
+            this.tabTraining.Controls.Add(this.lblEvaluationPath);
+            this.tabTraining.Controls.Add(this.txtEvaluationPath);
+            this.tabTraining.Controls.Add(this.lblCareerPath);
+            this.tabTraining.Controls.Add(this.txtCareerPath);
+            this.tabTraining.Controls.Add(this.lblSearchTraining);
+            this.tabTraining.Controls.Add(this.txtSearchTraining);
+            this.tabTraining.Controls.Add(this.btnSearchTraining);
+            this.tabTraining.Controls.Add(this.dgvTrainings);
+            this.tabTraining.Controls.Add(this.btnAddTraining);
+            this.tabTraining.Controls.Add(this.btnUpdateTraining);
+            this.tabTraining.Controls.Add(this.btnDeleteTraining);
+            this.tabTraining.Controls.Add(this.btnExportTrainings);
+            this.tabTraining.Location = new System.Drawing.Point(4, 22);
+            this.tabTraining.Name = "tabTraining";
+            this.tabTraining.Size = new System.Drawing.Size(1172, 554);
+            this.tabTraining.Text = "Training";
+            this.tabTraining.UseVisualStyleBackColor = true;
+
+            // Training Controls Layout (Two Columns)
+            this.lblTrainingId.Text = "Training ID:";
+            this.lblTrainingId.Location = new System.Drawing.Point(10, 10);
+            this.lblTrainingId.Size = new System.Drawing.Size(100, 20);
+            this.txtTrainingId.Location = new System.Drawing.Point(120, 10);
+            this.txtTrainingId.Size = new System.Drawing.Size(200, 20);
+            this.txtTrainingId.TabIndex = 0;
+
+            this.lblTrainingEmployee.Text = "Employee:";
+            this.lblTrainingEmployee.Location = new System.Drawing.Point(10, 40);
+            this.lblTrainingEmployee.Size = new System.Drawing.Size(100, 20);
+            this.cbTrainingEmployee.Location = new System.Drawing.Point(120, 40);
+            this.cbTrainingEmployee.Size = new System.Drawing.Size(200, 20);
+            this.cbTrainingEmployee.TabIndex = 1;
+
+            this.lblTrainingPlanPath.Text = "Training Plan Path:";
+            this.lblTrainingPlanPath.Location = new System.Drawing.Point(10, 70);
+            this.lblTrainingPlanPath.Size = new System.Drawing.Size(100, 20);
+            this.txtTrainingPlanPath.Location = new System.Drawing.Point(120, 70);
+            this.txtTrainingPlanPath.Size = new System.Drawing.Size(200, 20);
+            this.txtTrainingPlanPath.TabIndex = 2;
+
+            this.lblCertificatePath.Text = "Certificate Path:";
+            this.lblCertificatePath.Location = new System.Drawing.Point(10, 100);
+            this.lblCertificatePath.Size = new System.Drawing.Size(100, 20);
+            this.txtCertificatePath.Location = new System.Drawing.Point(120, 100);
+            this.txtCertificatePath.Size = new System.Drawing.Size(200, 20);
+            this.txtCertificatePath.TabIndex = 3;
+
+            this.lblEvaluationPath.Text = "Evaluation Path:";
+            this.lblEvaluationPath.Location = new System.Drawing.Point(10, 130);
+            this.lblEvaluationPath.Size = new System.Drawing.Size(100, 20);
+            this.txtEvaluationPath.Location = new System.Drawing.Point(120, 130);
+            this.txtEvaluationPath.Size = new System.Drawing.Size(200, 20);
+            this.txtEvaluationPath.TabIndex = 4;
+
+            this.lblCareerPath.Text = "Career Path:";
+            this.lblCareerPath.Location = new System.Drawing.Point(10, 160);
+            this.lblCareerPath.Size = new System.Drawing.Size(100, 20);
+            this.txtCareerPath.Location = new System.Drawing.Point(120, 160);
+            this.txtCareerPath.Size = new System.Drawing.Size(200, 20);
+            this.txtCareerPath.TabIndex = 5;
+
+            this.lblSearchTraining.Text = "Search Training:";
+            this.lblSearchTraining.Location = new System.Drawing.Point(330, 10);
+            this.lblSearchTraining.Size = new System.Drawing.Size(100, 20);
+            this.txtSearchTraining.Location = new System.Drawing.Point(440, 10);
+            this.txtSearchTraining.Size = new System.Drawing.Size(200, 20);
+            this.txtSearchTraining.TabIndex = 6;
+
+            this.btnSearchTraining.Text = "Search";
+            this.btnSearchTraining.Location = new System.Drawing.Point(650, 10);
+            this.btnSearchTraining.Size = new System.Drawing.Size(100, 30);
+            this.btnSearchTraining.TabIndex = 7;
+            this.btnSearchTraining.UseVisualStyleBackColor = true;
+            this.btnSearchTraining.Click += new System.EventHandler(this.btnSearchTraining_Click);
+
+            this.dgvTrainings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTrainings.Location = new System.Drawing.Point(10, 190);
+            this.dgvTrainings.Name = "dgvTrainings";
+            this.dgvTrainings.Size = new System.Drawing.Size(1150, 150);
+            this.dgvTrainings.TabIndex = 8;
+            this.dgvTrainings.SelectionChanged += new System.EventHandler(this.dgvTrainings_SelectionChanged);
+
+            this.btnAddTraining.Text = "Add";
+            this.btnAddTraining.Location = new System.Drawing.Point(10, 350);
+            this.btnAddTraining.Size = new System.Drawing.Size(100, 30);
+            this.btnAddTraining.TabIndex = 9;
+            this.btnAddTraining.UseVisualStyleBackColor = true;
+            this.btnAddTraining.Click += new System.EventHandler(this.btnAddTraining_Click);
+
+            this.btnUpdateTraining.Text = "Update";
+            this.btnUpdateTraining.Location = new System.Drawing.Point(120, 350);
+            this.btnUpdateTraining.Size = new System.Drawing.Size(100, 30);
+            this.btnUpdateTraining.TabIndex = 10;
+            this.btnUpdateTraining.UseVisualStyleBackColor = true;
+            this.btnUpdateTraining.Click += new System.EventHandler(this.btnUpdateTraining_Click);
+
+            this.btnDeleteTraining.Text = "Delete";
+            this.btnDeleteTraining.Location = new System.Drawing.Point(230, 350);
+            this.btnDeleteTraining.Size = new System.Drawing.Size(100, 30);
+            this.btnDeleteTraining.TabIndex = 11;
+            this.btnDeleteTraining.UseVisualStyleBackColor = true;
+            this.btnDeleteTraining.Click += new System.EventHandler(this.btnDeleteTraining_Click);
+
+            this.btnExportTrainings.Text = "Export to Excel";
+            this.btnExportTrainings.Location = new System.Drawing.Point(340, 350);
+            this.btnExportTrainings.Size = new System.Drawing.Size(100, 30);
+            this.btnExportTrainings.TabIndex = 12;
+            this.btnExportTrainings.UseVisualStyleBackColor = true;
+            this.btnExportTrainings.Click += new System.EventHandler(this.btnExportTrainings_Click);
 
             // 
-            // txtAttendanceSearch
+            // tabDiscipline
             // 
-            this.txtAttendanceSearch.Location = new System.Drawing.Point(100, 7);
-            this.txtAttendanceSearch.Name = "txtAttendanceSearch";
-            this.txtAttendanceSearch.Size = new System.Drawing.Size(230, 20);
-            this.txtAttendanceSearch.TabIndex = 1;
-            this.txtAttendanceSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.tabDiscipline.Controls.Add(this.lblDisciplineId);
+            this.tabDiscipline.Controls.Add(this.txtDisciplineId);
+            this.tabDiscipline.Controls.Add(this.lblDisciplineEmployee);
+            this.tabDiscipline.Controls.Add(this.cbDisciplineEmployee);
+            this.tabDiscipline.Controls.Add(this.lblViolationPath);
+            this.tabDiscipline.Controls.Add(this.txtViolationPath);
+            this.tabDiscipline.Controls.Add(this.lblDisciplinaryDecisionPath);
+            this.tabDiscipline.Controls.Add(this.txtDisciplinaryDecisionPath);
+            this.tabDiscipline.Controls.Add(this.lblResignationLetterPath);
+            this.tabDiscipline.Controls.Add(this.txtResignationLetterPath);
+            this.tabDiscipline.Controls.Add(this.lblTerminationDecisionPath);
+            this.tabDiscipline.Controls.Add(this.txtTerminationDecisionPath);
+            this.tabDiscipline.Controls.Add(this.lblHandoverPath);
+            this.tabDiscipline.Controls.Add(this.txtHandoverPath);
+            this.tabDiscipline.Controls.Add(this.lblLiquidationPath);
+            this.tabDiscipline.Controls.Add(this.txtLiquidationPath);
+            this.tabDiscipline.Controls.Add(this.dgvDisciplines);
+            this.tabDiscipline.Controls.Add(this.btnAddDiscipline);
+            this.tabDiscipline.Controls.Add(this.btnUpdateDiscipline);
+            this.tabDiscipline.Controls.Add(this.btnDeleteDiscipline);
+            this.tabDiscipline.Controls.Add(this.btnExportDisciplines);
+            this.tabDiscipline.Location = new System.Drawing.Point(4, 22);
+            this.tabDiscipline.Name = "tabDiscipline";
+            this.tabDiscipline.Size = new System.Drawing.Size(1172, 554);
+            this.tabDiscipline.Text = "Discipline";
+            this.tabDiscipline.UseVisualStyleBackColor = true;
 
-            // 
-            // btnAttendanceSearch
-            // 
-            this.btnAttendanceSearch.Location = new System.Drawing.Point(350, 7);
-            this.btnAttendanceSearch.Name = "btnAttendanceSearch";
-            this.btnAttendanceSearch.Size = new System.Drawing.Size(50, 23);
-            this.btnAttendanceSearch.TabIndex = 2;
-            this.btnAttendanceSearch.Text = "Tìm kiếm";
-            this.btnAttendanceSearch.UseVisualStyleBackColor = true;
-            this.btnAttendanceSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            // Discipline Controls Layout (Two Columns)
+            this.lblDisciplineId.Text = "Discipline ID:";
+            this.lblDisciplineId.Location = new System.Drawing.Point(10, 10);
+            this.lblDisciplineId.Size = new System.Drawing.Size(100, 20);
+            this.txtDisciplineId.Location = new System.Drawing.Point(120, 10);
+            this.txtDisciplineId.Size = new System.Drawing.Size(200, 20);
+            this.txtDisciplineId.TabIndex = 0;
 
-            // 
-            // btnAttendanceExport
-            // 
-            this.btnAttendanceExport.Location = new System.Drawing.Point(10, 520);
-            this.btnAttendanceExport.Name = "btnAttendanceExport";
-            this.btnAttendanceExport.Size = new System.Drawing.Size(80, 23);
-            this.btnAttendanceExport.TabIndex = 3;
-            this.btnAttendanceExport.Text = "Xuất Excel";
-            this.btnAttendanceExport.UseVisualStyleBackColor = true;
+            this.lblDisciplineEmployee.Text = "Employee:";
+            this.lblDisciplineEmployee.Location = new System.Drawing.Point(10, 40);
+            this.lblDisciplineEmployee.Size = new System.Drawing.Size(100, 20);
+            this.cbDisciplineEmployee.Location = new System.Drawing.Point(120, 40);
+            this.cbDisciplineEmployee.Size = new System.Drawing.Size(200, 20);
+            this.cbDisciplineEmployee.TabIndex = 1;
 
-            // 
-            // lblAttendanceId
-            // 
-            this.lblAttendanceId.AutoSize = false;
-            this.lblAttendanceId.Location = new System.Drawing.Point(10, 40);
-            this.lblAttendanceId.Name = "lblAttendanceId";
-            this.lblAttendanceId.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceId.TabIndex = 4;
-            this.lblAttendanceId.Text = "ID:";
+            this.lblViolationPath.Text = "Violation Path:";
+            this.lblViolationPath.Location = new System.Drawing.Point(10, 70);
+            this.lblViolationPath.Size = new System.Drawing.Size(100, 20);
+            this.txtViolationPath.Location = new System.Drawing.Point(120, 70);
+            this.txtViolationPath.Size = new System.Drawing.Size(200, 20);
+            this.txtViolationPath.TabIndex = 2;
 
-            // 
-            // txtAttendanceId
-            // 
-            this.txtAttendanceId.Location = new System.Drawing.Point(100, 37);
-            this.txtAttendanceId.Name = "txtAttendanceId";
-            this.txtAttendanceId.ReadOnly = true;
-            this.txtAttendanceId.Size = new System.Drawing.Size(300, 20);
-            this.txtAttendanceId.TabIndex = 5;
-            this.txtAttendanceId.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblDisciplinaryDecisionPath.Text = "Disciplinary Decision Path:";
+            this.lblDisciplinaryDecisionPath.Location = new System.Drawing.Point(10, 100);
+            this.lblDisciplinaryDecisionPath.Size = new System.Drawing.Size(100, 20);
+            this.txtDisciplinaryDecisionPath.Location = new System.Drawing.Point(120, 100);
+            this.txtDisciplinaryDecisionPath.Size = new System.Drawing.Size(200, 20);
+            this.txtDisciplinaryDecisionPath.TabIndex = 3;
 
-            // 
-            // lblAttendanceEmployee
-            // 
-            this.lblAttendanceEmployee.AutoSize = false;
-            this.lblAttendanceEmployee.Location = new System.Drawing.Point(10, 70);
-            this.lblAttendanceEmployee.Name = "lblAttendanceEmployee";
-            this.lblAttendanceEmployee.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceEmployee.TabIndex = 6;
-            this.lblAttendanceEmployee.Text = "Nhân viên:";
+            this.lblResignationLetterPath.Text = "Resignation Letter Path:";
+            this.lblResignationLetterPath.Location = new System.Drawing.Point(10, 130);
+            this.lblResignationLetterPath.Size = new System.Drawing.Size(100, 20);
+            this.txtResignationLetterPath.Location = new System.Drawing.Point(120, 130);
+            this.txtResignationLetterPath.Size = new System.Drawing.Size(200, 20);
+            this.txtResignationLetterPath.TabIndex = 4;
 
-            // 
-            // cbAttendanceEmployee
-            // 
-            this.cbAttendanceEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbAttendanceEmployee.Location = new System.Drawing.Point(100, 67);
-            this.cbAttendanceEmployee.Name = "cbAttendanceEmployee";
-            this.cbAttendanceEmployee.Size = new System.Drawing.Size(300, 21);
-            this.cbAttendanceEmployee.TabIndex = 7;
-            this.cbAttendanceEmployee.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblTerminationDecisionPath.Text = "Termination Decision Path:";
+            this.lblTerminationDecisionPath.Location = new System.Drawing.Point(330, 10);
+            this.lblTerminationDecisionPath.Size = new System.Drawing.Size(100, 20);
+            this.txtTerminationDecisionPath.Location = new System.Drawing.Point(440, 10);
+            this.txtTerminationDecisionPath.Size = new System.Drawing.Size(200, 20);
+            this.txtTerminationDecisionPath.TabIndex = 5;
 
-            // 
-            // lblAttendanceDate
-            // 
-            this.lblAttendanceDate.AutoSize = false;
-            this.lblAttendanceDate.Location = new System.Drawing.Point(10, 100);
-            this.lblAttendanceDate.Name = "lblAttendanceDate";
-            this.lblAttendanceDate.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceDate.TabIndex = 8;
-            this.lblAttendanceDate.Text = "Ngày:";
+            this.lblHandoverPath.Text = "Handover Path:";
+            this.lblHandoverPath.Location = new System.Drawing.Point(330, 40);
+            this.lblHandoverPath.Size = new System.Drawing.Size(100, 20);
+            this.txtHandoverPath.Location = new System.Drawing.Point(440, 40);
+            this.txtHandoverPath.Size = new System.Drawing.Size(200, 20);
+            this.txtHandoverPath.TabIndex = 6;
 
-            // 
-            // dtpAttendanceDate
-            // 
-            this.dtpAttendanceDate.Location = new System.Drawing.Point(100, 97);
-            this.dtpAttendanceDate.Name = "dtpAttendanceDate";
-            this.dtpAttendanceDate.Size = new System.Drawing.Size(300, 20);
-            this.dtpAttendanceDate.TabIndex = 9;
-            this.dtpAttendanceDate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.lblLiquidationPath.Text = "Liquidation Path:";
+            this.lblLiquidationPath.Location = new System.Drawing.Point(330, 70);
+            this.lblLiquidationPath.Size = new System.Drawing.Size(100, 20);
+            this.txtLiquidationPath.Location = new System.Drawing.Point(440, 70);
+            this.txtLiquidationPath.Size = new System.Drawing.Size(200, 20);
+            this.txtLiquidationPath.TabIndex = 7;
 
-            // 
-            // lblAttendanceCheckIn
-            // 
-            this.lblAttendanceCheckIn.AutoSize = false;
-            this.lblAttendanceCheckIn.Location = new System.Drawing.Point(10, 130);
-            this.lblAttendanceCheckIn.Name = "lblAttendanceCheckIn";
-            this.lblAttendanceCheckIn.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceCheckIn.TabIndex = 10;
-            this.lblAttendanceCheckIn.Text = "Giờ vào:";
+            this.dgvDisciplines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDisciplines.Location = new System.Drawing.Point(10, 160);
+            this.dgvDisciplines.Name = "dgvDisciplines";
+            this.dgvDisciplines.Size = new System.Drawing.Size(1150, 150);
+            this.dgvDisciplines.TabIndex = 8;
+            this.dgvDisciplines.SelectionChanged += new System.EventHandler(this.dgvDisciplines_SelectionChanged);
 
-            // 
-            // dtpAttendanceCheckIn
-            // 
-            this.dtpAttendanceCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpAttendanceCheckIn.Location = new System.Drawing.Point(100, 127);
-            this.dtpAttendanceCheckIn.Name = "dtpAttendanceCheckIn";
-            this.dtpAttendanceCheckIn.ShowCheckBox = true;
-            this.dtpAttendanceCheckIn.Size = new System.Drawing.Size(300, 20);
-            this.dtpAttendanceCheckIn.TabIndex = 11;
-            this.dtpAttendanceCheckIn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.btnAddDiscipline.Text = "Add";
+            this.btnAddDiscipline.Location = new System.Drawing.Point(10, 320);
+            this.btnAddDiscipline.Size = new System.Drawing.Size(100, 30);
+            this.btnAddDiscipline.TabIndex = 9;
+            this.btnAddDiscipline.UseVisualStyleBackColor = true;
+            this.btnAddDiscipline.Click += new System.EventHandler(this.btnAddDiscipline_Click);
 
-            // 
-            // lblAttendanceCheckOut
-            // 
-            this.lblAttendanceCheckOut.AutoSize = false;
-            this.lblAttendanceCheckOut.Location = new System.Drawing.Point(10, 160);
-            this.lblAttendanceCheckOut.Name = "lblAttendanceCheckOut";
-            this.lblAttendanceCheckOut.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceCheckOut.TabIndex = 12;
-            this.lblAttendanceCheckOut.Text = "Giờ ra:";
 
-            // 
-            // dtpAttendanceCheckOut
-            // 
-            this.dtpAttendanceCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpAttendanceCheckOut.Location = new System.Drawing.Point(100, 157);
-            this.dtpAttendanceCheckOut.Name = "dtpAttendanceCheckOut";
-            this.dtpAttendanceCheckOut.ShowCheckBox = true;
-            this.dtpAttendanceCheckOut.Size = new System.Drawing.Size(300, 20);
-            this.dtpAttendanceCheckOut.TabIndex = 13;
-            this.dtpAttendanceCheckOut.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.btnUpdateDiscipline.Text = "Update";
+            this.btnUpdateDiscipline.Location = new System.Drawing.Point(120, 320);
+            this.btnUpdateDiscipline.Size = new System.Drawing.Size(100, 30);
+            this.btnUpdateDiscipline.TabIndex = 10;
+            this.btnUpdateDiscipline.UseVisualStyleBackColor = true;
+            this.btnUpdateDiscipline.Click += new System.EventHandler(this.btnUpdateDiscipline_Click);
 
-            // 
-            // lblAttendanceStatus
-            // 
-            this.lblAttendanceStatus.AutoSize = false;
-            this.lblAttendanceStatus.Location = new System.Drawing.Point(10, 190);
-            this.lblAttendanceStatus.Name = "lblAttendanceStatus";
-            this.lblAttendanceStatus.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceStatus.TabIndex = 14;
-            this.lblAttendanceStatus.Text = "Trạng thái:";
+            this.btnDeleteDiscipline.Text = "Delete";
+            this.btnDeleteDiscipline.Location = new System.Drawing.Point(230, 320);
+            this.btnDeleteDiscipline.Size = new System.Drawing.Size(100, 30);
+            this.btnDeleteDiscipline.TabIndex = 11;
+            this.btnDeleteDiscipline.UseVisualStyleBackColor = true;
+            this.btnDeleteDiscipline.Click += new System.EventHandler(this.btnDeleteDiscipline_Click);
 
-            // 
-            // cbAttendanceStatus
-            // 
-            this.cbAttendanceStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbAttendanceStatus.Location = new System.Drawing.Point(100, 187);
-            this.cbAttendanceStatus.Name = "cbAttendanceStatus";
-            this.cbAttendanceStatus.Size = new System.Drawing.Size(300, 21);
-            this.cbAttendanceStatus.TabIndex = 15;
-            this.cbAttendanceStatus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblAttendanceAdminHours
-            // 
-            this.lblAttendanceAdminHours.AutoSize = false;
-            this.lblAttendanceAdminHours.Location = new System.Drawing.Point(10, 220);
-            this.lblAttendanceAdminHours.Name = "lblAttendanceAdminHours";
-            this.lblAttendanceAdminHours.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceAdminHours.TabIndex = 16;
-            this.lblAttendanceAdminHours.Text = "Giờ hành chính:";
-
-            // 
-            // txtAttendanceAdminHours
-            // 
-            this.txtAttendanceAdminHours.Location = new System.Drawing.Point(100, 217);
-            this.txtAttendanceAdminHours.Name = "txtAttendanceAdminHours";
-            this.txtAttendanceAdminHours.ReadOnly = true;
-            this.txtAttendanceAdminHours.Size = new System.Drawing.Size(300, 20);
-            this.txtAttendanceAdminHours.TabIndex = 17;
-            this.txtAttendanceAdminHours.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // lblAttendanceOvertimeHours
-            // 
-            this.lblAttendanceOvertimeHours.AutoSize = false;
-            this.lblAttendanceOvertimeHours.Location = new System.Drawing.Point(10, 250);
-            this.lblAttendanceOvertimeHours.Name = "lblAttendanceOvertimeHours";
-            this.lblAttendanceOvertimeHours.Size = new System.Drawing.Size(80, 13);
-            this.lblAttendanceOvertimeHours.TabIndex = 18;
-            this.lblAttendanceOvertimeHours.Text = "Giờ tăng ca:";
-
-            // 
-            // txtAttendanceOvertimeHours
-            // 
-            this.txtAttendanceOvertimeHours.Location = new System.Drawing.Point(100, 247);
-            this.txtAttendanceOvertimeHours.Name = "txtAttendanceOvertimeHours";
-            this.txtAttendanceOvertimeHours.ReadOnly = true;
-            this.txtAttendanceOvertimeHours.Size = new System.Drawing.Size(300, 20);
-            this.txtAttendanceOvertimeHours.TabIndex = 19;
-            this.txtAttendanceOvertimeHours.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            // 
-            // btnAttendanceAdd
-            // 
-            this.btnAttendanceAdd.Location = new System.Drawing.Point(10, 280);
-            this.btnAttendanceAdd.Name = "btnAttendanceAdd";
-            this.btnAttendanceAdd.Size = new System.Drawing.Size(80, 23);
-            this.btnAttendanceAdd.TabIndex = 20;
-            this.btnAttendanceAdd.Text = "Thêm";
-            this.btnAttendanceAdd.UseVisualStyleBackColor = true;
-
-            // 
-            // btnAttendanceUpdate
-            // 
-            this.btnAttendanceUpdate.Location = new System.Drawing.Point(100, 280);
-            this.btnAttendanceUpdate.Name = "btnAttendanceUpdate";
-            this.btnAttendanceUpdate.Size = new System.Drawing.Size(80, 23);
-            this.btnAttendanceUpdate.TabIndex = 21;
-            this.btnAttendanceUpdate.Text = "Cập nhật";
-            this.btnAttendanceUpdate.UseVisualStyleBackColor = true;
-
-            // 
-            // btnAttendanceDelete
-            // 
-            this.btnAttendanceDelete.Location = new System.Drawing.Point(190, 280);
-            this.btnAttendanceDelete.Name = "btnAttendanceDelete";
-            this.btnAttendanceDelete.Size = new System.Drawing.Size(80, 23);
-            this.btnAttendanceDelete.TabIndex = 22;
-            this.btnAttendanceDelete.Text = "Xóa";
-            this.btnAttendanceDelete.UseVisualStyleBackColor = true;
-
-            // 
-            // dgvAttendance
-            // 
-            this.dgvAttendance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAttendance.Location = new System.Drawing.Point(0, 0);
-            this.dgvAttendance.Name = "dgvAttendance";
-            this.dgvAttendance.Size = new System.Drawing.Size(542, 568);
-            this.dgvAttendance.TabIndex = 0;
-            this.dgvAttendance.Dock = System.Windows.Forms.DockStyle.Fill;
-
-            // 
-            // btnExportFullReport
-            // 
-            this.btnExportFullReport.Location = new System.Drawing.Point(12, 620);
-            this.btnExportFullReport.Name = "btnExportFullReport";
-            this.btnExportFullReport.Size = new System.Drawing.Size(150, 23);
-            this.btnExportFullReport.TabIndex = 24;
-            this.btnExportFullReport.Text = "Xuất Báo cáo Toàn bộ";
-            this.btnExportFullReport.UseVisualStyleBackColor = true;
-            this.btnExportFullReport.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            this.btnExportDisciplines.Text = "Export to Excel";
+            this.btnExportDisciplines.Location = new System.Drawing.Point(340, 320);
+            this.btnExportDisciplines.Size = new System.Drawing.Size(100, 30);
+            this.btnExportDisciplines.TabIndex = 12;
+            this.btnExportDisciplines.UseVisualStyleBackColor = true;
+            this.btnExportDisciplines.Click += new System.EventHandler(this.btnExportDisciplines_Click);
 
             // 
             // HRManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 661);
-            this.Controls.Add(this.btnExportFullReport);
+            this.ClientSize = new System.Drawing.Size(1200, 600);
             this.Controls.Add(this.tabControl);
             this.Name = "HRManagementForm";
-            this.Text = "Ứng dụng Quản lý Nhân sự";
-
-            this.panelEmployeeInput.ResumeLayout(false);
-            this.panelEmployeeInput.PerformLayout();
-            this.panelContractInput.ResumeLayout(false);
-            this.panelContractInput.PerformLayout();
-            this.panelAttendanceInput.ResumeLayout(false);
-            this.panelAttendanceInput.PerformLayout();
+            this.Text = "HR Management System";
+            this.Load += new System.EventHandler(this.HRManagementForm_Load);
+            this.tabControl.ResumeLayout(false);
+            this.tabEmployee.ResumeLayout(false);
+            this.tabEmployee.PerformLayout();
+            this.tabContract.ResumeLayout(false);
+            this.tabContract.PerformLayout();
+            this.tabAttendance.ResumeLayout(false);
+            this.tabAttendance.PerformLayout();
+            this.tabRecruitment.ResumeLayout(false);
+            this.tabRecruitment.PerformLayout();
+            this.tabSalary.ResumeLayout(false);
+            this.tabSalary.PerformLayout();
+            this.tabTraining.ResumeLayout(false);
+            this.tabTraining.PerformLayout();
+            this.tabDiscipline.ResumeLayout(false);
+            this.tabDiscipline.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContracts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudContractSalary)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendance)).EndInit();
-            this.splitContainerEmployees.Panel1.ResumeLayout(false);
-            this.splitContainerEmployees.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEmployees)).EndInit();
-            this.splitContainerEmployees.ResumeLayout(false);
-            this.splitContainerContracts.Panel1.ResumeLayout(false);
-            this.splitContainerContracts.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerContracts)).EndInit();
-            this.splitContainerContracts.ResumeLayout(false);
-            this.splitContainerAttendance.Panel1.ResumeLayout(false);
-            this.splitContainerAttendance.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAttendance)).EndInit();
-            this.splitContainerAttendance.ResumeLayout(false);
-            this.tabEmployees.ResumeLayout(false);
-            this.tabContracts.ResumeLayout(false);
-            this.tabAttendance.ResumeLayout(false);
-            this.tabControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendances)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecruitments)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSalaries)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrainings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDisciplines)).EndInit();
             this.ResumeLayout(false);
         }
 
-        #endregion
+        private void HRManagementForm_Load(object sender, EventArgs e)
+        {
+            // Example: Load employee data
+            // Add similar calls for other tabs
+        }
 
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabEmployees;
-        private System.Windows.Forms.TabPage tabContracts;
-        private System.Windows.Forms.TabPage tabAttendance;
-        private System.Windows.Forms.SplitContainer splitContainerEmployees;
-        private System.Windows.Forms.SplitContainer splitContainerContracts;
-        private System.Windows.Forms.SplitContainer splitContainerAttendance;
-        private System.Windows.Forms.Panel panelEmployeeInput;
-        private System.Windows.Forms.Label lblEmployeeSearch;
-        private System.Windows.Forms.TextBox txtEmployeeSearch;
-        private System.Windows.Forms.Button btnEmployeeSearch;
-        private System.Windows.Forms.Button btnEmployeeExport;
-        private System.Windows.Forms.Button btnEmployeeAdd;
-        private System.Windows.Forms.Button btnEmployeeUpdate;
-        private System.Windows.Forms.Button btnEmployeeDelete;
-        private System.Windows.Forms.Label lblEmployeeId;
-        private System.Windows.Forms.TextBox txtEmployeeId;
-        private System.Windows.Forms.Label lblEmployeeFirstName;
-        private System.Windows.Forms.TextBox txtEmployeeFirstName;
-        private System.Windows.Forms.Label lblEmployeeLastName;
-        private System.Windows.Forms.TextBox txtEmployeeLastName;
-        private System.Windows.Forms.Label lblEmployeeBirthDate;
-        private System.Windows.Forms.DateTimePicker dtpEmployeeBirthDate;
-        private System.Windows.Forms.Label lblEmployeeGender;
-        private System.Windows.Forms.ComboBox cbEmployeeGender;
-        private System.Windows.Forms.Label lblEmployeeAddress;
-        private System.Windows.Forms.TextBox txtEmployeeAddress;
-        private System.Windows.Forms.Label lblEmployeePhone;
-        private System.Windows.Forms.TextBox txtEmployeePhone;
-        private System.Windows.Forms.Label lblEmployeeEmail;
-        private System.Windows.Forms.TextBox txtEmployeeEmail;
-        private System.Windows.Forms.Label lblEmployeeDepartment;
-        private System.Windows.Forms.ComboBox cbEmployeeDepartment;
-        private System.Windows.Forms.Label lblEmployeePosition;
-        private System.Windows.Forms.ComboBox cbEmployeePosition;
-        private System.Windows.Forms.Label lblEmployeeHireDate;
-        private System.Windows.Forms.DateTimePicker dtpEmployeeHireDate;
-        private System.Windows.Forms.Label lblEmployeeEducation;
-        private System.Windows.Forms.TextBox txtEmployeeEducation;
-        private System.Windows.Forms.Label lblEmployeeCCCD;
-        private System.Windows.Forms.TextBox txtEmployeeCCCD;
-        private System.Windows.Forms.DataGridView dgvEmployees;
-        private System.Windows.Forms.Panel panelContractInput;
-        private System.Windows.Forms.Label lblContractSearch;
-        private System.Windows.Forms.TextBox txtContractSearch;
-        private System.Windows.Forms.Button btnContractSearch;
-        private System.Windows.Forms.Button btnContractExport;
-        private System.Windows.Forms.Button btnContractAdd;
-        private System.Windows.Forms.Button btnContractUpdate;
-        private System.Windows.Forms.Button btnContractDelete;
-        private System.Windows.Forms.Label lblContractId;
-        private System.Windows.Forms.TextBox txtContractId;
-        private System.Windows.Forms.Label lblContractEmployee;
-        private System.Windows.Forms.ComboBox cbContractEmployee;
-        private System.Windows.Forms.Label lblContractType;
-        private System.Windows.Forms.TextBox txtContractType;
-        private System.Windows.Forms.Label lblContractStartDate;
-        private System.Windows.Forms.DateTimePicker dtpContractStartDate;
-        private System.Windows.Forms.Label lblContractEndDate;
-        private System.Windows.Forms.DateTimePicker dtpContractEndDate;
-        private System.Windows.Forms.Label lblContractSalary;
-        private System.Windows.Forms.NumericUpDown nudContractSalary;
-        private System.Windows.Forms.Label lblContractStatus;
-        private System.Windows.Forms.ComboBox cbContractStatus;
-        private System.Windows.Forms.Label lblContractEmployeeCCCD;
-        private System.Windows.Forms.TextBox txtContractEmployeeCCCD;
-        private System.Windows.Forms.Label lblContractEmployeePhone;
-        private System.Windows.Forms.TextBox txtContractEmployeePhone;
-        private System.Windows.Forms.Label lblContractEmployeeEmail;
-        private System.Windows.Forms.TextBox txtContractEmployeeEmail;
-        private System.Windows.Forms.Label lblContractEmployeeDepartment;
-        private System.Windows.Forms.TextBox txtContractEmployeeDepartment;
-        private System.Windows.Forms.Label lblContractEmployeePosition;
-        private System.Windows.Forms.TextBox txtContractEmployeePosition;
-        private System.Windows.Forms.DataGridView dgvContracts;
-        private System.Windows.Forms.Panel panelAttendanceInput;
-        private System.Windows.Forms.Label lblAttendanceSearch;
-        private System.Windows.Forms.TextBox txtAttendanceSearch;
-        private System.Windows.Forms.Button btnAttendanceSearch;
-        private System.Windows.Forms.Button btnAttendanceExport;
-        private System.Windows.Forms.Button btnAttendanceAdd;
-        private System.Windows.Forms.Button btnAttendanceUpdate;
-        private System.Windows.Forms.Button btnAttendanceDelete;
-        private System.Windows.Forms.Label lblAttendanceId;
-        private System.Windows.Forms.TextBox txtAttendanceId;
-        private System.Windows.Forms.Label lblAttendanceEmployee;
-        private System.Windows.Forms.ComboBox cbAttendanceEmployee;
-        private System.Windows.Forms.Label lblAttendanceDate;
-        private System.Windows.Forms.DateTimePicker dtpAttendanceDate;
-        private System.Windows.Forms.Label lblAttendanceCheckIn;
-        private System.Windows.Forms.DateTimePicker dtpAttendanceCheckIn;
-        private System.Windows.Forms.Label lblAttendanceCheckOut;
-        private System.Windows.Forms.DateTimePicker dtpAttendanceCheckOut;
-        private System.Windows.Forms.Label lblAttendanceStatus;
-        private System.Windows.Forms.ComboBox cbAttendanceStatus;
-        private System.Windows.Forms.Label lblAttendanceAdminHours;
-        private System.Windows.Forms.TextBox txtAttendanceAdminHours;
-        private System.Windows.Forms.Label lblAttendanceOvertimeHours;
-        private System.Windows.Forms.TextBox txtAttendanceOvertimeHours;
-        private System.Windows.Forms.DataGridView dgvAttendance;
-        private System.Windows.Forms.Button btnExportFullReport;
+        public System.Windows.Forms.TabControl tabControl;
+        public System.Windows.Forms.TabPage tabEmployee;
+        public System.Windows.Forms.TabPage tabContract;
+        public System.Windows.Forms.TabPage tabAttendance;
+        public System.Windows.Forms.TabPage tabRecruitment;
+        public System.Windows.Forms.TabPage tabSalary;
+        public System.Windows.Forms.TabPage tabTraining;
+        public System.Windows.Forms.TabPage tabDiscipline;
+
+        // Employee Controls
+        public System.Windows.Forms.Label lblEmployeeId;
+        public System.Windows.Forms.TextBox txtEmployeeId;
+        public System.Windows.Forms.Label lblEmployeeName;
+        public System.Windows.Forms.TextBox txtEmployeeName;
+        public System.Windows.Forms.Label lblDOB;
+        public System.Windows.Forms.DateTimePicker dtpDOB;
+        public System.Windows.Forms.Label lblGender;
+        public System.Windows.Forms.TextBox txtGender;
+        public System.Windows.Forms.Label lblNationality;
+        public System.Windows.Forms.TextBox txtNationality;
+        public System.Windows.Forms.Label lblCCCD;
+        public System.Windows.Forms.TextBox txtCCCD;
+        public System.Windows.Forms.Label lblCCCDIssueDate;
+        public System.Windows.Forms.DateTimePicker dtpCCCDIssueDate;
+        public System.Windows.Forms.Label lblCCCDIssuePlace;
+        public System.Windows.Forms.TextBox txtCCCDIssuePlace;
+        public System.Windows.Forms.Label lblPermanentAddress;
+        public System.Windows.Forms.TextBox txtPermanentAddress;
+        public System.Windows.Forms.Label lblCurrentAddress;
+        public System.Windows.Forms.TextBox txtCurrentAddress;
+        public System.Windows.Forms.Label lblPhone;
+        public System.Windows.Forms.TextBox txtPhone;
+        public System.Windows.Forms.Label lblEmail;
+        public System.Windows.Forms.TextBox txtEmail;
+        public System.Windows.Forms.Label lblMaritalStatus;
+        public System.Windows.Forms.TextBox txtMaritalStatus;
+        public System.Windows.Forms.Label lblDependents;
+        public System.Windows.Forms.TextBox txtDependents;
+        public System.Windows.Forms.Label lblSocialInsuranceNumber;
+        public System.Windows.Forms.TextBox txtSocialInsuranceNumber;
+        public System.Windows.Forms.Label lblTaxCode;
+        public System.Windows.Forms.TextBox txtTaxCode;
+        public System.Windows.Forms.Label lblJobDescription;
+        public System.Windows.Forms.TextBox txtJobDescription;
+        public System.Windows.Forms.Label lblPosition;
+        public System.Windows.Forms.TextBox txtPosition;
+        public System.Windows.Forms.Label lblDepartment;
+        public System.Windows.Forms.TextBox txtDepartment;
+        public System.Windows.Forms.Label lblRank;
+        public System.Windows.Forms.TextBox txtRank;
+        public System.Windows.Forms.Label lblManager;
+        public System.Windows.Forms.TextBox txtManager;
+        public System.Windows.Forms.Label lblWorkSchedule;
+        public System.Windows.Forms.TextBox txtWorkSchedule;
+        public System.Windows.Forms.DataGridView dgvEmployees;
+        public System.Windows.Forms.Button btnAddEmployee;
+        public System.Windows.Forms.Button btnUpdateEmployee;
+        public System.Windows.Forms.Button btnDeleteEmployee;
+        public System.Windows.Forms.Button btnExportEmployees;
+
+        // Contract Controls
+        public System.Windows.Forms.Label lblContractId;
+        public System.Windows.Forms.TextBox txtContractId;
+        public System.Windows.Forms.Label lblContractEmployee;
+        public System.Windows.Forms.ComboBox cbContractEmployee;
+        public System.Windows.Forms.Label lblStartDate;
+        public System.Windows.Forms.DateTimePicker dtpStartDate;
+        public System.Windows.Forms.Label lblEndDate;
+        public System.Windows.Forms.DateTimePicker dtpEndDate;
+        public System.Windows.Forms.Label lblContractType;
+        public System.Windows.Forms.TextBox txtContractType;
+        public System.Windows.Forms.Label lblContractAnnexPath;
+        public System.Windows.Forms.TextBox txtContractAnnexPath;
+        public System.Windows.Forms.Label lblConfidentialityAgreementPath;
+        public System.Windows.Forms.TextBox txtConfidentialityAgreementPath;
+        public System.Windows.Forms.Label lblNonCompeteAgreementPath;
+        public System.Windows.Forms.TextBox txtNonCompeteAgreementPath;
+        public System.Windows.Forms.Label lblAppointmentDecisionPath;
+        public System.Windows.Forms.TextBox txtAppointmentDecisionPath;
+        public System.Windows.Forms.Label lblSalaryIncreaseDecisionPath;
+        public System.Windows.Forms.TextBox txtSalaryIncreaseDecisionPath;
+        public System.Windows.Forms.Label lblRewardDecisionPath;
+        public System.Windows.Forms.TextBox txtRewardDecisionPath;
+        public System.Windows.Forms.DataGridView dgvContracts;
+        public System.Windows.Forms.Button btnAddContract;
+        public System.Windows.Forms.Button btnUpdateContract;
+        public System.Windows.Forms.Button btnDeleteContract;
+        public System.Windows.Forms.Button btnExportContracts;
+
+        // Attendance Controls
+        public System.Windows.Forms.Label lblAttendanceId;
+        public System.Windows.Forms.TextBox txtAttendanceId;
+        public System.Windows.Forms.Label lblAttendanceEmployee;
+        public System.Windows.Forms.ComboBox cbAttendanceEmployee;
+        public System.Windows.Forms.Label lblAttendanceDate;
+        public System.Windows.Forms.DateTimePicker dtpAttendanceDate;
+        public System.Windows.Forms.Label lblCheckInTime;
+        public System.Windows.Forms.DateTimePicker dtpCheckInTime;
+        public System.Windows.Forms.Label lblCheckOutTime;
+        public System.Windows.Forms.DateTimePicker dtpCheckOutTime;
+        public System.Windows.Forms.Label lblStatus;
+        public System.Windows.Forms.TextBox txtStatus;
+        public System.Windows.Forms.Label lblAdminHours;
+        public System.Windows.Forms.TextBox txtAdminHours;
+        public System.Windows.Forms.Label lblOvertimeHours;
+        public System.Windows.Forms.TextBox txtOvertimeHours;
+        public System.Windows.Forms.DataGridView dgvAttendances;
+        public System.Windows.Forms.Button btnAddAttendance;
+        public System.Windows.Forms.Button btnUpdateAttendance;
+        public System.Windows.Forms.Button btnDeleteAttendance;
+        public System.Windows.Forms.Button btnExportAttendances;
+
+        // Recruitment Controls
+        public System.Windows.Forms.Label lblRecruitmentId;
+        public System.Windows.Forms.TextBox txtRecruitmentId;
+        public System.Windows.Forms.Label lblRecruitmentEmployee;
+        public System.Windows.Forms.ComboBox cbRecruitmentEmployee;
+        public System.Windows.Forms.Label lblJobApplicationPath;
+        public System.Windows.Forms.TextBox txtJobApplicationPath;
+        public System.Windows.Forms.Label lblResumePath;
+        public System.Windows.Forms.TextBox txtResumePath;
+        public System.Windows.Forms.Label lblDegreesPath;
+        public System.Windows.Forms.TextBox txtDegreesPath;
+        public System.Windows.Forms.Label lblHealthCheckPath;
+        public System.Windows.Forms.TextBox txtHealthCheckPath;
+        public System.Windows.Forms.Label lblCVPath;
+        public System.Windows.Forms.TextBox txtCVPath;
+        public System.Windows.Forms.Label lblReferenceLetterPath;
+        public System.Windows.Forms.TextBox txtReferenceLetterPath;
+        public System.Windows.Forms.Label lblInterviewMinutesPath;
+        public System.Windows.Forms.TextBox txtInterviewMinutesPath;
+        public System.Windows.Forms.Label lblOfferLetterPath;
+        public System.Windows.Forms.TextBox txtOfferLetterPath;
+        public System.Windows.Forms.DataGridView dgvRecruitments;
+        public System.Windows.Forms.Button btnAddRecruitment;
+        public System.Windows.Forms.Button btnUpdateRecruitment;
+        public System.Windows.Forms.Button btnDeleteRecruitment;
+        public System.Windows.Forms.Button btnExportRecruitments;
+
+        // Salary Controls
+        public System.Windows.Forms.Label lblSalaryId;
+        public System.Windows.Forms.TextBox txtSalaryId;
+        public System.Windows.Forms.Label lblSalaryEmployee;
+        public System.Windows.Forms.ComboBox cbSalaryEmployee;
+        public System.Windows.Forms.Label lblMonthlySalary;
+        public System.Windows.Forms.TextBox txtMonthlySalary;
+        public System.Windows.Forms.Label lblPaySlipPath;
+        public System.Windows.Forms.TextBox txtPaySlipPath;
+        //public System.Windows.Forms.Label lblSalaryIncreaseDecisionPath;
+        //public System.Windows.Forms.TextBox txtSalaryIncreaseDecisionPath;
+        public System.Windows.Forms.Label lblBankAccount;
+        public System.Windows.Forms.TextBox txtBankAccount;
+        public System.Windows.Forms.Label lblInsuranceInfo;
+        public System.Windows.Forms.TextBox txtInsuranceInfo;
+        public System.Windows.Forms.Label lblAllowances;
+        public System.Windows.Forms.TextBox txtAllowances;
+        public System.Windows.Forms.Label lblBonuses;
+        public System.Windows.Forms.TextBox txtBonuses;
+        public System.Windows.Forms.Label lblLeavePolicy;
+        public System.Windows.Forms.TextBox txtLeavePolicy;
+        public System.Windows.Forms.DataGridView dgvSalaries;
+        public System.Windows.Forms.Button btnAddSalary;
+        public System.Windows.Forms.Button btnUpdateSalary;
+        public System.Windows.Forms.Button btnDeleteSalary;
+        public System.Windows.Forms.Button btnExportSalaries;
+
+        // Training Controls
+        public System.Windows.Forms.Label lblTrainingId;
+        public System.Windows.Forms.TextBox txtTrainingId;
+        public System.Windows.Forms.Label lblTrainingEmployee;
+        public System.Windows.Forms.ComboBox cbTrainingEmployee;
+        public System.Windows.Forms.Label lblTrainingPlanPath;
+        public System.Windows.Forms.TextBox txtTrainingPlanPath;
+        public System.Windows.Forms.Label lblCertificatePath;
+        public System.Windows.Forms.TextBox txtCertificatePath;
+        public System.Windows.Forms.Label lblEvaluationPath;
+        public System.Windows.Forms.TextBox txtEvaluationPath;
+        public System.Windows.Forms.Label lblCareerPath;
+        public System.Windows.Forms.TextBox txtCareerPath;
+        public System.Windows.Forms.Label lblSearchTraining;
+        public System.Windows.Forms.TextBox txtSearchTraining;
+        public System.Windows.Forms.Button btnSearchTraining;
+        public System.Windows.Forms.DataGridView dgvTrainings;
+        public System.Windows.Forms.Button btnAddTraining;
+        public System.Windows.Forms.Button btnUpdateTraining;
+        public System.Windows.Forms.Button btnDeleteTraining;
+        public System.Windows.Forms.Button btnExportTrainings;
+
+        // Discipline Controls
+        public System.Windows.Forms.Label lblDisciplineId;
+        public System.Windows.Forms.TextBox txtDisciplineId;
+        public System.Windows.Forms.Label lblDisciplineEmployee;
+        public System.Windows.Forms.ComboBox cbDisciplineEmployee;
+        public System.Windows.Forms.Label lblViolationPath;
+        public System.Windows.Forms.TextBox txtViolationPath;
+        public System.Windows.Forms.Label lblDisciplinaryDecisionPath;
+        public System.Windows.Forms.TextBox txtDisciplinaryDecisionPath;
+        public System.Windows.Forms.Label lblResignationLetterPath;
+        public System.Windows.Forms.TextBox txtResignationLetterPath;
+        public System.Windows.Forms.Label lblTerminationDecisionPath;
+        public System.Windows.Forms.TextBox txtTerminationDecisionPath;
+        public System.Windows.Forms.Label lblHandoverPath;
+        public System.Windows.Forms.TextBox txtHandoverPath;
+        public System.Windows.Forms.Label lblLiquidationPath;
+        public System.Windows.Forms.TextBox txtLiquidationPath;
+        public System.Windows.Forms.DataGridView dgvDisciplines;
+        public System.Windows.Forms.Button btnAddDiscipline;
+        public System.Windows.Forms.Button btnUpdateDiscipline;
+        public System.Windows.Forms.Button btnDeleteDiscipline;
+        public System.Windows.Forms.Button btnExportDisciplines;
+
+
     }
 }

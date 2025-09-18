@@ -29,3 +29,4 @@ E:\JOB\temp\HRManagementApp\HRManagementApp\bin\Debug\System.Memory.xml
 E:\JOB\temp\HRManagementApp\HRManagementApp\bin\Debug\System.Numerics.Vectors.xml
 E:\JOB\temp\HRManagementApp\HRManagementApp\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 E:\JOB\temp\HRManagementApp\HRManagementApp\bin\Debug\System.Security.Cryptography.Xml.xml
+E:\JOB\temp\HRManagementApp\HRManagementApp\bin\Debug\EPPlus.System.Drawing.dll

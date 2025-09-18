@@ -1,57 +1,59 @@
-﻿using HRManagementApp.Data;
-using HRManagementApp.Models;
-using HRManagementApp.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HRManagementApp.Models;
 using OfficeOpenXml;
-using System.Windows.Forms;
+using System;
+using System.Data;
 using System.IO;
+using System.Windows.Forms;
 
 namespace HRManagementApp.Controllers
 {
     public class AttendanceController
     {
+        private readonly HRManagementForm form;
         private readonly DatabaseManager dbManager;
-        private readonly HRManagementForm view;
 
-        public AttendanceController(HRManagementForm view)
+        public AttendanceController(HRManagementForm form)
         {
-            this.view = view;
+            this.form = form;
             dbManager = new DatabaseManager();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
-        public void LoadAttendance()
+        public void LoadAttendances()
         {
             try
             {
-                view.UpdateAttendanceGrid(dbManager.GetAttendance());
+                DataTable dt = dbManager.GetAttendances();
+                form.UpdateAttendanceGrid(dt);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi tải danh sách chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void SearchAttendance(string searchTerm)
+        public void ShowAttendanceDetails(string attendanceId)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(searchTerm))
+                DataTable dt = dbManager.GetAttendances();
+                DataRow[] rows = dt.Select($"AttendanceId = '{attendanceId}'");
+                if (rows.Length > 0)
                 {
-                    LoadAttendance(); // Nếu không nhập, tải tất cả
-                }
-                else
-                {
-                    view.UpdateAttendanceGrid(dbManager.SearchAttendance(searchTerm));
+                    DataRow row = rows[0];
+                    form.txtAttendanceId.Text = row["AttendanceId"]?.ToString();
+                    form.cbAttendanceEmployee.SelectedValue = row["EmployeeId"]?.ToString();
+                    form.dtpAttendanceDate.Value = row["AttendanceDate"] != DBNull.Value ? Convert.ToDateTime(row["AttendanceDate"]) : DateTime.Today;
+                    form.dtpCheckInTime.Value = row["CheckInTime"] != DBNull.Value ? Convert.ToDateTime(row["CheckInTime"]) : DateTime.Now;
+                    form.dtpCheckOutTime.Value = row["CheckOutTime"] != DBNull.Value ? Convert.ToDateTime(row["CheckOutTime"]) : DateTime.Now;
+                    form.txtStatus.Text = row["Status"]?.ToString();
+                    form.txtAdminHours.Text = row["AdminHours"] != DBNull.Value ? row["AdminHours"].ToString() : "";
+                    form.txtOvertimeHours.Text = row["OvertimeHours"] != DBNull.Value ? row["OvertimeHours"].ToString() : "";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi hiển thị chi tiết chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -59,29 +61,14 @@ namespace HRManagementApp.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(attendance.EmployeeId) || attendance.Date == default ||
-                    string.IsNullOrWhiteSpace(attendance.Status))
-                {
-                    MessageBox.Show("Vui lòng điền đầy đủ thông tin chấm công (giờ hành chính và tăng ca sẽ tự động tính)!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (!Attendance.ValidStatuses.Contains(attendance.Status))
-                {
-                    MessageBox.Show("Trạng thái chấm công không hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Tự động tính giờ hành chính và tăng ca (không cần nhập)
-                attendance.CalculateHours();
-
                 dbManager.AddAttendance(attendance);
+                LoadAttendances();
+                form.ClearAttendanceFields();
                 MessageBox.Show("Thêm chấm công thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadAttendance();
-                view.ClearAttendanceFields();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi thêm chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -89,84 +76,52 @@ namespace HRManagementApp.Controllers
         {
             try
             {
-                if (attendance.Id == 0 || string.IsNullOrWhiteSpace(attendance.EmployeeId) || attendance.Date == default ||
-                    string.IsNullOrWhiteSpace(attendance.Status))
-                {
-                    MessageBox.Show("Vui lòng chọn chấm công để cập nhật và điền đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (!Attendance.ValidStatuses.Contains(attendance.Status))
-                {
-                    MessageBox.Show("Trạng thái chấm công không hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Tự động tính giờ hành chính và tăng ca khi cập nhật
-                attendance.CalculateHours();
-
                 dbManager.UpdateAttendance(attendance);
+                LoadAttendances();
+                form.ClearAttendanceFields();
                 MessageBox.Show("Cập nhật chấm công thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadAttendance();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi cập nhật chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void DeleteAttendance(int id)
+        public void DeleteAttendance(string attendanceId)
         {
             try
             {
-                if (id == 0)
-                {
-                    MessageBox.Show("Vui lòng chọn chấm công để xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (MessageBox.Show("Bạn có chắc muốn xóa chấm công này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    return;
-
-                dbManager.DeleteAttendance(id);
+                dbManager.DeleteAttendance(attendanceId);
+                LoadAttendances();
+                form.ClearAttendanceFields();
                 MessageBox.Show("Xóa chấm công thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadAttendance();
-                view.ClearAttendanceFields();
-                view.ClearDetailPanels();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi xóa chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void ShowAttendanceDetails(DataGridViewRow row)
-        {
-            view.ShowAttendanceDetails(row);
-        }
-
-        public void ExportAttendanceToExcel()
+        public void ExportAttendancesToExcel()
         {
             try
             {
-                // EPPlus 8+: Set license mới
-                ExcelPackage.License.SetNonCommercialOrganization("HRManagementApp"); // Hoặc tên tổ chức của bạn
-
-                using (var package = new ExcelPackage())
+                DataTable dt = dbManager.GetAttendances();
+                using (ExcelPackage package = new ExcelPackage())
                 {
-                    var worksheet = package.Workbook.Worksheets.Add("Chấm công");
-                    var table = dbManager.GetAttendance();
-                    worksheet.Cells[1, 1].LoadFromDataTable(table, true);
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Attendances");
+                    worksheet.Cells["A1"].LoadFromDataTable(dt, true);
                     worksheet.Cells.AutoFitColumns();
 
-                    var saveFileDialog = new SaveFileDialog
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
                     {
-                        Filter = "Excel files (*.xlsx)|*.xlsx",
-                        FileName = "DanhSachChamCong.xlsx"
+                        Filter = "Excel files|*.xlsx",
+                        FileName = "Attendances.xlsx"
                     };
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        var fileBytes = package.GetAsByteArray();
-                        File.WriteAllBytes(saveFileDialog.FileName, fileBytes);
-                        MessageBox.Show("Xuất Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        File.WriteAllBytes(saveFileDialog.FileName, package.GetAsByteArray());
+                        MessageBox.Show("Xuất file Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
