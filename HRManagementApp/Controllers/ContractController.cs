@@ -32,6 +32,19 @@ namespace HRManagementApp.Controllers
             }
         }
 
+        public DataTable GetContracts()
+        {
+            try
+            {
+                return dbManager.GetContracts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lấy danh sách hợp đồng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
+        }
+
         public void ShowContractDetails(string contractId)
         {
             try

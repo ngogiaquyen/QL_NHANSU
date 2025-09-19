@@ -19,6 +19,19 @@ namespace HRManagementApp.Controllers
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
+        public DataTable GetRecruitments()
+        {
+            try
+            {
+                return dbManager.GetRecruitments();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lấy danh sách tuyển dụng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
+        }
+
         public void LoadRecruitments()
         {
             try

@@ -19,6 +19,19 @@ namespace HRManagementApp.Controllers
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
+        public DataTable GetSalaries()
+        {
+            try
+            {
+                return dbManager.GetSalaries();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lấy danh sách lương: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
+        }
+
         public void LoadSalaries()
         {
             try

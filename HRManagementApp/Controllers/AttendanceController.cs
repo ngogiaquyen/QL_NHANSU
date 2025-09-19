@@ -32,6 +32,19 @@ namespace HRManagementApp.Controllers
             }
         }
 
+        public DataTable GetAttendances()
+        {
+            try
+            {
+                return dbManager.GetAttendances();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lấy danh sách chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
+        }
+
         public void ShowAttendanceDetails(string attendanceId)
         {
             try

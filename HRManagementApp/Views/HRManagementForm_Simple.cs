@@ -38,11 +38,7 @@ namespace HRManagementApp
                 
                 InitializeDataGridViewStyles();
                 LoadAllData();
-                UpdateDashboardStats(); // Update dashboard with real data
                 ShowPanel(dashboardPanel); // Show dashboard by default
-                
-                // Add resize event handler for responsive design
-                this.Resize += HRManagementForm_Resize;
             }
             catch (Exception ex)
             {
@@ -106,20 +102,11 @@ namespace HRManagementApp
                 DataTable dtEmployees = employeeController.GetEmployees();
                 if (dtEmployees != null && dtEmployees.Rows.Count > 0)
                 {
-                    // Populate all employee ComboBoxes
-                    ComboBox[] employeeComboBoxes = { 
-                        cbContractEmployee, cbAttendanceEmployee, cbRecruitmentEmployee, 
-                        cbSalaryEmployee, cbTrainingEmployee, cbDisciplineEmployee 
-                    };
-                    
-                    foreach (var comboBox in employeeComboBoxes)
+                    if (cbContractEmployee != null)
                     {
-                        if (comboBox != null)
-                        {
-                            comboBox.DataSource = dtEmployees.Copy();
-                            comboBox.DisplayMember = "Name";
-                            comboBox.ValueMember = "EmployeeId";
-                        }
+                        cbContractEmployee.DataSource = dtEmployees;
+                        cbContractEmployee.DisplayMember = "Name";
+                        cbContractEmployee.ValueMember = "EmployeeId";
                     }
                 }
                 else
@@ -366,202 +353,16 @@ namespace HRManagementApp
             }
         }
 
-        // Attendance Methods
-        public void UpdateAttendanceGrid(DataTable dt) => dgvAttendances.DataSource = dt;
-        public void ClearAttendanceFields()
-        {
-            txtAttendanceId.Text = "";
-            cbAttendanceEmployee.SelectedIndex = -1;
-            dtpAttendanceDate.Value = DateTime.Today;
-            dtpCheckInTime.Value = DateTime.Now;
-            dtpCheckOutTime.Value = DateTime.Now;
-            cbStatus.SelectedIndex = -1;
-            txtAdminHours.Text = "";
-            txtOvertimeHours.Text = "";
-        }
-
-        // Recruitment Methods
-        public void UpdateRecruitmentGrid(DataTable dt) => dgvRecruitments.DataSource = dt;
-        public void ClearRecruitmentFields()
-        {
-            txtRecruitmentId.Text = "";
-            cbRecruitmentEmployee.SelectedIndex = -1;
-            txtJobApplicationPath.Text = "";
-            txtResumePath.Text = "";
-            txtDegreesPath.Text = "";
-            txtHealthCheckPath.Text = "";
-            txtCVPath.Text = "";
-            txtReferenceLetterPath.Text = "";
-            txtInterviewMinutesPath.Text = "";
-            txtOfferLetterPath.Text = "";
-        }
-
-        // Salary Methods
-        public void UpdateSalaryGrid(DataTable dt) => dgvSalaries.DataSource = dt;
-        public void ClearSalaryFields()
-        {
-            txtSalaryId.Text = "";
-            cbSalaryEmployee.SelectedIndex = -1;
-            txtMonthlySalary.Text = "";
-            txtPaySlipPath.Text = "";
-            txtSalaryIncreaseDecisionPath.Text = "";
-            txtBankAccount.Text = "";
-            txtInsuranceInfo.Text = "";
-            txtAllowances.Text = "";
-            txtBonuses.Text = "";
-            txtLeavePolicy.Text = "";
-        }
-
-        // Training Methods
-        public void UpdateTrainingGrid(DataTable dt) => dgvTrainings.DataSource = dt;
-        public void ClearTrainingFields()
-        {
-            txtTrainingId.Text = "";
-            cbTrainingEmployee.SelectedIndex = -1;
-            txtTrainingPlanPath.Text = "";
-            txtCertificatePath.Text = "";
-            txtEvaluationPath.Text = "";
-            txtCareerPath.Text = "";
-        }
-
-        // Discipline Methods
-        public void UpdateDisciplineGrid(DataTable dt) => dgvDisciplines.DataSource = dt;
-        public void ClearDisciplineFields()
-        {
-            txtDisciplineId.Text = "";
-            cbDisciplineEmployee.SelectedIndex = -1;
-            txtViolationPath.Text = "";
-            txtDisciplinaryDecisionPath.Text = "";
-            txtResignationLetterPath.Text = "";
-            txtTerminationDecisionPath.Text = "";
-            txtHandoverPath.Text = "";
-            txtLiquidationPath.Text = "";
-        }
-
-        private void HRManagementForm_Resize(object sender, EventArgs e)
-        {
-            // Responsive design adjustments
-            if (this.WindowState != FormWindowState.Minimized)
-            {
-                AdjustLayoutForScreenSize();
-            }
-        }
-
-        private void AdjustLayoutForScreenSize()
-        {
-            // Adjust group box sizes based on form size
-            if (grpEmployeeInfo != null && grpEmployeeList != null)
-            {
-                int formWidth = this.contentPanel.Width - 40; // Padding
-                int infoWidth = Math.Max(350, formWidth / 3);
-                int listWidth = formWidth - infoWidth - 20;
-
-                grpEmployeeInfo.Width = infoWidth;
-                grpEmployeeList.Width = listWidth;
-                grpEmployeeList.Location = new Point(infoWidth + 20, grpEmployeeList.Location.Y);
-            }
-
-            if (grpContractInfo != null && grpContractList != null)
-            {
-                int formWidth = this.contentPanel.Width - 40; // Padding
-                int infoWidth = Math.Max(350, formWidth / 3);
-                int listWidth = formWidth - infoWidth - 20;
-
-                grpContractInfo.Width = infoWidth;
-                grpContractList.Width = listWidth;
-                grpContractList.Location = new Point(infoWidth + 20, grpContractList.Location.Y);
-            }
-        }
-
-        private void UpdateDashboardStats()
-        {
-            try
-            {
-                // Update statistics with real data
-                DataTable dtEmployees = employeeController.GetEmployees();
-                DataTable dtContracts = contractController.GetContracts();
-                DataTable dtAttendances = attendanceController.GetAttendances();
-                DataTable dtRecruitments = recruitmentController.GetRecruitments();
-                DataTable dtSalaries = salaryController.GetSalaries();
-                DataTable dtTrainings = trainingController.GetTrainings();
-
-                // Update stat labels
-                UpdateStatLabel(0, dtEmployees?.Rows.Count ?? 0); // Total employees
-                UpdateStatLabel(1, dtContracts?.Rows.Count ?? 0); // Total contracts
-                UpdateStatLabel(2, GetTodayAttendanceCount(dtAttendances)); // Today's attendance
-                UpdateStatLabel(3, dtRecruitments?.Rows.Count ?? 0); // Total recruitments
-                UpdateStatLabel(4, dtSalaries?.Rows.Count ?? 0); // Total salaries
-                UpdateStatLabel(5, dtTrainings?.Rows.Count ?? 0); // Total trainings
-
-                // Update recent activities
-                UpdateRecentActivities();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error updating dashboard: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void UpdateStatLabel(int index, int value)
-        {
-            try
-            {
-                Control[] controls = dashboardPanel.Controls.Find($"lblStatValue{index}", true);
-                if (controls.Length > 0 && controls[0] is Label label)
-                {
-                    label.Text = value.ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                // Silently handle errors to avoid disrupting the UI
-                System.Diagnostics.Debug.WriteLine($"Error updating stat label {index}: {ex.Message}");
-            }
-        }
-
-        private int GetTodayAttendanceCount(DataTable dtAttendances)
-        {
-            if (dtAttendances == null) return 0;
-            
-            DateTime today = DateTime.Today;
-            int count = 0;
-            
-            foreach (DataRow row in dtAttendances.Rows)
-            {
-                if (row["AttendanceDate"] != DBNull.Value)
-                {
-                    DateTime attendanceDate = Convert.ToDateTime(row["AttendanceDate"]).Date;
-                    if (attendanceDate == today)
-                    {
-                        count++;
-                    }
-                }
-            }
-            
-            return count;
-        }
-
-        private void UpdateRecentActivities()
-        {
-            try
-            {
-                Control[] controls = dashboardPanel.Controls.Find("lstRecentActivities", true);
-                if (controls.Length > 0 && controls[0] is ListBox listBox)
-                {
-                    listBox.Items.Clear();
-                    
-                    // Add some sample recent activities
-                    listBox.Items.Add($"{DateTime.Now:HH:mm} - Thêm nhân viên mới");
-                    listBox.Items.Add($"{DateTime.Now.AddMinutes(-30):HH:mm} - Cập nhật hợp đồng");
-                    listBox.Items.Add($"{DateTime.Now.AddHours(-1):HH:mm} - Chấm công ngày hôm nay");
-                    listBox.Items.Add($"{DateTime.Now.AddHours(-2):HH:mm} - Xuất báo cáo lương");
-                    listBox.Items.Add($"{DateTime.Now.AddHours(-3):HH:mm} - Đăng ký khóa đào tạo");
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error updating recent activities: {ex.Message}");
-            }
-        }
+        // Placeholder methods for other modules
+        public void UpdateAttendanceGrid(DataTable dt) { /* To be implemented */ }
+        public void ClearAttendanceFields() { /* To be implemented */ }
+        public void UpdateRecruitmentGrid(DataTable dt) { /* To be implemented */ }
+        public void ClearRecruitmentFields() { /* To be implemented */ }
+        public void UpdateSalaryGrid(DataTable dt) { /* To be implemented */ }
+        public void ClearSalaryFields() { /* To be implemented */ }
+        public void UpdateTrainingGrid(DataTable dt) { /* To be implemented */ }
+        public void ClearTrainingFields() { /* To be implemented */ }
+        public void UpdateDisciplineGrid(DataTable dt) { /* To be implemented */ }
+        public void ClearDisciplineFields() { /* To be implemented */ }
     }
 }
