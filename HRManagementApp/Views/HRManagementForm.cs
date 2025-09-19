@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 using HRManagementApp.Controllers;
 using HRManagementApp.Models;
 
@@ -15,12 +19,14 @@ namespace HRManagementApp
         private readonly SalaryController salaryController;
         private readonly TrainingController trainingController;
         private readonly DisciplineController disciplineController;
+        private readonly DatabaseManager databaseManager;
 
         public HRManagementForm()
         {
             InitializeComponent();
             try
             {
+                databaseManager = new DatabaseManager();
                 employeeController = new EmployeeController(this);
                 contractController = new ContractController(this);
                 attendanceController = new AttendanceController(this);
@@ -88,7 +94,7 @@ namespace HRManagementApp
             txtEmployeeId.Text = "";
             txtEmployeeName.Text = "";
             dtpDOB.Value = DateTime.Today;
-            txtGender.Text = "";
+            cbGender.SelectedIndex = -1;
             txtNationality.Text = "";
             txtCCCD.Text = "";
             dtpCCCDIssueDate.Value = DateTime.Today;
@@ -97,7 +103,7 @@ namespace HRManagementApp
             txtCurrentAddress.Text = "";
             txtPhone.Text = "";
             txtEmail.Text = "";
-            txtMaritalStatus.Text = "";
+            cbMaritalStatus.SelectedIndex = -1;
             txtDependents.Text = "";
             txtSocialInsuranceNumber.Text = "";
             txtTaxCode.Text = "";
@@ -118,7 +124,7 @@ namespace HRManagementApp
                     EmployeeId = txtEmployeeId.Text,
                     Name = txtEmployeeName.Text,
                     DOB = dtpDOB.Value,
-                    Gender = txtGender.Text,
+                    Gender = cbGender.SelectedItem?.ToString(),
                     Nationality = txtNationality.Text,
                     CCCD = txtCCCD.Text,
                     CCCDIssueDate = dtpCCCDIssueDate.Value,
@@ -127,7 +133,7 @@ namespace HRManagementApp
                     CurrentAddress = txtCurrentAddress.Text,
                     Phone = txtPhone.Text,
                     Email = txtEmail.Text,
-                    MaritalStatus = txtMaritalStatus.Text,
+                    MaritalStatus = cbMaritalStatus.SelectedItem?.ToString(),
                     Dependents = string.IsNullOrEmpty(txtDependents.Text) ? null : (int?)int.Parse(txtDependents.Text),
                     SocialInsuranceNumber = txtSocialInsuranceNumber.Text,
                     TaxCode = txtTaxCode.Text,
@@ -138,11 +144,25 @@ namespace HRManagementApp
                     Manager = txtManager.Text,
                     WorkSchedule = txtWorkSchedule.Text
                 };
+
+                // Validation
+                var validationResults = new List<ValidationResult>();
+                var validationContext = new ValidationContext(employee);
+                bool isValid = Validator.TryValidateObject(employee, validationContext, validationResults, true);
+
+                if (!isValid)
+                {
+                    string errorMessage = string.Join("\n", validationResults.Select(vr => vr.ErrorMessage));
+                    MessageBox.Show($"Dữ liệu không hợp lệ:\n{errorMessage}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 employeeController.AddEmployee(employee);
+                MessageBox.Show("Thêm nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error adding employee: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi thêm nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -155,7 +175,7 @@ namespace HRManagementApp
                     EmployeeId = txtEmployeeId.Text,
                     Name = txtEmployeeName.Text,
                     DOB = dtpDOB.Value,
-                    Gender = txtGender.Text,
+                    Gender = cbGender.SelectedItem?.ToString(),
                     Nationality = txtNationality.Text,
                     CCCD = txtCCCD.Text,
                     CCCDIssueDate = dtpCCCDIssueDate.Value,
@@ -164,7 +184,7 @@ namespace HRManagementApp
                     CurrentAddress = txtCurrentAddress.Text,
                     Phone = txtPhone.Text,
                     Email = txtEmail.Text,
-                    MaritalStatus = txtMaritalStatus.Text,
+                    MaritalStatus = cbMaritalStatus.SelectedItem?.ToString(),
                     Dependents = string.IsNullOrEmpty(txtDependents.Text) ? null : (int?)int.Parse(txtDependents.Text),
                     SocialInsuranceNumber = txtSocialInsuranceNumber.Text,
                     TaxCode = txtTaxCode.Text,
@@ -175,11 +195,25 @@ namespace HRManagementApp
                     Manager = txtManager.Text,
                     WorkSchedule = txtWorkSchedule.Text
                 };
+
+                // Validation
+                var validationResults = new List<ValidationResult>();
+                var validationContext = new ValidationContext(employee);
+                bool isValid = Validator.TryValidateObject(employee, validationContext, validationResults, true);
+
+                if (!isValid)
+                {
+                    string errorMessage = string.Join("\n", validationResults.Select(vr => vr.ErrorMessage));
+                    MessageBox.Show($"Dữ liệu không hợp lệ:\n{errorMessage}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 employeeController.UpdateEmployee(employee);
+                MessageBox.Show("Cập nhật nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error updating employee: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi cập nhật nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -235,7 +269,7 @@ namespace HRManagementApp
             cbContractEmployee.SelectedIndex = -1;
             dtpStartDate.Value = DateTime.Today;
             dtpEndDate.Value = DateTime.Today;
-            txtContractType.Text = "";
+            cbContractType.SelectedIndex = -1;
             txtContractAnnexPath.Text = "";
             txtConfidentialityAgreementPath.Text = "";
             txtNonCompeteAgreementPath.Text = "";
@@ -254,7 +288,7 @@ namespace HRManagementApp
                     EmployeeId = cbContractEmployee.SelectedValue?.ToString(),
                     StartDate = dtpStartDate.Value,
                     EndDate = dtpEndDate.Value,
-                    ContractType = txtContractType.Text,
+                    ContractType = cbContractType.SelectedItem?.ToString(),
                     ContractAnnexPath = txtContractAnnexPath.Text,
                     ConfidentialityAgreementPath = txtConfidentialityAgreementPath.Text,
                     NonCompeteAgreementPath = txtNonCompeteAgreementPath.Text,
@@ -262,11 +296,25 @@ namespace HRManagementApp
                     SalaryIncreaseDecisionPath = txtSalaryIncreaseDecisionPath.Text,
                     RewardDecisionPath = txtRewardDecisionPath.Text
                 };
+
+                // Validation
+                var validationResults = new List<ValidationResult>();
+                var validationContext = new ValidationContext(contract);
+                bool isValid = Validator.TryValidateObject(contract, validationContext, validationResults, true);
+
+                if (!isValid)
+                {
+                    string errorMessage = string.Join("\n", validationResults.Select(vr => vr.ErrorMessage));
+                    MessageBox.Show($"Dữ liệu không hợp lệ:\n{errorMessage}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 contractController.AddContract(contract);
+                MessageBox.Show("Thêm hợp đồng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error adding contract: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi thêm hợp đồng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -280,7 +328,7 @@ namespace HRManagementApp
                     EmployeeId = cbContractEmployee.SelectedValue?.ToString(),
                     StartDate = dtpStartDate.Value,
                     EndDate = dtpEndDate.Value,
-                    ContractType = txtContractType.Text,
+                    ContractType = cbContractType.SelectedItem?.ToString(),
                     ContractAnnexPath = txtContractAnnexPath.Text,
                     ConfidentialityAgreementPath = txtConfidentialityAgreementPath.Text,
                     NonCompeteAgreementPath = txtNonCompeteAgreementPath.Text,
@@ -288,11 +336,25 @@ namespace HRManagementApp
                     SalaryIncreaseDecisionPath = txtSalaryIncreaseDecisionPath.Text,
                     RewardDecisionPath = txtRewardDecisionPath.Text
                 };
+
+                // Validation
+                var validationResults = new List<ValidationResult>();
+                var validationContext = new ValidationContext(contract);
+                bool isValid = Validator.TryValidateObject(contract, validationContext, validationResults, true);
+
+                if (!isValid)
+                {
+                    string errorMessage = string.Join("\n", validationResults.Select(vr => vr.ErrorMessage));
+                    MessageBox.Show($"Dữ liệu không hợp lệ:\n{errorMessage}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 contractController.UpdateContract(contract);
+                MessageBox.Show("Cập nhật hợp đồng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error updating contract: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi cập nhật hợp đồng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -349,7 +411,7 @@ namespace HRManagementApp
             dtpAttendanceDate.Value = DateTime.Today;
             dtpCheckInTime.Value = DateTime.Now;
             dtpCheckOutTime.Value = DateTime.Now;
-            txtStatus.Text = "";
+            cbStatus.SelectedIndex = -1;
             txtAdminHours.Text = "";
             txtOvertimeHours.Text = "";
         }
@@ -365,15 +427,29 @@ namespace HRManagementApp
                     AttendanceDate = dtpAttendanceDate.Value,
                     CheckInTime = dtpCheckInTime.Value,
                     CheckOutTime = dtpCheckOutTime.Value,
-                    Status = txtStatus.Text,
+                    Status = cbStatus.SelectedItem?.ToString(),
                     AdminHours = string.IsNullOrEmpty(txtAdminHours.Text) ? null : (decimal?)decimal.Parse(txtAdminHours.Text),
                     OvertimeHours = string.IsNullOrEmpty(txtOvertimeHours.Text) ? null : (decimal?)decimal.Parse(txtOvertimeHours.Text)
                 };
+
+                // Validation
+                var validationResults = new List<ValidationResult>();
+                var validationContext = new ValidationContext(attendance);
+                bool isValid = Validator.TryValidateObject(attendance, validationContext, validationResults, true);
+
+                if (!isValid)
+                {
+                    string errorMessage = string.Join("\n", validationResults.Select(vr => vr.ErrorMessage));
+                    MessageBox.Show($"Dữ liệu không hợp lệ:\n{errorMessage}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 attendanceController.AddAttendance(attendance);
+                MessageBox.Show("Thêm chấm công thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error adding attendance: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi thêm chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -388,7 +464,7 @@ namespace HRManagementApp
                     AttendanceDate = dtpAttendanceDate.Value,
                     CheckInTime = dtpCheckInTime.Value,
                     CheckOutTime = dtpCheckOutTime.Value,
-                    Status = txtStatus.Text,
+                    Status = cbStatus.SelectedItem?.ToString(),
                     AdminHours = string.IsNullOrEmpty(txtAdminHours.Text) ? null : (decimal?)decimal.Parse(txtAdminHours.Text),
                     OvertimeHours = string.IsNullOrEmpty(txtOvertimeHours.Text) ? null : (decimal?)decimal.Parse(txtOvertimeHours.Text)
                 };
@@ -874,7 +950,309 @@ namespace HRManagementApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error showing discipline details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi hiển thị chi tiết kỷ luật: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // File Browse and Open Methods for Contract
+        private void btnBrowseContractAnnex_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtContractAnnexPath);
+        }
+
+        private void btnOpenContractAnnex_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtContractAnnexPath.Text);
+        }
+
+        private void btnBrowseConfidentiality_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtConfidentialityAgreementPath);
+        }
+
+        private void btnOpenConfidentiality_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtConfidentialityAgreementPath.Text);
+        }
+
+        private void btnBrowseNonCompete_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtNonCompeteAgreementPath);
+        }
+
+        private void btnOpenNonCompete_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtNonCompeteAgreementPath.Text);
+        }
+
+        private void btnBrowseAppointment_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtAppointmentDecisionPath);
+        }
+
+        private void btnOpenAppointment_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtAppointmentDecisionPath.Text);
+        }
+
+        private void btnBrowseSalaryIncrease_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtSalaryIncreaseDecisionPath);
+        }
+
+        private void btnOpenSalaryIncrease_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtSalaryIncreaseDecisionPath.Text);
+        }
+
+        private void btnBrowseReward_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtRewardDecisionPath);
+        }
+
+        private void btnOpenReward_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtRewardDecisionPath.Text);
+        }
+
+        // Recruitment file event handlers
+        private void btnBrowseJobApplication_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtJobApplicationPath);
+        }
+
+        private void btnOpenJobApplication_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtJobApplicationPath.Text);
+        }
+
+        private void btnBrowseResume_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtResumePath);
+        }
+
+        private void btnOpenResume_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtResumePath.Text);
+        }
+
+        private void btnBrowseDegrees_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtDegreesPath);
+        }
+
+        private void btnOpenDegrees_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtDegreesPath.Text);
+        }
+
+        private void btnBrowseHealthCheck_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtHealthCheckPath);
+        }
+
+        private void btnOpenHealthCheck_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtHealthCheckPath.Text);
+        }
+
+        private void btnBrowseCV_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtCVPath);
+        }
+
+        private void btnOpenCV_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtCVPath.Text);
+        }
+
+        private void btnBrowseReferenceLetter_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtReferenceLetterPath);
+        }
+
+        private void btnOpenReferenceLetter_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtReferenceLetterPath.Text);
+        }
+
+        private void btnBrowseInterviewMinutes_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtInterviewMinutesPath);
+        }
+
+        private void btnOpenInterviewMinutes_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtInterviewMinutesPath.Text);
+        }
+
+        private void btnBrowseOfferLetter_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtOfferLetterPath);
+        }
+
+        private void btnOpenOfferLetter_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtOfferLetterPath.Text);
+        }
+
+        // Salary file event handlers
+        private void btnBrowsePaySlip_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtPaySlipPath);
+        }
+
+        private void btnOpenPaySlip_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtPaySlipPath.Text);
+        }
+
+        // Training file event handlers
+        private void btnBrowseTrainingPlan_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtTrainingPlanPath);
+        }
+
+        private void btnOpenTrainingPlan_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtTrainingPlanPath.Text);
+        }
+
+        private void btnBrowseCertificate_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtCertificatePath);
+        }
+
+        private void btnOpenCertificate_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtCertificatePath.Text);
+        }
+
+        private void btnBrowseEvaluation_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtEvaluationPath);
+        }
+
+        private void btnOpenEvaluation_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtEvaluationPath.Text);
+        }
+
+        private void btnBrowseCareer_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtCareerPath);
+        }
+
+        private void btnOpenCareer_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtCareerPath.Text);
+        }
+
+        // Discipline file event handlers
+        private void btnBrowseViolation_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtViolationPath);
+        }
+
+        private void btnOpenViolation_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtViolationPath.Text);
+        }
+
+        private void btnBrowseDisciplinaryDecision_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtDisciplinaryDecisionPath);
+        }
+
+        private void btnOpenDisciplinaryDecision_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtDisciplinaryDecisionPath.Text);
+        }
+
+        private void btnBrowseResignationLetter_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtResignationLetterPath);
+        }
+
+        private void btnOpenResignationLetter_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtResignationLetterPath.Text);
+        }
+
+        private void btnBrowseTerminationDecision_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtTerminationDecisionPath);
+        }
+
+        private void btnOpenTerminationDecision_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtTerminationDecisionPath.Text);
+        }
+
+        private void btnBrowseHandover_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtHandoverPath);
+        }
+
+        private void btnOpenHandover_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtHandoverPath.Text);
+        }
+
+        private void btnBrowseLiquidation_Click(object sender, EventArgs e)
+        {
+            BrowseFile(txtLiquidationPath);
+        }
+
+        private void btnOpenLiquidation_Click(object sender, EventArgs e)
+        {
+            OpenFile(txtLiquidationPath.Text);
+        }
+
+        // Helper methods for file operations
+        private void BrowseFile(TextBox textBox)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "All Files (*.*)|*.*|PDF Files (*.pdf)|*.pdf|Word Documents (*.doc;*.docx)|*.doc;*.docx|Excel Files (*.xls;*.xlsx)|*.xls;*.xlsx";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string savedPath = databaseManager.SaveFileToDataFolder(openFileDialog.FileName, openFileDialog.SafeFileName);
+                        if (!string.IsNullOrEmpty(savedPath))
+                        {
+                            textBox.Text = savedPath;
+                            MessageBox.Show("File đã được lưu thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi lưu file: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void OpenFile(string filePath)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    databaseManager.OpenFile(filePath);
+                }
+                else
+                {
+                    MessageBox.Show("Không có file để mở!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở file: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

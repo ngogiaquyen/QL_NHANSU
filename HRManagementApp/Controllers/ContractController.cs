@@ -45,7 +45,7 @@ namespace HRManagementApp.Controllers
                     form.cbContractEmployee.SelectedValue = row["EmployeeId"]?.ToString();
                     form.dtpStartDate.Value = row["StartDate"] != DBNull.Value ? Convert.ToDateTime(row["StartDate"]) : DateTime.Today;
                     form.dtpEndDate.Value = row["EndDate"] != DBNull.Value ? Convert.ToDateTime(row["EndDate"]) : DateTime.Today;
-                    form.txtContractType.Text = row["ContractType"]?.ToString();
+                    form.cbContractType.Text = row["ContractType"]?.ToString();
                     form.txtContractAnnexPath.Text = row["ContractAnnexPath"]?.ToString();
                     form.txtConfidentialityAgreementPath.Text = row["ConfidentialityAgreementPath"]?.ToString();
                     form.txtNonCompeteAgreementPath.Text = row["NonCompeteAgreementPath"]?.ToString();

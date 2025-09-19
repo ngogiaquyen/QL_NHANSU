@@ -57,7 +57,7 @@ namespace HRManagementApp.Controllers
                     form.txtEmployeeId.Text = row["EmployeeId"]?.ToString();
                     form.txtEmployeeName.Text = row["Name"]?.ToString();
                     form.dtpDOB.Value = row["DOB"] != DBNull.Value ? Convert.ToDateTime(row["DOB"]) : DateTime.Today;
-                    form.txtGender.Text = row["Gender"]?.ToString();
+                    form.cbGender.Text = row["Gender"]?.ToString();
                     form.txtNationality.Text = row["Nationality"]?.ToString();
                     form.txtCCCD.Text = row["CCCD"]?.ToString();
                     form.dtpCCCDIssueDate.Value = row["CCCDIssueDate"] != DBNull.Value ? Convert.ToDateTime(row["CCCDIssueDate"]) : DateTime.Today;
@@ -66,7 +66,7 @@ namespace HRManagementApp.Controllers
                     form.txtCurrentAddress.Text = row["CurrentAddress"]?.ToString();
                     form.txtPhone.Text = row["Phone"]?.ToString();
                     form.txtEmail.Text = row["Email"]?.ToString();
-                    form.txtMaritalStatus.Text = row["MaritalStatus"]?.ToString();
+                    form.cbMaritalStatus.Text = row["MaritalStatus"]?.ToString();
                     form.txtDependents.Text = row["Dependents"] != DBNull.Value ? row["Dependents"].ToString() : "";
                     form.txtSocialInsuranceNumber.Text = row["SocialInsuranceNumber"]?.ToString();
                     form.txtTaxCode.Text = row["TaxCode"]?.ToString();

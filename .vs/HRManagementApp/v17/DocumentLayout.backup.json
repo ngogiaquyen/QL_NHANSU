@@ -3,12 +3,80 @@
   "WorkspaceRootPath": "E:\\JOB\\temp\\HRManagementApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\views\\hrmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\views\\hrmanagementform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\views\\hrmanagementform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|E:\\JOB\\temp\\HRManagementApp\\hrmanagementapp\\views\\hrmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\views\\hrmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\models\\salary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\models\\salary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\data\\databasemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\data\\databasemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\JOB\\temp\\HRManagementApp\\packages\\EPPlus.6.2.3\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:packages\\EPPlus.6.2.3\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\controllers\\contractcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\controllers\\contractcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\controllers\\salarycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\controllers\\salarycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\models\\discipline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\models\\discipline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\models\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\models\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\models\\contract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\models\\contract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|E:\\JOB\\temp\\HRManagementApp\\hrmanagementapp\\views\\hrmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\views\\hrmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\views\\hrmanagementform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\views\\hrmanagementform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\controllers\\trainingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\controllers\\trainingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\controllers\\recruitmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\controllers\\recruitmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\controllers\\disciplinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\controllers\\disciplinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\models\\training.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\models\\training.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|e:\\job\\temp\\hrmanagementapp\\hrmanagementapp\\models\\recruitment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B161E810-C75C-495D-80C1-C59D7F595B76}|HRManagementApp\\HRManagementApp.csproj|solutionrelative:hrmanagementapp\\models\\recruitment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,24 +86,245 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 17,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "readme.txt",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\packages\\EPPlus.6.2.3\\readme.txt",
+              "RelativeDocumentMoniker": "packages\\EPPlus.6.2.3\\readme.txt",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\packages\\EPPlus.6.2.3\\readme.txt",
+              "RelativeToolTip": "packages\\EPPlus.6.2.3\\readme.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-09-19T02:37:26.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DatabaseManager.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Data\\DatabaseManager.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Data\\DatabaseManager.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Data\\DatabaseManager.cs",
+              "RelativeToolTip": "HRManagementApp\\Data\\DatabaseManager.cs",
+              "ViewState": "AgIAAHoCAAAAAAAAAAAIwMMCAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:23:50.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "TrainingController.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\TrainingController.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Controllers\\TrainingController.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\TrainingController.cs",
+              "RelativeToolTip": "HRManagementApp\\Controllers\\TrainingController.cs",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAUwJAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:49.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SalaryController.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\SalaryController.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Controllers\\SalaryController.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\SalaryController.cs",
+              "RelativeToolTip": "HRManagementApp\\Controllers\\SalaryController.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAUwIcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:45.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "RecruitmentController.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\RecruitmentController.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Controllers\\RecruitmentController.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\RecruitmentController.cs",
+              "RelativeToolTip": "HRManagementApp\\Controllers\\RecruitmentController.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAswIcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:41.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "EmployeeController.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\EmployeeController.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Controllers\\EmployeeController.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\EmployeeController.cs",
+              "RelativeToolTip": "HRManagementApp\\Controllers\\EmployeeController.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAswKAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:37.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "DisciplineController.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\DisciplineController.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Controllers\\DisciplineController.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\DisciplineController.cs",
+              "RelativeToolTip": "HRManagementApp\\Controllers\\DisciplineController.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAswIUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:34.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ContractController.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\ContractController.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Controllers\\ContractController.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\ContractController.cs",
+              "RelativeToolTip": "HRManagementApp\\Controllers\\ContractController.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAADwv18AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:30.23Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Training.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Training.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Models\\Training.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Training.cs",
+              "RelativeToolTip": "HRManagementApp\\Models\\Training.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:22.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Salary.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Salary.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Models\\Salary.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Salary.cs",
+              "RelativeToolTip": "HRManagementApp\\Models\\Salary.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAiwA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:18.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Employee.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Models\\Employee.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Employee.cs",
+              "RelativeToolTip": "HRManagementApp\\Models\\Employee.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAA4wEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:10.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Recruitment.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Recruitment.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Models\\Recruitment.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Recruitment.cs",
+              "RelativeToolTip": "HRManagementApp\\Models\\Recruitment.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAiwBQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:09.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Discipline.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Discipline.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Models\\Discipline.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Discipline.cs",
+              "RelativeToolTip": "HRManagementApp\\Models\\Discipline.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:05.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Contract.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Contract.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Models\\Contract.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Contract.cs",
+              "RelativeToolTip": "HRManagementApp\\Models\\Contract.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:22:01.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Attendance.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Attendance.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Models\\Attendance.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Models\\Attendance.cs",
+              "RelativeToolTip": "HRManagementApp\\Models\\Attendance.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA5wBQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:21:20.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AttendanceController.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\AttendanceController.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Controllers\\AttendanceController.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Controllers\\AttendanceController.cs",
+              "RelativeToolTip": "HRManagementApp\\Controllers\\AttendanceController.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAUwIUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T01:21:17.638Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "HRManagementForm.cs",
+              "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Views\\HRManagementForm.cs",
+              "RelativeDocumentMoniker": "HRManagementApp\\Views\\HRManagementForm.cs",
+              "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Views\\HRManagementForm.cs",
+              "RelativeToolTip": "HRManagementApp\\Views\\HRManagementForm.cs",
+              "ViewState": "AgIAAKcDAAAAAAAAAAAIwK4DAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T18:15:22.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "HRManagementForm.Designer.cs",
               "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Views\\HRManagementForm.Designer.cs",
               "RelativeDocumentMoniker": "HRManagementApp\\Views\\HRManagementForm.Designer.cs",
               "ToolTip": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Views\\HRManagementForm.Designer.cs",
               "RelativeToolTip": "HRManagementApp\\Views\\HRManagementForm.Designer.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAowEUAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAmwB8AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-18T18:08:48.089Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 12,
               "Title": "HRManagementForm.cs [Design]",
               "DocumentMoniker": "E:\\JOB\\temp\\HRManagementApp\\HRManagementApp\\Views\\HRManagementForm.cs",
               "RelativeDocumentMoniker": "HRManagementApp\\Views\\HRManagementForm.cs",

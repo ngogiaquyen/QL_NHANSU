@@ -1,9 +1,14 @@
-﻿namespace HRManagementApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HRManagementApp.Models
 {
     public class Recruitment
     {
         public string RecruitmentId { get; set; }
+
+        [Required(ErrorMessage = "Mã nhân viên là bắt buộc")]
         public string EmployeeId { get; set; }
+
         public string JobApplicationPath { get; set; }
         public string ResumePath { get; set; }
         public string DegreesPath { get; set; }

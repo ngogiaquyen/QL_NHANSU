@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.IO;
 
 namespace HRManagementApp
 {
@@ -124,10 +125,12 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT ContractId, EmployeeId, StartDate, EndDate, ContractType, ContractAnnexPath, 
-                                ConfidentialityAgreementPath, NonCompeteAgreementPath, AppointmentDecisionPath, 
-                                SalaryIncreaseDecisionPath, RewardDecisionPath 
-                                FROM Contract";
+                string query = @"SELECT c.ContractId, c.EmployeeId, e.Name as EmployeeName, e.DOB, e.Gender, e.CCCD,
+                                c.StartDate, c.EndDate, c.ContractType, c.ContractAnnexPath, 
+                                c.ConfidentialityAgreementPath, c.NonCompeteAgreementPath, c.AppointmentDecisionPath, 
+                                c.SalaryIncreaseDecisionPath, c.RewardDecisionPath 
+                                FROM Contract c
+                                LEFT JOIN Employee e ON c.EmployeeId = e.EmployeeId";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -139,6 +142,25 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                conn.Open();
+                
+                // Kiểm tra xem nhân viên đã có hợp đồng chưa
+                string checkQuery = "SELECT COUNT(*) FROM Contract WHERE EmployeeId = @EmployeeId";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@EmployeeId", contract.EmployeeId);
+                int existingContracts = (int)checkCmd.ExecuteScalar();
+                
+                if (existingContracts > 0)
+                {
+                    throw new Exception("Nhân viên này đã có hợp đồng. Mỗi nhân viên chỉ được có một hợp đồng.");
+                }
+                
+                // Tự động tạo ContractId nếu chưa có
+                if (string.IsNullOrEmpty(contract.ContractId))
+                {
+                    contract.ContractId = "CT" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                }
+
                 string query = @"INSERT INTO Contract (ContractId, EmployeeId, StartDate, EndDate, ContractType, 
                                 ContractAnnexPath, ConfidentialityAgreementPath, NonCompeteAgreementPath, 
                                 AppointmentDecisionPath, SalaryIncreaseDecisionPath, RewardDecisionPath)
@@ -158,7 +180,6 @@ namespace HRManagementApp
                 cmd.Parameters.AddWithValue("@SalaryIncreaseDecisionPath", (object)contract.SalaryIncreaseDecisionPath ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@RewardDecisionPath", (object)contract.RewardDecisionPath ?? DBNull.Value);
 
-                conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }
@@ -167,6 +188,20 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                conn.Open();
+                
+                // Kiểm tra xem nhân viên đã có hợp đồng khác chưa (trừ hợp đồng hiện tại)
+                string checkQuery = "SELECT COUNT(*) FROM Contract WHERE EmployeeId = @EmployeeId AND ContractId != @ContractId";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@EmployeeId", contract.EmployeeId);
+                checkCmd.Parameters.AddWithValue("@ContractId", contract.ContractId);
+                int existingContracts = (int)checkCmd.ExecuteScalar();
+                
+                if (existingContracts > 0)
+                {
+                    throw new Exception("Nhân viên này đã có hợp đồng khác. Mỗi nhân viên chỉ được có một hợp đồng.");
+                }
+                
                 string query = @"UPDATE Contract SET EmployeeId = @EmployeeId, StartDate = @StartDate, EndDate = @EndDate, 
                                 ContractType = @ContractType, ContractAnnexPath = @ContractAnnexPath, 
                                 ConfidentialityAgreementPath = @ConfidentialityAgreementPath, 
@@ -188,7 +223,6 @@ namespace HRManagementApp
                 cmd.Parameters.AddWithValue("@SalaryIncreaseDecisionPath", (object)contract.SalaryIncreaseDecisionPath ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@RewardDecisionPath", (object)contract.RewardDecisionPath ?? DBNull.Value);
 
-                conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }
@@ -209,7 +243,10 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT AttendanceId, EmployeeId, AttendanceDate, CheckInTime, CheckOutTime, Status, AdminHours, OvertimeHours FROM Attendance";
+                string query = @"SELECT a.AttendanceId, a.EmployeeId, e.Name as EmployeeName, e.DOB, e.Gender, e.CCCD,
+                                a.AttendanceDate, a.CheckInTime, a.CheckOutTime, a.Status, a.AdminHours, a.OvertimeHours 
+                                FROM Attendance a
+                                LEFT JOIN Employee e ON a.EmployeeId = e.EmployeeId";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -221,6 +258,12 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                // Tự động tạo AttendanceId nếu chưa có
+                if (string.IsNullOrEmpty(attendance.AttendanceId))
+                {
+                    attendance.AttendanceId = "AT" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                }
+
                 string query = @"INSERT INTO Attendance (AttendanceId, EmployeeId, AttendanceDate, CheckInTime, CheckOutTime, Status, AdminHours, OvertimeHours)
                                 VALUES (@AttendanceId, @EmployeeId, @AttendanceDate, @CheckInTime, @CheckOutTime, @Status, @AdminHours, @OvertimeHours)";
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -277,9 +320,11 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT RecruitmentId, EmployeeId, JobApplicationPath, ResumePath, DegreesPath, 
-                                HealthCheckPath, CVPath, ReferenceLetterPath, InterviewMinutesPath, OfferLetterPath 
-                                FROM Recruitment";
+                string query = @"SELECT r.RecruitmentId, r.EmployeeId, e.Name as EmployeeName, e.DOB, e.Gender, e.CCCD,
+                                r.JobApplicationPath, r.ResumePath, r.DegreesPath, 
+                                r.HealthCheckPath, r.CVPath, r.ReferenceLetterPath, r.InterviewMinutesPath, r.OfferLetterPath 
+                                FROM Recruitment r
+                                LEFT JOIN Employee e ON r.EmployeeId = e.EmployeeId";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -291,6 +336,12 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                // Tự động tạo RecruitmentId nếu chưa có
+                if (string.IsNullOrEmpty(recruitment.RecruitmentId))
+                {
+                    recruitment.RecruitmentId = "RC" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                }
+
                 string query = @"INSERT INTO Recruitment (RecruitmentId, EmployeeId, JobApplicationPath, ResumePath, 
                                 DegreesPath, HealthCheckPath, CVPath, ReferenceLetterPath, InterviewMinutesPath, OfferLetterPath)
                                 VALUES (@RecruitmentId, @EmployeeId, @JobApplicationPath, @ResumePath, @DegreesPath, 
@@ -354,9 +405,11 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT SalaryId, EmployeeId, MonthlySalary, PaySlipPath, SalaryIncreaseDecisionPath, 
-                                BankAccount, InsuranceInfo, Allowances, Bonuses, LeavePolicy 
-                                FROM Salary";
+                string query = @"SELECT s.SalaryId, s.EmployeeId, e.Name as EmployeeName, e.DOB, e.Gender, e.CCCD,
+                                s.MonthlySalary, s.PaySlipPath, s.SalaryIncreaseDecisionPath, 
+                                s.BankAccount, s.InsuranceInfo, s.Allowances, s.Bonuses, s.LeavePolicy 
+                                FROM Salary s
+                                LEFT JOIN Employee e ON s.EmployeeId = e.EmployeeId";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -368,6 +421,12 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                // Tự động tạo SalaryId nếu chưa có
+                if (string.IsNullOrEmpty(salary.SalaryId))
+                {
+                    salary.SalaryId = "SL" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                }
+
                 string query = @"INSERT INTO Salary (SalaryId, EmployeeId, MonthlySalary, PaySlipPath, 
                                 SalaryIncreaseDecisionPath, BankAccount, InsuranceInfo, Allowances, Bonuses, LeavePolicy)
                                 VALUES (@SalaryId, @EmployeeId, @MonthlySalary, @PaySlipPath, @SalaryIncreaseDecisionPath, 
@@ -431,7 +490,10 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT TrainingId, EmployeeId, TrainingPlanPath, CertificatePath, EvaluationPath, CareerPath FROM Training";
+                string query = @"SELECT t.TrainingId, t.EmployeeId, e.Name as EmployeeName, e.DOB, e.Gender, e.CCCD,
+                                t.TrainingPlanPath, t.CertificatePath, t.EvaluationPath, t.CareerPath 
+                                FROM Training t
+                                LEFT JOIN Employee e ON t.EmployeeId = e.EmployeeId";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -457,6 +519,12 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                // Tự động tạo TrainingId nếu chưa có
+                if (string.IsNullOrEmpty(training.TrainingId))
+                {
+                    training.TrainingId = "TR" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                }
+
                 string query = @"INSERT INTO Training (TrainingId, EmployeeId, TrainingPlanPath, CertificatePath, EvaluationPath, CareerPath)
                                 VALUES (@TrainingId, @EmployeeId, @TrainingPlanPath, @CertificatePath, @EvaluationPath, @CareerPath)";
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -508,9 +576,11 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT DisciplineId, EmployeeId, ViolationPath, DisciplinaryDecisionPath, 
-                                ResignationLetterPath, TerminationDecisionPath, HandoverPath, LiquidationPath 
-                                FROM Discipline";
+                string query = @"SELECT d.DisciplineId, d.EmployeeId, e.Name as EmployeeName, e.DOB, e.Gender, e.CCCD,
+                                d.ViolationPath, d.DisciplinaryDecisionPath, 
+                                d.ResignationLetterPath, d.TerminationDecisionPath, d.HandoverPath, d.LiquidationPath 
+                                FROM Discipline d
+                                LEFT JOIN Employee e ON d.EmployeeId = e.EmployeeId";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -522,6 +592,12 @@ namespace HRManagementApp
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                // Tự động tạo DisciplineId nếu chưa có
+                if (string.IsNullOrEmpty(discipline.DisciplineId))
+                {
+                    discipline.DisciplineId = "DS" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                }
+
                 string query = @"INSERT INTO Discipline (DisciplineId, EmployeeId, ViolationPath, DisciplinaryDecisionPath, 
                                 ResignationLetterPath, TerminationDecisionPath, HandoverPath, LiquidationPath)
                                 VALUES (@DisciplineId, @EmployeeId, @ViolationPath, @DisciplinaryDecisionPath, 
@@ -574,6 +650,58 @@ namespace HRManagementApp
                 cmd.Parameters.AddWithValue("@DisciplineId", disciplineId);
                 conn.Open();
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        // Phương thức để lưu file vào C:/data và trả về đường dẫn
+        public string SaveFileToDataFolder(string sourceFilePath, string fileName)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sourceFilePath) || !File.Exists(sourceFilePath))
+                    return null;
+
+                // Tạo thư mục C:/data nếu chưa có
+                string dataFolder = @"C:\data";
+                if (!Directory.Exists(dataFolder))
+                {
+                    Directory.CreateDirectory(dataFolder);
+                }
+
+                // Tạo tên file duy nhất
+                string extension = Path.GetExtension(fileName);
+                string nameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+                string uniqueFileName = $"{nameWithoutExtension}_{DateTime.Now:yyyyMMddHHmmss}{extension}";
+                string destinationPath = Path.Combine(dataFolder, uniqueFileName);
+
+                // Copy file
+                File.Copy(sourceFilePath, destinationPath, true);
+
+                return destinationPath;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lưu file: {ex.Message}");
+            }
+        }
+
+        // Phương thức để mở file
+        public void OpenFile(string filePath)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+                {
+                    System.Diagnostics.Process.Start(filePath);
+                }
+                else
+                {
+                    throw new Exception("File không tồn tại hoặc đường dẫn không hợp lệ");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi mở file: {ex.Message}");
             }
         }
     }

@@ -46,7 +46,7 @@ namespace HRManagementApp.Controllers
                     form.dtpAttendanceDate.Value = row["AttendanceDate"] != DBNull.Value ? Convert.ToDateTime(row["AttendanceDate"]) : DateTime.Today;
                     form.dtpCheckInTime.Value = row["CheckInTime"] != DBNull.Value ? Convert.ToDateTime(row["CheckInTime"]) : DateTime.Now;
                     form.dtpCheckOutTime.Value = row["CheckOutTime"] != DBNull.Value ? Convert.ToDateTime(row["CheckOutTime"]) : DateTime.Now;
-                    form.txtStatus.Text = row["Status"]?.ToString();
+                    form.cbStatus.Text = row["Status"]?.ToString();
                     form.txtAdminHours.Text = row["AdminHours"] != DBNull.Value ? row["AdminHours"].ToString() : "";
                     form.txtOvertimeHours.Text = row["OvertimeHours"] != DBNull.Value ? row["OvertimeHours"].ToString() : "";
                 }

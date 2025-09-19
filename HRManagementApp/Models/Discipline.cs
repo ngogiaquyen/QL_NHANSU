@@ -1,9 +1,14 @@
-﻿namespace HRManagementApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HRManagementApp.Models
 {
     public class Discipline
     {
         public string DisciplineId { get; set; }
+
+        [Required(ErrorMessage = "Mã nhân viên là bắt buộc")]
         public string EmployeeId { get; set; }
+
         public string ViolationPath { get; set; }
         public string DisciplinaryDecisionPath { get; set; }
         public string ResignationLetterPath { get; set; }
